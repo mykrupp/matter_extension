@@ -109,9 +109,9 @@ jobs:
             board: brd4187c
             suffix: 917-ncp
             family: efr32
-          - board: brd4338a
+          - app: lighting-app
+            board: brd4338a
             board_extension: ;wiseconnect3_sdk
-            app: sensor-app
             suffix: 917-soc
             family: siwx917            
 

@@ -109,9 +109,9 @@ jobs:
             board: brd4187c
             suffix: 917-ncp
             family: efr32
-          - board: brd4338a
+          - app: lighting-app
+            board: brd4338a
             board_extension: ;wiseconnect3_sdk
-            app: sensor-app
             suffix: 917-soc
             family: siwx917            
 
@@ -125,6 +125,9 @@ jobs:
       suffix: ${{ matrix.suffix }}
       family: ${{ matrix.family }}
       optionalSlcParams: copy-sources
-
+      addAppComponent: matter_memory_monitoring;matter
+      removeAppComponent: matter_memory_monitoring;matter
+      addBlComponent: bootloader_gbl_compression_lz4
+      removeBlComponent: bootloader_gbl_compression_lz4
     
       

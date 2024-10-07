@@ -27,6 +27,12 @@ on:
       optionalSlcParams:
         required: false
         type: string
+      addBlComponent:
+        required: false
+        type: string
+      removeBlComponent:
+        required: false
+        type: string
 
 jobs:
   build:
@@ -61,21 +67,31 @@ jobs:
           slc signature trust --extension-path "${WIFI_SDK_ROOT}"
           slc signature trust --sdk ${SISDK_ROOT}
 
-      - name: Default additional component string
-        run: echo "ADD_APP_COMPONENT_STRING=--with ${{ inputs.board }}${{ inputs.board_extension }}" >> $GITHUB_ENV
+      - name: Default additional app and bootloader component string
+        run: |
+          echo "ADD_APP_COMPONENT_STRING=--with ${{ inputs.board }}${{ inputs.board_extension }}" >> $GITHUB_ENV
+          echo "ADD_BL_COMPONENT_STRING=--with ${{ inputs.board }}${{ inputs.board_extension }}" >> $GITHUB_ENV
 
-      - name: Create string out of additional components
+      - name: Create string out of additional app components
         if: ${{ inputs.addAppComponent != '' }}
-        run: 
-          echo "ADD_APP_COMPONENT_STRING=${ADD_APP_COMPONENT_STRING},${{ inputs.addAppComponent }}" >> $GITHUB_ENV
+        run: echo "ADD_APP_COMPONENT_STRING=${ADD_APP_COMPONENT_STRING},${{ inputs.addAppComponent }}" >> $GITHUB_ENV
 
-      - name: Create string out of removed components
+      - name: Create string out of removed app components
         if: ${{ inputs.removeAppComponent != '' }}
         run: echo "REMOVE_APP_COMPONENT_STRING=--without ${{ inputs.removeAppComponent }}" >> $GITHUB_ENV
 
+      - name: Create string out of additional bootloader components
+        if: ${{ inputs.addBlComponent != '' }}
+        run: echo "ADD_Bl_COMPONENT_STRING=${ADD_BL_COMPONENT_STRING},${{ inputs.addBlComponent }}" >> $GITHUB_ENV
+
+      - name: Create string out of removed bootloader components
+        if: ${{ inputs.removeBlComponent != '' }}
+        run: echo "REMOVE_BL_COMPONENT_STRING=--without ${{ inputs.removeBlComponent }}" >> $GITHUB_ENV
+
       - name: SLC Generate
         run: |
-          slc generate --daemon -d ${MATTER_EXTN_ROOT}/${{ inputs.board }}/${{ inputs.app }}-${{ inputs.suffix }} -p $MATTER_EXTN_ROOT/slc/sample-app/${{ inputs.app }}/${{ inputs.family }}/${{ inputs.app }}-${{ inputs.suffix }}.slcp ${ADD_APP_COMPONENT_STRING} ${REMOVE_APP_COMPONENT_STRING} --generator-timeout=180
+          slc generate --daemon -d ${MATTER_EXTN_ROOT}/${{ inputs.board }}/${{ inputs.app }}-${{ inputs.suffix }} -w $MATTER_EXTN_ROOT/slc/sample-app/${{ inputs.app }}/${{ inputs.family }}/${{ inputs.app }}-${{ inputs.suffix }}.slcw -pids application ${ADD_APP_COMPONENT_STRING} ${REMOVE_APP_COMPONENT_STRING} --generator-timeout=180
+          slc generate --daemon -d ${MATTER_EXTN_ROOT}/${{ inputs.board }}/${{ inputs.app }}-${{ inputs.suffix }} -w $MATTER_EXTN_ROOT/slc/sample-app/${{ inputs.app }}/${{ inputs.family }}/${{ inputs.app }}-${{ inputs.suffix }}.slcw -pids bootloader ${ADD_APP_COMPONENT_STRING} ${REMOVE_APP_COMPONENT_STRING} --generator-timeout=180
 
       - name: Build
         run: |
@@ -86,5 +102,5 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: ${{ inputs.app }}-${{ inputs.suffix }} ${{ inputs.board }}
-          path: ${MATTER_EXTN_ROOT}/${{ inputs.board }}/${{ inputs.app }}-${{ inputs.suffix }}/build/debug/${{ inputs.app }}-${{ inputs.suffix }}.s37
+          path: ${{ env.MATTER_EXTN_ROOT }}/${{ inputs.board }}/${{ inputs.app }}-${{ inputs.suffix }}/build/debug/${{ inputs.app }}-${{ inputs.suffix }}.s37
           
