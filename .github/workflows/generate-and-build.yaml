@@ -90,8 +90,8 @@ jobs:
 
       - name: SLC Generate
         run: |
-          slc generate --daemon -d ${MATTER_EXTN_ROOT}/${{ inputs.board }}/${{ inputs.app }}-${{ inputs.suffix }} -w $MATTER_EXTN_ROOT/slc/sample-app/${{ inputs.app }}/${{ inputs.family }}/${{ inputs.app }}-${{ inputs.suffix }}.slcw -pids application ${ADD_APP_COMPONENT_STRING} ${REMOVE_APP_COMPONENT_STRING} --generator-timeout=180
-          slc generate --daemon -d ${MATTER_EXTN_ROOT}/${{ inputs.board }}/${{ inputs.app }}-${{ inputs.suffix }} -w $MATTER_EXTN_ROOT/slc/sample-app/${{ inputs.app }}/${{ inputs.family }}/${{ inputs.app }}-${{ inputs.suffix }}.slcw -pids bootloader ${ADD_APP_COMPONENT_STRING} ${REMOVE_APP_COMPONENT_STRING} --generator-timeout=180
+          slc generate --daemon -d ${MATTER_EXTN_ROOT}/${{ inputs.board }}/${{ inputs.app }}-${{ inputs.suffix }} -w $MATTER_EXTN_ROOT/slc/workspaces/${{ inputs.app }}/${{ inputs.family }}/${{ inputs.app }}-${{ inputs.suffix }}.slcw -pids application ${ADD_APP_COMPONENT_STRING} ${REMOVE_APP_COMPONENT_STRING} --generator-timeout=180
+          slc generate --daemon -d ${MATTER_EXTN_ROOT}/${{ inputs.board }}/${{ inputs.app }}-${{ inputs.suffix }} -w $MATTER_EXTN_ROOT/slc/workspaces/${{ inputs.app }}/${{ inputs.family }}/${{ inputs.app }}-${{ inputs.suffix }}.slcw -pids bootloader ${ADD_APP_COMPONENT_STRING} ${REMOVE_APP_COMPONENT_STRING} --generator-timeout=180
 
       - name: Build
         run: |

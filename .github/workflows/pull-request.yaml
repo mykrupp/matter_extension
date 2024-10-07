@@ -50,7 +50,7 @@ jobs:
       app: ${{ matrix.app }}
       board: ${{ matrix.board }}
       suffix: ${{ matrix.suffix }}
-      family: efr32
+      family: series-2
 
   siwx917:
     strategy:
@@ -87,7 +87,7 @@ jobs:
       board: ${{ matrix.board }}
       suffix: ${{ matrix.suffix }}
       addAppComponent: ${{ matrix.addAppComponent }}
-      family: efr32
+      family: series-2
 
   copy-sources:
     strategy:
@@ -96,19 +96,19 @@ jobs:
           - app: sensor-app
             board: brd4187c
             suffix: thread
-            family: efr32
+            family: series-2
           - app: thermostat
             board: brd4187c
             suffix: rs911x
-            family: efr32
+            family: series-2
           - app: lock-app
             board: brd4187c
             suffix: wf200
-            family: efr32
+            family: series-2
           - app: window-app
             board: brd4187c
             suffix: 917-ncp
-            family: efr32
+            family: series-2
           - app: lighting-app
             board: brd4338a
             board_extension: ;wiseconnect3_sdk
