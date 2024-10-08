@@ -125,9 +125,5 @@ jobs:
       suffix: ${{ matrix.suffix }}
       family: ${{ matrix.family }}
       optionalSlcParams: copy-sources
-      addAppComponent: matter_memory_monitoring;matter
-      removeAppComponent: matter_memory_monitoring;matter
-      addBlComponent: bootloader_gbl_compression_lz4
-      removeBlComponent: bootloader_gbl_compression_lz4
     
       
