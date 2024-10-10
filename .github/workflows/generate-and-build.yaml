@@ -106,13 +106,6 @@ jobs:
         run: |
           export ARM_GCC_DIR=${{ env.ARM_GCC_DIR }}
           export POST_BUILD_EXE=${{ env.POST_BUILD_EXE }}
-          ls
-          cd ${MATTER_EXTN_ROOT}/brd4337a
-          pwd
-          ls
-          cd ${MATTER_EXTN_ROOT}/brd4337a/dishwasher-app-thread
-          pwd
-          ls
           make all -C ${MATTER_EXTN_ROOT}/${{ inputs.board }}/${{ inputs.app }}-${{ inputs.suffix }} -f ${WORKSPACE_PATH}.solution.Makefile -j8
 
       - uses: actions/upload-artifact@v4
