@@ -90,17 +90,17 @@ jobs:
 
       - name: Default workspace path
         run: |
-          echo "WORKSPACE_PATH=$MATTER_EXTN_ROOT/slc/workspaces/${{ inputs.app }}/${{ inputs.family }}/${{ inputs.app }}-${{ inputs.suffix }}-bootloader" >> $GITHUB_ENV
+          echo "WORKSPACE_PATH=${{ inputs.app }}-${{ inputs.suffix }}-bootloader" >> $GITHUB_ENV
 
 # Use internal bootloaders for brd4337a, brd2704a, brd2703a, brd4319, brd4116a
       - name: Create string out of workspace path
         if: ${{ inputs.board == 'brd4337a' || inputs.board == 'brd2704a' || inputs.board == 'brd2703a' || inputs.board == 'brd4319' || inputs.board == 'brd4116a' }}
-        run: echo "WORKSPACE_PATH=$MATTER_EXTN_ROOT/slc/workspaces/${{ inputs.app }}/${{ inputs.family }}/${{ inputs.app }}-${{ inputs.suffix }}-internal-bootloader" >> $GITHUB_ENV
+        run: echo "WORKSPACE_PATH=${{ inputs.app }}-${{ inputs.suffix }}-internal-bootloader" >> $GITHUB_ENV
 
       - name: SLC Generate
         run: |
-          slc generate --daemon -d ${MATTER_EXTN_ROOT}/${{ inputs.board }}/${{ inputs.app }}-${{ inputs.suffix }} -w ${WORKSPACE_PATH}.slcw -pids application ${ADD_APP_COMPONENT_STRING} ${REMOVE_APP_COMPONENT_STRING} --generator-timeout=180
-          slc generate --daemon -d ${MATTER_EXTN_ROOT}/${{ inputs.board }}/${{ inputs.app }}-${{ inputs.suffix }} -w ${WORKSPACE_PATH}.slcw -pids bootloader ${ADD_BL_COMPONENT_STRING} ${REMOVE_BL_COMPONENT_STRING} --generator-timeout=180
+          slc generate --daemon -d ${MATTER_EXTN_ROOT}/${{ inputs.board }}/${{ inputs.app }}-${{ inputs.suffix }} -w $MATTER_EXTN_ROOT/slc/workspaces/${{ inputs.app }}/${{ inputs.family }}/${WORKSPACE_PATH}.slcw -pids application ${ADD_APP_COMPONENT_STRING} ${REMOVE_APP_COMPONENT_STRING} --generator-timeout=180
+          slc generate --daemon -d ${MATTER_EXTN_ROOT}/${{ inputs.board }}/${{ inputs.app }}-${{ inputs.suffix }} -w $MATTER_EXTN_ROOT/slc/workspaces/${{ inputs.app }}/${{ inputs.family }}/${WORKSPACE_PATH}.slcw -pids bootloader ${ADD_BL_COMPONENT_STRING} ${REMOVE_BL_COMPONENT_STRING} --generator-timeout=180
 
       - name: Build
         run: |
@@ -113,7 +113,7 @@ jobs:
           cd ${MATTER_EXTN_ROOT}/brd4337a/dishwasher-app-thread
           pwd
           ls
-          make all -C ${MATTER_EXTN_ROOT}/${{ inputs.board }}/${{ inputs.app }}-${{ inputs.suffix }} -f ${{ inputs.app }}-${{ inputs.suffix }}-bootloader.solution.Makefile -j8
+          make all -C ${MATTER_EXTN_ROOT}/${{ inputs.board }}/${{ inputs.app }}-${{ inputs.suffix }} -f ${WORKSPACE_PATH}.solution.Makefile -j8
 
       - uses: actions/upload-artifact@v4
         with:
