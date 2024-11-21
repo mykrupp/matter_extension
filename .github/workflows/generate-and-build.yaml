@@ -104,12 +104,12 @@ jobs:
 
       - name: SLC Generate Application
         run: |
-          slc generate --daemon -d ${MATTER_EXTN_ROOT}/${{ inputs.board }}/${{ inputs.app }}-${{ inputs.suffix }} -w $MATTER_EXTN_ROOT/slc/solutions/${{ inputs.app }}/${{ inputs.family }}/${WORKSPACE_PATH}.slcw -pids application ${ADD_APP_COMPONENT_STRING} ${REMOVE_APP_COMPONENT_STRING} --generator-timeout=180
+          slc generate --daemon -d ${MATTER_EXTN_ROOT}/${{ inputs.board }}/${{ inputs.app }}-${{ inputs.suffix }} -w $MATTER_EXTN_ROOT/slc/workspaces/${{ inputs.app }}/${{ inputs.family }}/${WORKSPACE_PATH}.slcw -pids application ${ADD_APP_COMPONENT_STRING} ${REMOVE_APP_COMPONENT_STRING} --generator-timeout=180
       
       - name: SLC Generate Bootloader
 # 917 Solutions don't have a bootloader      
         if: ${{ inputs.board != 'brd4338a' && inputs.board != 'brd4342a' }}
-        run: slc generate --daemon -d ${MATTER_EXTN_ROOT}/${{ inputs.board }}/${{ inputs.app }}-${{ inputs.suffix }} -w $MATTER_EXTN_ROOT/slc/solutions/${{ inputs.app }}/${{ inputs.family }}/${WORKSPACE_PATH}.slcw -pids bootloader ${ADD_BL_COMPONENT_STRING} ${REMOVE_BL_COMPONENT_STRING} --generator-timeout=180
+        run: slc generate --daemon -d ${MATTER_EXTN_ROOT}/${{ inputs.board }}/${{ inputs.app }}-${{ inputs.suffix }} -w $MATTER_EXTN_ROOT/slc/workspaces/${{ inputs.app }}/${{ inputs.family }}/${WORKSPACE_PATH}.slcw -pids bootloader ${ADD_BL_COMPONENT_STRING} ${REMOVE_BL_COMPONENT_STRING} --generator-timeout=180
 
       - name: Build
         run: |
