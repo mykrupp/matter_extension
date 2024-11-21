@@ -1,0 +1,27 @@
+name: PR Build
+
+on:
+  pull_request:
+
+jobs:
+  cmp:
+    strategy:
+      matrix:
+        # Every app builds for every board and suffix
+        app: [zigbee-matter]
+        board: [brd4187c]
+        suffix: ["light"] 
+        addAppComponent: [matter_zigbee_concurrent\;matter, matter_zigbee_sequential\;matter]
+     
+
+    name: ${{ matrix.app }}-${{ matrix.suffix }} ${{ matrix.board }} 
+
+    uses: ./.github/workflows/generate-and-build.yaml
+    with:
+      app: ${{ matrix.app }}
+      board: ${{ matrix.board }}
+      suffix: ${{ matrix.suffix }}
+      family: series-2 
+      addAppComponent: ${{ matrix.addAppComponent }}
+
+      
