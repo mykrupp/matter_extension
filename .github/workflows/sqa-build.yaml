@@ -11,7 +11,7 @@ on:
 jobs:
   ota_thread_v2:
     # Job triggered either automatically by release_ or main branch, or manual trigger (if needed)
-    if: ${{ github.event_name == 'workflow_run' && (startsWith(github.event.workflow_run.head_branch, 'release_' || github.event.workflow_run.head_branch == "main")) || github.event_name == 'workflow_dispatch' }}
+    # if: ${{ github.event_name == 'workflow_run' && (startsWith(github.event.workflow_run.head_branch, 'release_' || github.event.workflow_run.head_branch == 'main')) || github.event_name == 'workflow_dispatch' }}
     strategy:
       matrix:
         # Every app builds for every board and suffix
@@ -60,7 +60,7 @@ jobs:
 
   ota_thread_v3:
     # Job triggered either automatically by release_ or main branch, or manual trigger (if needed)
-    if: ${{ github.event_name == 'workflow_run' && (startsWith(github.event.workflow_run.head_branch, 'release_' || github.event.workflow_run.head_branch == "main")) || github.event_name == 'workflow_dispatch' }}
+    # if: ${{ github.event_name == 'workflow_run' && (startsWith(github.event.workflow_run.head_branch, 'release_' || github.event.workflow_run.head_branch == 'main')) || github.event_name == 'workflow_dispatch' }}
     strategy:
       matrix:
         # Every app builds for every board and suffix
@@ -97,7 +97,7 @@ jobs:
 
   ota_thread_lz4_v2:
     # Job triggered either automatically by release_ or main branch, or manual trigger (if needed)
-    if: ${{ github.event_name == 'workflow_run' && (startsWith(github.event.workflow_run.head_branch, 'release_' || github.event.workflow_run.head_branch == "main")) || github.event_name == 'workflow_dispatch' }}
+    # if: ${{ github.event_name == 'workflow_run' && (startsWith(github.event.workflow_run.head_branch, 'release_' || github.event.workflow_run.head_branch == 'main')) || github.event_name == 'workflow_dispatch' }}
     strategy:
       matrix:
         # Every app builds for every board and suffix
@@ -136,7 +136,7 @@ jobs:
 
   ota_thread_lz4_v3:
     # Job triggered either automatically by release_ or main branch, or manual trigger (if needed)
-    if: ${{ github.event_name == 'workflow_run' && (startsWith(github.event.workflow_run.head_branch, 'release_' || github.event.workflow_run.head_branch == "main")) || github.event_name == 'workflow_dispatch' }}
+    # if: ${{ github.event_name == 'workflow_run' && (startsWith(github.event.workflow_run.head_branch, 'release_' || github.event.workflow_run.head_branch == 'main')) || github.event_name == 'workflow_dispatch' }}
     strategy:
       matrix:
         # Every app builds for every board and suffix
@@ -175,7 +175,7 @@ jobs:
 
   ota_wifi_v2:
     # Job triggered either automatically by release_ or main branch, or manual trigger (if needed)
-    if: ${{ github.event_name == 'workflow_run' && (startsWith(github.event.workflow_run.head_branch, 'release_' || github.event.workflow_run.head_branch == "main")) || github.event_name == 'workflow_dispatch' }}
+    # if: ${{ github.event_name == 'workflow_run' && (startsWith(github.event.workflow_run.head_branch, 'release_' || github.event.workflow_run.head_branch == 'main')) || github.event_name == 'workflow_dispatch' }}
     strategy:
       matrix:
         # Every app builds for every board and suffix
@@ -211,7 +211,7 @@ jobs:
 
   m_ota_thread:
     # Job triggered either automatically by release_ or main branch, or manual trigger (if needed)
-    if: ${{ github.event_name == 'workflow_run' && (startsWith(github.event.workflow_run.head_branch, 'release_' || github.event.workflow_run.head_branch == "main")) || github.event_name == 'workflow_dispatch' }}
+    # if: ${{ github.event_name == 'workflow_run' && (startsWith(github.event.workflow_run.head_branch, 'release_' || github.event.workflow_run.head_branch == 'main')) || github.event_name == 'workflow_dispatch' }}
     strategy:
       matrix:
         # Every app builds for every board and suffix
@@ -236,7 +236,7 @@ jobs:
 
   m_ota_enc_thread:
     # Job triggered either automatically by release_ or main branch, or manual trigger (if needed)
-    if: ${{ github.event_name == 'workflow_run' && (startsWith(github.event.workflow_run.head_branch, 'release_' || github.event.workflow_run.head_branch == "main")) || github.event_name == 'workflow_dispatch' }}
+    # if: ${{ github.event_name == 'workflow_run' && (startsWith(github.event.workflow_run.head_branch, 'release_' || github.event.workflow_run.head_branch == 'main')) || github.event_name == 'workflow_dispatch' }}
     strategy:
       matrix:
         # Every app builds for every board and suffix
@@ -261,7 +261,7 @@ jobs:
 
   low_power:
     # Job triggered either automatically by release_ or main branch, or manual trigger (if needed)
-    if: ${{ github.event_name == 'workflow_run' && (startsWith(github.event.workflow_run.head_branch, 'release_' || github.event.workflow_run.head_branch == "main")) || github.event_name == 'workflow_dispatch' }}
+    # if: ${{ github.event_name == 'workflow_run' && (startsWith(github.event.workflow_run.head_branch, 'release_' || github.event.workflow_run.head_branch == 'main')) || github.event_name == 'workflow_dispatch' }}
     strategy:
       matrix:
         # Every app builds for every board and suffix
@@ -292,7 +292,7 @@ jobs:
 
   lto:
     # Job triggered either automatically by release_ or main branch, or manual trigger (if needed)
-    if: ${{ github.event_name == 'workflow_run' && (startsWith(github.event.workflow_run.head_branch, 'release_' || github.event.workflow_run.head_branch == "main")) || github.event_name == 'workflow_dispatch' }}
+    # if: ${{ github.event_name == 'workflow_run' && (startsWith(github.event.workflow_run.head_branch, 'release_' || github.event.workflow_run.head_branch == 'main')) || github.event_name == 'workflow_dispatch' }}
     strategy:
       matrix:
         # Every app builds for every board and suffix
@@ -316,7 +316,7 @@ jobs:
 
   icd_idm:
     # Job triggered either automatically by release_ or main branch, or manual trigger (if needed)
-    if: ${{ github.event_name == 'workflow_run' && (startsWith(github.event.workflow_run.head_branch, 'release_' || github.event.workflow_run.head_branch == "main")) || github.event_name == 'workflow_dispatch' }}
+    # if: ${{ github.event_name == 'workflow_run' && (startsWith(github.event.workflow_run.head_branch, 'release_' || github.event.workflow_run.head_branch == 'main')) || github.event_name == 'workflow_dispatch' }}
     strategy:
       matrix:
         # Every app builds for every board and suffix
@@ -346,7 +346,7 @@ jobs:
 
   icd_sync:
     # Job triggered either automatically by release_ or main branch, or manual trigger (if needed)
-    if: ${{ github.event_name == 'workflow_run' && (startsWith(github.event.workflow_run.head_branch, 'release_' || github.event.workflow_run.head_branch == "main")) || github.event_name == 'workflow_dispatch' }}
+    # if: ${{ github.event_name == 'workflow_run' && (startsWith(github.event.workflow_run.head_branch, 'release_' || github.event.workflow_run.head_branch == 'main')) || github.event_name == 'workflow_dispatch' }}
     strategy:
       matrix:
         # Every app builds for every board and suffix
