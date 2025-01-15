@@ -17,8 +17,8 @@ jobs:
         # Every app builds for every board and suffix
         app: [light-switch-app, lighting-app, lock-app, zigbee-matter]
         board: [brd4116a, brd4186c, brd4187c, brd4316a, brd4337a, brd4351, brd1019a]
-        suffix: [thread]
-        app_type: [ota-v2]
+        suffix: [ thread ]
+        app_type: [ ota-v2 ]
         family: [series-2]
         addAppComponent: [ "" ]
         configs: [ '--configuration CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION:2,CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION_STRING:\\"2\\"' ]
@@ -26,25 +26,39 @@ jobs:
           - board: brd1019a
             app: lighting-app
             family: series-3
+            suffix: thread
+            app_type: ota-v2
           - board: brd1019a
             app: zigbee-matter
             family: series-3
+            suffix: thread
+            app_type: ota-v2
             addAppComponent: matter_zigbee_concurrent;matter
           - board: brd1019a
             app: zigbee-matter
             family: series-3
+            suffix: thread
+            app_type: ota-v2
             addAppComponent: matter_zigbee_sequential;matter
           - board: brd4116a
             app: zigbee-matter
+            suffix: thread
+            app_type: ota-v2
             addAppComponent: matter_zigbee_concurrent;matter
           - board: brd4116a
             app: zigbee-matter
+            suffix: thread
+            app_type: ota-v2
             addAppComponent: matter_zigbee_sequential;matter
           - board: brd4187c
             app: zigbee-matter
+            suffix: thread
+            app_type: ota-v2
             addAppComponent: matter_zigbee_concurrent;matter
           - board: brd4187c
             app: zigbee-matter
+            suffix: thread
+            app_type: ota-v2
             addAppComponent: matter_zigbee_sequential;matter
 
     name: ${{ matrix.app }}-${{ matrix.suffix }} ${{ matrix.addAppComponent}} ${{ matrix.board }} ${{ matrix.app_type }}
@@ -73,15 +87,23 @@ jobs:
         include:
           - board: brd4116a
             app: zigbee-matter
+            suffix: thread
+            app_type: ota-v3
             addAppComponent: matter_zigbee_concurrent;matter
           - board: brd4116a
             app: zigbee-matter
+            suffix: thread
+            app_type: ota-v3
             addAppComponent: matter_zigbee_sequential;matter
           - board: brd4187c
             app: zigbee-matter
+            suffix: thread
+            app_type: ota-v3
             addAppComponent: matter_zigbee_concurrent;matter
           - board: brd4187c
             app: zigbee-matter
+            suffix: thread
+            app_type: ota-v3
             addAppComponent: matter_zigbee_sequential;matter
 
     name: ${{ matrix.app }}-${{ matrix.suffix }} ${{ matrix.addAppComponent}} ${{ matrix.board }} ${{ matrix.app_type }}
@@ -111,15 +133,23 @@ jobs:
         include:
           - board: brd4116a
             app: zigbee-matter
+            suffix: thread
+            app_type: ota-lz4-v2
             addAppComponent: matter_zigbee_concurrent;matter
           - board: brd4116a
             app: zigbee-matter
+            suffix: thread
+            app_type: ota-lz4-v2
             addAppComponent: matter_zigbee_sequential;matter
           - board: brd4187c
             app: zigbee-matter
+            suffix: thread
+            app_type: ota-lz4-v2
             addAppComponent: matter_zigbee_concurrent;matter
           - board: brd4187c
             app: zigbee-matter
+            suffix: thread
+            app_type: ota-lz4-v2
             addAppComponent: matter_zigbee_sequential;matter
 
     name: ${{ matrix.app }}-${{ matrix.suffix }} ${{ matrix.addAppComponent}} ${{ matrix.board }} ${{ matrix.app_type }}
@@ -150,15 +180,23 @@ jobs:
         include:
           - board: brd4116a
             app: zigbee-matter
+            suffix: thread
+            app_type: ota-lz4-v3
             addAppComponent: matter_zigbee_concurrent;matter
           - board: brd4116a
             app: zigbee-matter
+            suffix: thread
+            app_type: ota-lz4-v3
             addAppComponent: matter_zigbee_sequential;matter
           - board: brd4187c
             app: zigbee-matter
+            suffix: thread
+            app_type: ota-lz4-v3
             addAppComponent: matter_zigbee_concurrent;matter
           - board: brd4187c
             app: zigbee-matter
+            suffix: thread
+            app_type: ota-lz4-v3
             addAppComponent: matter_zigbee_sequential;matter
 
     name: ${{ matrix.app }}-${{ matrix.suffix }} ${{ matrix.addAppComponent}} ${{ matrix.board }} ${{ matrix.app_type }}
@@ -188,14 +226,17 @@ jobs:
         include:
           - board: brd4187c
             app: lock-app
+            app_type: ota-v2
             suffix: 917-ncp
             family: series-2
           - board: brd4187c
             app: lock-app
+            app_type: ota-v2
             suffix: wf200
             family: series-2
           - board: brd4187c
             app: lock-app
+            app_type: ota-v2
             suffix: rs911x
             family: series-2
 
@@ -278,6 +319,7 @@ jobs:
             suffix: 917-soc
             family: siwx917
             app: lock-app
+            app_type: low-power
 
     name: ${{ matrix.app }}-${{ matrix.suffix }} ${{ matrix.addAppComponent}} ${{ matrix.removeAppComponent}} ${{ matrix.board }} ${{ matrix.app_type }}
 
@@ -329,10 +371,14 @@ jobs:
         include:
           - board: brd4186c
             app: lock-app
+            suffix: thread
+            app_type: icd-idm60
+            family: series-2
           - board: brd4338a
             app: lock-app
-            suffix: [ 917-soc ]
-            family: [ siwx917 ]
+            app_type: icd-idm60
+            suffix: 917-soc
+            family: siwx917
 
     name: ${{ matrix.app }}-${{ matrix.suffix }} ${{ matrix.addAppComponent}} ${{ matrix.removeAppComponent}} ${{ matrix.board }} ${{ matrix.app_type }}
 
@@ -359,6 +405,7 @@ jobs:
         include:
           - board: brd4338a
             app: lock-app
+            app_type: icd-sync-false
             suffix: [ 917-soc ]
             family: [ siwx917 ]
 
