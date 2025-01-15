@@ -21,7 +21,7 @@ jobs:
         app_type: [ ota-v2 ]
         family: [series-2]
         addAppComponent: [ "" ]
-        configs: [ '--configuration CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION:2,CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION_STRING:\\"2\\"' ]
+        configs: [ 'CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION:2,CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION_STRING:\\"2\\"' ]
         include:
           - board: brd1019a
             app: lighting-app
@@ -83,7 +83,7 @@ jobs:
         suffix: [ thread ]
         app_type: [ ota-v3 ]
         addAppComponent: [ "" ]
-        configs: [ '--configuration CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION:3,CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION_STRING:\\"3\\"' ]
+        configs: [ 'CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION:3,CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION_STRING:\\"3\\"' ]
         include:
           - board: brd4116a
             app: zigbee-matter
@@ -129,7 +129,7 @@ jobs:
         app_type: [ ota-lz4-v2 ]
         addAppComponent: [ "" ]
         addBlComponent: [ ",bootloader_gbl_compression_lz4" ]
-        configs: [ '--configuration CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION:2,CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION_STRING:\\"2\\"' ]
+        configs: [ 'CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION:2,CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION_STRING:\\"2\\"' ]
         include:
           - board: brd4116a
             app: zigbee-matter
@@ -176,7 +176,7 @@ jobs:
         app_type: [ ota-lz4-v3 ]
         addAppComponent: [ "" ]
         addBlComponent: [ ",bootloader_gbl_compression_lz4" ]
-        configs: [ '--configuration CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION:3,CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION_STRING:\\"3\\"' ]
+        configs: [ 'CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION:3,CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION_STRING:\\"3\\"' ]
         include:
           - board: brd4116a
             app: zigbee-matter
@@ -222,7 +222,7 @@ jobs:
         suffix: [ 917-soc ]
         app_type: [ ota-v2 ]
         family: [ siwx917 ]
-        configs: [ '--configuration CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION:2,CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION_STRING:\\"2\\"' ]
+        configs: [ 'CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION:2,CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION_STRING:\\"2\\"' ]
         include:
           - board: brd4187c
             app: lock-app
@@ -367,7 +367,7 @@ jobs:
         suffix: [ thread ]
         app_type: [ icd-idm60 ]
         family: [ series-2 ]
-        configs: [ '--configuration SL_IDLE_MODE_DURATION_S:60' ]
+        configs: [ 'SL_IDLE_MODE_DURATION_S:60' ]
         include:
           - board: brd4186c
             app: lock-app
@@ -401,7 +401,7 @@ jobs:
         suffix: [ thread ]
         app_type: [ icd-sync-false ]
         family: [ series-2 ]
-        configs: [ '--configuration SL_IDLE_MODE_DURATION_S:60,CHIP_CONFIG_SYNCHRONOUS_REPORTS_ENABLED:0' ]
+        configs: [ 'SL_IDLE_MODE_DURATION_S:60,CHIP_CONFIG_SYNCHRONOUS_REPORTS_ENABLED:0' ]
         include:
           - board: brd4338a
             app: lock-app
