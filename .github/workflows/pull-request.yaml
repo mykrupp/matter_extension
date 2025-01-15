@@ -1,8 +1,9 @@
 name: PR Build
 
 on:
-  push:
-  pull_request:
+  # push:
+  # pull_request:
+  workflow_dispatch:
 
 jobs:
   efr32:

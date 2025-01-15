@@ -1,6 +1,7 @@
 name: SQA Build
 
 on:
+  push: # To be removed once testing is finished
   workflow_dispatch:
   workflow_run:
     workflows: ["Full Build"]
