@@ -15,7 +15,7 @@ jobs:
     strategy:
       matrix:
         # Every app builds for every board and suffix
-        app: [light-switch-app, lighting-app, lock-app, zigbee-matter]
+        app: [light-switch-app, lighting-app, lock-app]
         board: [brd4116a, brd4186c, brd4187c, brd4316a, brd4337a, brd4351, brd1019a]
         suffix: [ thread ]
         app_type: [ ota-v2 ]
@@ -86,7 +86,7 @@ jobs:
     strategy:
       matrix:
         # Every app builds for every board and suffix
-        app: [ lighting-app, lock-app, zigbee-matter ]
+        app: [ lighting-app, lock-app ]
         board: [ brd4116a, brd4187c, brd4316a, brd4337a ]
         suffix: [ thread ]
         app_type: [ ota-v3 ]
@@ -135,7 +135,7 @@ jobs:
     strategy:
       matrix:
         # Every app builds for every board and suffix
-        app: [ lighting-app, lock-app, zigbee-matter ]
+        app: [ lighting-app, lock-app ]
         board: [ brd4116a, brd4187c, brd4316a, brd4337a ]
         suffix: [ thread ]
         app_type: [ ota-lz4-v2 ]
@@ -190,7 +190,7 @@ jobs:
     strategy:
       matrix:
         # Every app builds for every board and suffix
-        app: [ lighting-app, lock-app, zigbee-matter ]
+        app: [ lighting-app, lock-app ]
         board: [ brd4116a, brd4187c, brd4316a, brd4337a ]
         suffix: [ thread ]
         app_type: [ ota-lz4-v3 ]
@@ -250,6 +250,7 @@ jobs:
         suffix: [ 917-soc ]
         app_type: [ ota-v2 ]
         family: [ siwx917 ]
+        board_extension: [ ;wiseconnect3_sdk ]
         configs: [ 'CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION:2,CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION_STRING:\\"2\\"' ]
         include:
           - board: brd4187c
@@ -257,18 +258,21 @@ jobs:
             app_type: ota-v2
             suffix: 917-ncp
             family: series-2
+            board_extension: ""
             configs: 'CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION:2,CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION_STRING:\\"2\\"'
           - board: brd4187c
             app: lock-app
             app_type: ota-v2
             suffix: wf200
             family: series-2
+            board_extension: ""
             configs: 'CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION:2,CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION_STRING:\\"2\\"'
           - board: brd4187c
             app: lock-app
             app_type: ota-v2
             suffix: rs911x
             family: series-2
+            board_extension: ""
             configs: 'CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION:2,CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION_STRING:\\"2\\"'
 
     name: ${{ matrix.app }}-${{ matrix.suffix }} ${{ matrix.addAppComponent}} ${{ matrix.board }} ${{ matrix.app_type }}
@@ -351,6 +355,7 @@ jobs:
             family: siwx917
             app: lock-app
             app_type: low-power
+            board_extension: ;wiseconnect3_sdk
             addAppComponent: [ ",matter_platform_low_power;matter" ]
             removeAppComponent: [ '"matter_shell;matter,matter_qr_code;matter,matter_lcd;matter,matter_lcd_917SOC;matter,matter_thread_cli;matter,matter_default_lcd_configs;matter"' ]
 
@@ -413,6 +418,7 @@ jobs:
             app_type: icd-idm60
             suffix: 917-soc
             family: siwx917
+            board_extension: ;wiseconnect3_sdk
             configs: 'SL_IDLE_MODE_DURATION_S:60'
 
     name: ${{ matrix.app }}-${{ matrix.suffix }} ${{ matrix.addAppComponent}} ${{ matrix.removeAppComponent}} ${{ matrix.board }} ${{ matrix.app_type }}
@@ -443,6 +449,7 @@ jobs:
             app_type: icd-sync-false
             suffix: 917-soc
             family: siwx917
+            board_extension: ;wiseconnect3_sdk
             configs: 'SL_IDLE_MODE_DURATION_S:60,CHIP_CONFIG_SYNCHRONOUS_REPORTS_ENABLED:0'
 
     name: ${{ matrix.app }}-${{ matrix.suffix }} ${{ matrix.addAppComponent}} ${{ matrix.removeAppComponent}} ${{ matrix.board }} ${{ matrix.app_type }}
