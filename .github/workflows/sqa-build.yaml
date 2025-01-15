@@ -21,7 +21,7 @@ jobs:
         app_type: [ ota-v2 ]
         family: [series-2]
         addAppComponent: [ "" ]
-        configs: [ 'CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION:2,CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION_STRING:\\"2\\"' ]
+        configs: [ 'CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION:2,CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION_STRING:"2"' ]
         include:
           - board: brd1019a
             app: lighting-app
@@ -29,45 +29,45 @@ jobs:
             suffix: thread
             app_type: ota-v2
             addAppComponent: ""
-            configs: [ 'CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION:2,CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION_STRING:\\"2\\"' ]
+            configs: [ 'CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION:2,CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION_STRING:"2"' ]
           - board: brd1019a
             app: zigbee-matter
             family: series-3
             suffix: light
             app_type: ota-v2
             addAppComponent: matter_zigbee_concurrent;matter
-            configs: [ 'CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION:2,CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION_STRING:\\"2\\"' ]
+            configs: [ 'CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION:2,CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION_STRING:"2"' ]
           - board: brd1019a
             app: zigbee-matter
             family: series-3
             suffix: light
             app_type: ota-v2
             addAppComponent: matter_zigbee_sequential;matter
-            configs: [ 'CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION:2,CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION_STRING:\\"2\\"' ]
+            configs: [ 'CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION:2,CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION_STRING:"2"' ]
           - board: brd4116a
             app: zigbee-matter
             suffix: light
             app_type: ota-v2
             addAppComponent: matter_zigbee_concurrent;matter
-            configs: [ 'CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION:2,CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION_STRING:\\"2\\"' ]
+            configs: [ 'CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION:2,CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION_STRING:"2"' ]
           - board: brd4116a
             app: zigbee-matter
             suffix: light
             app_type: ota-v2
             addAppComponent: matter_zigbee_sequential;matter
-            configs: [ 'CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION:2,CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION_STRING:\\"2\\"' ]
+            configs: [ 'CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION:2,CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION_STRING:"2"' ]
           - board: brd4187c
             app: zigbee-matter
             suffix: light
             app_type: ota-v2
             addAppComponent: matter_zigbee_concurrent;matter
-            configs: [ 'CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION:2,CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION_STRING:\\"2\\"' ]
+            configs: [ 'CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION:2,CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION_STRING:"2"' ]
           - board: brd4187c
             app: zigbee-matter
             suffix: light
             app_type: ota-v2
             addAppComponent: matter_zigbee_sequential;matter
-            configs: [ 'CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION:2,CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION_STRING:\\"2\\"' ]
+            configs: [ 'CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION:2,CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION_STRING:"2"' ]
 
     name: ${{ matrix.app }}-${{ matrix.suffix }} ${{ matrix.addAppComponent}} ${{ matrix.board }} ${{ matrix.app_type }}
 
@@ -91,32 +91,32 @@ jobs:
         suffix: [ thread ]
         app_type: [ ota-v3 ]
         addAppComponent: [ "" ]
-        configs: [ 'CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION:3,CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION_STRING:\\"3\\"' ]
+        configs: [ 'CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION:3,CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION_STRING:"3"' ]
         include:
           - board: brd4116a
             app: zigbee-matter
             suffix: light
             app_type: ota-v3
             addAppComponent: matter_zigbee_concurrent;matter
-            configs: [ 'CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION:3,CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION_STRING:\\"3\\"' ]
+            configs: [ 'CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION:3,CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION_STRING:"3"' ]
           - board: brd4116a
             app: zigbee-matter
             suffix: light
             app_type: ota-v3
             addAppComponent: matter_zigbee_sequential;matter
-            configs: [ 'CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION:3,CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION_STRING:\\"3\\"' ]
+            configs: [ 'CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION:3,CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION_STRING:"3"' ]
           - board: brd4187c
             app: zigbee-matter
             suffix: light
             app_type: ota-v3
             addAppComponent: matter_zigbee_concurrent;matter
-            configs: [ 'CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION:3,CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION_STRING:\\"3\\"' ]
+            configs: [ 'CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION:3,CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION_STRING:"3"' ]
           - board: brd4187c
             app: zigbee-matter
             suffix: light
             app_type: ota-v3
             addAppComponent: matter_zigbee_sequential;matter
-            configs: [ 'CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION:3,CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION_STRING:\\"3\\"' ]
+            configs: [ 'CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION:3,CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION_STRING:"3"' ]
 
     name: ${{ matrix.app }}-${{ matrix.suffix }} ${{ matrix.addAppComponent}} ${{ matrix.board }} ${{ matrix.app_type }}
 
@@ -140,37 +140,37 @@ jobs:
         suffix: [ thread ]
         app_type: [ ota-lz4-v2 ]
         addAppComponent: [ "" ]
-        addBlComponent: [ ",bootloader_gbl_compression_lz4" ]
-        configs: [ 'CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION:2,CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION_STRING:\\"2\\"' ]
+        addBlComponent: [ "bootloader_gbl_compression_lz4" ]
+        configs: [ 'CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION:2,CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION_STRING:"2"' ]
         include:
           - board: brd4116a
             app: zigbee-matter
             suffix: light
             app_type: ota-lz4-v2
             addAppComponent: matter_zigbee_concurrent;matter
-            addBlComponent: ",bootloader_gbl_compression_lz4"
-            configs: 'CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION:2,CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION_STRING:\\"2\\"'
+            addBlComponent: "bootloader_gbl_compression_lz4"
+            configs: 'CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION:2,CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION_STRING:"2"'
           - board: brd4116a
             app: zigbee-matter
             suffix: light
             app_type: ota-lz4-v2
             addAppComponent: matter_zigbee_sequential;matter
-            addBlComponent: ",bootloader_gbl_compression_lz4"
-            configs: 'CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION:2,CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION_STRING:\\"2\\"'
+            addBlComponent: "bootloader_gbl_compression_lz4"
+            configs: 'CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION:2,CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION_STRING:"2"'
           - board: brd4187c
             app: zigbee-matter
             suffix: light
             app_type: ota-lz4-v2
             addAppComponent: matter_zigbee_concurrent;matter
-            addBlComponent: ",bootloader_gbl_compression_lz4"
-            configs: 'CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION:2,CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION_STRING:\\"2\\"'
+            addBlComponent: "bootloader_gbl_compression_lz4"
+            configs: 'CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION:2,CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION_STRING:"2"'
           - board: brd4187c
             app: zigbee-matter
             suffix: light
             app_type: ota-lz4-v2
             addAppComponent: matter_zigbee_sequential;matter
-            addBlComponent: ",bootloader_gbl_compression_lz4"
-            configs: 'CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION:2,CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION_STRING:\\"2\\"'
+            addBlComponent: "bootloader_gbl_compression_lz4"
+            configs: 'CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION:2,CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION_STRING:"2"'
 
     name: ${{ matrix.app }}-${{ matrix.suffix }} ${{ matrix.addAppComponent}} ${{ matrix.board }} ${{ matrix.app_type }}
 
@@ -195,37 +195,37 @@ jobs:
         suffix: [ thread ]
         app_type: [ ota-lz4-v3 ]
         addAppComponent: [ "" ]
-        addBlComponent: [ ",bootloader_gbl_compression_lz4" ]
-        configs: [ 'CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION:3,CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION_STRING:\\"3\\"' ]
+        addBlComponent: [ "bootloader_gbl_compression_lz4" ]
+        configs: [ 'CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION:3,CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION_STRING:"3"' ]
         include:
           - board: brd4116a
             app: zigbee-matter
             suffix: light
             app_type: ota-lz4-v3
             addAppComponent: matter_zigbee_concurrent;matter
-            addBlComponent: ",bootloader_gbl_compression_lz4"
-            configs: 'CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION:3,CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION_STRING:\\"3\\"'
+            addBlComponent: "bootloader_gbl_compression_lz4"
+            configs: 'CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION:3,CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION_STRING:"3"'
           - board: brd4116a
             app: zigbee-matter
             suffix: light
             app_type: ota-lz4-v3
             addAppComponent: matter_zigbee_sequential;matter
-            addBlComponent: ",bootloader_gbl_compression_lz4"
-            configs: 'CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION:3,CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION_STRING:\\"3\\"'
+            addBlComponent: "bootloader_gbl_compression_lz4"
+            configs: 'CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION:3,CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION_STRING:"3"'
           - board: brd4187c
             app: zigbee-matter
             suffix: light
             app_type: ota-lz4-v3
             addAppComponent: matter_zigbee_concurrent;matter
-            addBlComponent: ",bootloader_gbl_compression_lz4"
-            configs: 'CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION:3,CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION_STRING:\\"3\\"'
+            addBlComponent: "bootloader_gbl_compression_lz4"
+            configs: 'CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION:3,CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION_STRING:"3"'
           - board: brd4187c
             app: zigbee-matter
             suffix: light
             app_type: ota-lz4-v3
             addAppComponent: matter_zigbee_sequential;matter
-            addBlComponent: ",bootloader_gbl_compression_lz4"
-            configs: 'CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION:3,CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION_STRING:\\"3\\"'
+            addBlComponent: "bootloader_gbl_compression_lz4"
+            configs: 'CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION:3,CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION_STRING:"3"'
 
     name: ${{ matrix.app }}-${{ matrix.suffix }} ${{ matrix.addAppComponent}} ${{ matrix.board }} ${{ matrix.app_type }}
 
@@ -251,7 +251,7 @@ jobs:
         app_type: [ ota-v2 ]
         family: [ siwx917 ]
         board_extension: [ ;wiseconnect3_sdk ]
-        configs: [ 'CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION:2,CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION_STRING:\\"2\\"' ]
+        configs: [ 'CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION:2,CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION_STRING:"2"' ]
         include:
           - board: brd4187c
             app: lock-app
@@ -259,23 +259,23 @@ jobs:
             suffix: 917-ncp
             family: series-2
             board_extension: ""
-            configs: 'CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION:2,CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION_STRING:\\"2\\"'
+            configs: 'CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION:2,CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION_STRING:"2"'
           - board: brd4187c
             app: lock-app
             app_type: ota-v2
             suffix: wf200
             family: series-2
             board_extension: ""
-            configs: 'CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION:2,CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION_STRING:\\"2\\"'
+            configs: 'CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION:2,CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION_STRING:"2"'
           - board: brd4187c
             app: lock-app
             app_type: ota-v2
             suffix: rs911x
             family: series-2
             board_extension: ""
-            configs: 'CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION:2,CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION_STRING:\\"2\\"'
+            configs: 'CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION:2,CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION_STRING:"2"'
 
-    name: ${{ matrix.app }}-${{ matrix.suffix }} ${{ matrix.addAppComponent}} ${{ matrix.board }} ${{ matrix.app_type }}
+    name: ${{ matrix.app }}-${{ matrix.suffix }} ${{ matrix.board }} ${{ matrix.app_type }}
 
     uses: ./.github/workflows/generate-and-build.yaml
     with:
@@ -284,6 +284,7 @@ jobs:
       suffix: ${{ matrix.suffix }}
       family: ${{ matrix.family }}
       configs: ${{ matrix.configs }}
+      board_extension: ${{ matrix.board_extension }}
 
   m_ota_thread:
     # Job triggered either automatically by release_ or main branch, or manual trigger (if needed)
@@ -296,8 +297,8 @@ jobs:
         suffix: [ thread ]
         app_type: [ m-ota ]
         family: [ series-2 ]
-        addAppComponent: [ ',matter_multi_image_ota;matter,matter_multi_image_custom_processor;matter' ]
-        removeAppComponent: [ '"matter_ota_support;matter"' ]
+        addAppComponent: [ 'matter_multi_image_ota;matter,matter_multi_image_custom_processor;matter' ]
+        removeAppComponent: [ 'matter_ota_support;matter' ]
 
     name: ${{ matrix.app }}-${{ matrix.suffix }} ${{ matrix.addAppComponent}} ${{ matrix.removeAppComponent}} ${{ matrix.board }} ${{ matrix.app_type }}
 
@@ -321,8 +322,8 @@ jobs:
         suffix: [ thread ]
         app_type: [ m-ota-enc ]
         family: [ series-2 ]
-        addAppComponent: [ ',matter_multi_image_ota;matter,matter_multi_image_ota_encryption;matter,matter_multi_image_custom_processor;matter' ]
-        removeAppComponent: [ '"matter_ota_support;matter"' ]
+        addAppComponent: [ 'matter_multi_image_ota;matter,matter_multi_image_ota_encryption;matter,matter_multi_image_custom_processor;matter' ]
+        removeAppComponent: [ 'matter_ota_support;matter' ]
 
     name: ${{ matrix.app }}-${{ matrix.suffix }} ${{ matrix.addAppComponent}} ${{ matrix.removeAppComponent}} ${{ matrix.board }} ${{ matrix.app_type }}
 
@@ -369,6 +370,7 @@ jobs:
       addAppComponent: ${{ matrix.addAppComponent }}
       removeAppComponent: ${{ matrix.removeAppComponent }}
       family: ${{ matrix.family }}
+      board_extension: ${{ matrix.board_extension }}
 
   lto:
     # Job triggered either automatically by release_ or main branch, or manual trigger (if needed)
@@ -401,7 +403,7 @@ jobs:
       matrix:
         # Every app builds for every board and suffix
         app: [ lock-app, light-switch-app, sensor-app ]
-        board: [ brd4186c, brd4187c, brd4116a, brd4338a ]
+        board: [ brd4186c, brd4187c, brd4116a ]
         suffix: [ thread ]
         app_type: [ icd-idm60 ]
         family: [ series-2 ]
@@ -420,6 +422,13 @@ jobs:
             family: siwx917
             board_extension: ;wiseconnect3_sdk
             configs: 'SL_IDLE_MODE_DURATION_S:60'
+          - board: brd4338a
+            app: light-switch-app
+            app_type: icd-idm60
+            suffix: 917-soc
+            family: siwx917
+            board_extension: ;wiseconnect3_sdk
+            configs: 'SL_IDLE_MODE_DURATION_S:60'
 
     name: ${{ matrix.app }}-${{ matrix.suffix }} ${{ matrix.addAppComponent}} ${{ matrix.removeAppComponent}} ${{ matrix.board }} ${{ matrix.app_type }}
 
@@ -430,6 +439,7 @@ jobs:
       suffix: ${{ matrix.suffix }}
       configs: ${{ matrix.configs }}
       family: ${{ matrix.family }}
+      board_extension: ${{ matrix.board_extension }}
 
   icd_sync:
     # Job triggered either automatically by release_ or main branch, or manual trigger (if needed)
@@ -461,3 +471,4 @@ jobs:
       suffix: ${{ matrix.suffix }}
       configs: ${{ matrix.configs }}
       family: ${{ matrix.family }}
+      board_extension: ${{ matrix.board_extension }}
