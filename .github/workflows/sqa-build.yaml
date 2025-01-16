@@ -47,24 +47,28 @@ jobs:
 #            configs: 'CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION:2,CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION_STRING:\"2\"'
           - board: brd4116a
             app: zigbee-matter
+            family: series-2
             suffix: light
             app_type: ota-v2
             addAppComponent: matter_zigbee_concurrent;matter
             configs: 'CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION:2,CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION_STRING:\"2\"'
           - board: brd4116a
             app: zigbee-matter
+            family: series-2
             suffix: light
             app_type: ota-v2
             addAppComponent: matter_zigbee_sequential;matter
             configs: 'CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION:2,CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION_STRING:\"2\"'
           - board: brd4187c
             app: zigbee-matter
+            family: series-2
             suffix: light
             app_type: ota-v2
             addAppComponent: matter_zigbee_concurrent;matter
             configs: 'CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION:2,CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION_STRING:\"2\"'
           - board: brd4187c
             app: zigbee-matter
+            family: series-2
             suffix: light
             app_type: ota-v2
             addAppComponent: matter_zigbee_sequential;matter
@@ -363,6 +367,14 @@ jobs:
             suffix: 917-soc
             family: siwx917
             app: lock-app
+            app_type: low-power
+            board_extension: ;wiseconnect3_sdk
+            addAppComponent: ',matter_platform_low_power;matter'
+            removeAppComponent: 'matter_shell;matter,matter_qr_code;matter,matter_lcd;matter,matter_lcd_917SOC;matter,matter_thread_cli;matter,matter_default_lcd_config;matter'
+          - board: brd4338a
+            suffix: 917-soc
+            family: siwx917
+            app: light-switch-app
             app_type: low-power
             board_extension: ;wiseconnect3_sdk
             addAppComponent: ',matter_platform_low_power;matter'
