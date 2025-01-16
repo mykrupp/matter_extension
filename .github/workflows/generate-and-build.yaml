@@ -36,7 +36,9 @@ on:
       removeBlComponent:
         required: false
         type: string
-
+      workflow_name:
+        required: false
+        type: string
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -125,7 +127,7 @@ jobs:
           make all -C ${MATTER_EXTN_ROOT}/${{ inputs.board }}/${{ inputs.app }}-${{ inputs.suffix }} -f ${WORKSPACE_PATH}.solution.Makefile -j8
 
       - name: Upload Artifactory
-        if: env.WORKFLOW_NAME != 'SQA Build'
+        if: ${{ inputs.workflow_name != 'SQA Build' }}
         uses: actions/upload-artifact@v4
         with:
           name: ${{ inputs.addAppComponent }} ${{ inputs.optionalSlcParams }} ${{ inputs.app }}-${{ inputs.suffix }} ${{ inputs.board }}
