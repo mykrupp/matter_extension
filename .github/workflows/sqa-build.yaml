@@ -79,7 +79,7 @@ jobs:
       addAppComponent: ${{ matrix.addAppComponent }}
       family: ${{ matrix.family }}
       configs: ${{ matrix.configs }}
-      workflow_name: 'SQA Build' # TODO: Tried this as env var and did not work
+      workflow_name: 'SQA Build'
 
   ota_thread_v3:
     # Job triggered either automatically by release_ or main branch, or manual trigger (if needed)
@@ -129,7 +129,7 @@ jobs:
       addAppComponent: ${{ matrix.addAppComponent }}
       family: series-2
       configs: ${{ matrix.configs }}
-      workflow_name: 'SQA Build' # TODO: Tried this as env var and did not work
+      workflow_name: 'SQA Build'
 
   ota_thread_lz4_v2:
     # Job triggered either automatically by release_ or main branch, or manual trigger (if needed)
@@ -185,7 +185,7 @@ jobs:
       addBlComponent: ${{ matrix.addBlComponent }}
       family: series-2
       configs: ${{ matrix.configs }}
-      workflow_name: 'SQA Build' # TODO: Tried this as env var and did not work
+      workflow_name: 'SQA Build'
 
   ota_thread_lz4_v3:
     # Job triggered either automatically by release_ or main branch, or manual trigger (if needed)
@@ -241,7 +241,7 @@ jobs:
       addBlComponent: ${{ matrix.addBlComponent }}
       family: series-2
       configs: ${{ matrix.configs }}
-      workflow_name: 'SQA Build' # TODO: Tried this as env var and did not work
+      workflow_name: 'SQA Build'
 
   ota_wifi_v2:
     # Job triggered either automatically by release_ or main branch, or manual trigger (if needed)
@@ -250,7 +250,7 @@ jobs:
       matrix:
         # Every app builds for every board and suffix
         app: [ lighting-app, lock-app ]
-        board: [ brd4187c, brd4338a, brd4342a ]
+        board: [ brd4338a, brd4342a ]
         suffix: [ 917-soc ]
         app_type: [ ota-v2 ]
         family: [ siwx917 ]
@@ -289,7 +289,7 @@ jobs:
       family: ${{ matrix.family }}
       configs: ${{ matrix.configs }}
       board_extension: ${{ matrix.board_extension }}
-      workflow_name: 'SQA Build' # TODO: Tried this as env var and did not work
+      workflow_name: 'SQA Build'
 
   m_ota_thread:
     # Job triggered either automatically by release_ or main branch, or manual trigger (if needed)
@@ -315,7 +315,7 @@ jobs:
       addAppComponent: ${{ matrix.addAppComponent }}
       removeAppComponent: ${{ matrix.removeAppComponent }}
       family: ${{ matrix.family }}
-      workflow_name: 'SQA Build' # TODO: Tried this as env var and did not work
+      workflow_name: 'SQA Build'
 
   m_ota_enc_thread:
     # Job triggered either automatically by release_ or main branch, or manual trigger (if needed)
@@ -341,7 +341,7 @@ jobs:
       addAppComponent: ${{ matrix.addAppComponent }}
       removeAppComponent: ${{ matrix.removeAppComponent }}
       family: ${{ matrix.family }}
-      workflow_name: 'SQA Build' # TODO: Tried this as env var and did not work
+      workflow_name: 'SQA Build'
 
   low_power:
     # Job triggered either automatically by release_ or main branch, or manual trigger (if needed)
@@ -378,7 +378,7 @@ jobs:
       removeAppComponent: ${{ matrix.removeAppComponent }}
       family: ${{ matrix.family }}
       board_extension: ${{ matrix.board_extension }}
-      workflow_name: 'SQA Build' # TODO: Tried this as env var and did not work
+      workflow_name: 'SQA Build'
 
   lto:
     # Job triggered either automatically by release_ or main branch, or manual trigger (if needed)
@@ -403,7 +403,7 @@ jobs:
       addAppComponent: ${{ matrix.addAppComponent }}
       removeAppComponent: ${{ matrix.removeAppComponent }}
       family: ${{ matrix.family }}
-      workflow_name: 'SQA Build' # TODO: Tried this as env var and did not work
+      workflow_name: 'SQA Build'
 
   icd_idm:
     # Job triggered either automatically by release_ or main branch, or manual trigger (if needed)
@@ -449,7 +449,7 @@ jobs:
       configs: ${{ matrix.configs }}
       family: ${{ matrix.family }}
       board_extension: ${{ matrix.board_extension }}
-      workflow_name: 'SQA Build' # TODO: Tried this as env var and did not work
+      workflow_name: 'SQA Build'
 
   icd_sync:
     # Job triggered either automatically by release_ or main branch, or manual trigger (if needed)
@@ -482,4 +482,4 @@ jobs:
       configs: ${{ matrix.configs }}
       family: ${{ matrix.family }}
       board_extension: ${{ matrix.board_extension }}
-      workflow_name: 'SQA Build' # TODO: Tried this as env var and did not work
+      workflow_name: 'SQA Build'
