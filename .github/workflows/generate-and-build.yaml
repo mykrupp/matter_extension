@@ -40,7 +40,7 @@ on:
         required: false
         type: string
       technology:
-        required: true
+        required: false
         type: string
       workflow_name:
         required: false
@@ -132,18 +132,18 @@ jobs:
           export POST_BUILD_EXE=${{ env.POST_BUILD_EXE }}
           make all -C ${MATTER_EXTN_ROOT}/${{ inputs.board }}/${{ inputs.app }}-${{ inputs.suffix }} -f ${WORKSPACE_PATH}.solution.Makefile -j8
       # TODO: At the end of the whole job zip up this folder
-#      - name: Create Directory to Store Artifact
-#        if: ${{ inputs.workflow_name == 'SQA Build' }}
-#        run: |
-#          FOLDER_PATH="sqa-build-binaries/out/${{  inputs.appType }}/${{ inputs.board }}/ ${{ inputs.technology }}"
-#          mkdir -p $FOLDER_PATH
-#          echo "FOLDER_PATH=$FOLDER_PATH" >> $GITHUB_ENV
-#
-#      - name: Store Artifact in Directory # TODO: Move the artifact to the folder
-#        if: ${{ inputs.workflow_name == 'SQA Build' }}
-#        run: |
-#          FILE_PATH="${{ env.MATTER_EXTN_ROOT }}/${{ inputs.board }}/${{ inputs.app }}-${{ inputs.suffix }}/${{ inputs.app }}-${{ inputs.suffix }}/build/debug/${{ inputs.app }}-${{ inputs.suffix }}.s37"
-#          mv $FILE_PATH ${{ env.FOLDER_PATH }}/
+      - name: Create Directory to Store Artifact
+        if: ${{ inputs.workflow_name == 'SQA Build' }}
+        run: |
+          FOLDER_PATH="sqa-build-binaries/out/${{  inputs.appType }}/${{ inputs.board }}/ ${{ inputs.technology }}"
+          mkdir -p $FOLDER_PATH
+          echo "FOLDER_PATH=$FOLDER_PATH" >> $GITHUB_ENV
+
+      - name: Store Artifact in Directory # TODO: Move the artifact to the folder
+        if: ${{ inputs.workflow_name == 'SQA Build' }}
+        run: |
+          FILE_PATH="${{ env.MATTER_EXTN_ROOT }}/${{ inputs.board }}/${{ inputs.app }}-${{ inputs.suffix }}/${{ inputs.app }}-${{ inputs.suffix }}/build/debug/${{ inputs.app }}-${{ inputs.suffix }}.s37"
+          mv $FILE_PATH ${{ env.FOLDER_PATH }}/
 
       - name: Upload Artifactory
         if: ${{ inputs.workflow_name != 'SQA Build' }}
@@ -151,4 +151,3 @@ jobs:
         with:
           name: ${{ inputs.addAppComponent }} ${{ inputs.optionalSlcParams }} ${{ inputs.app }}-${{ inputs.suffix }} ${{ inputs.board }}
           path: ${{ env.MATTER_EXTN_ROOT }}/${{ inputs.board }}/${{ inputs.app }}-${{ inputs.suffix }}/${{ inputs.app }}-${{ inputs.suffix }}/build/debug/${{ inputs.app }}-${{ inputs.suffix }}.s37 # TODO: need to save 917-soc as rps
-          
