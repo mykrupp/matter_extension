@@ -17,7 +17,7 @@ jobs:
         # Every app builds for every board and suffix
         app: [light-switch-app, lighting-app, lock-app]
         # TODO: Will need to add Rainier once available
-        board: [brd4116a, brd4186c, brd4187c, brd4316a, brd4337a, brd4351]
+        board: [brd4116a, brd4186c, brd4187c, brd4316a, brd4337a, brd4351a]
         suffix: [ thread ]
         app_type: [ ota-v2 ]
         family: [series-2]
