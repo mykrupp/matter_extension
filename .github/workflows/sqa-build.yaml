@@ -36,9 +36,6 @@ jobs:
         workflow_name: 'SQA Build'
         artifact_path: ${{ matrix.appType }}_${{ matrix.board }}_${{ matrix.technology }}_${{ matrix.app }}
 
-    - name: Checkout
-      uses: actions/checkout@v4
-
     - name: Save Artifact Name
       run: echo "ARTIFACT_${{ matrix.appType }}_${{ matrix.board }}_${{ matrix.technology }}_${{ matrix.app }}=${{ matrix.appType }}_${{ matrix.board }}_${{ matrix.technology }}_${{ matrix.app }}" >> $GITHUB_ENV
 
