@@ -20,20 +20,26 @@ jobs:
         appType: [ lto ]
         family: [ series-2 ]
         addAppComponent: [ ', toolchain_gcc_lto' ]
+    runs-on: ubuntu-latest
+    steps:
+    - name: ${{ matrix.app }}-${{ matrix.suffix }} ${{ matrix.addAppComponent}} ${{ matrix.board }} ${{ matrix.appType }}
+      id: build_binary
+      uses: ./.github/workflows/generate-and-build.yaml
+      with:
+        app: ${{ matrix.app }}
+        board: ${{ matrix.board }}
+        suffix: ${{ matrix.suffix }}
+        addAppComponent: ${{ matrix.addAppComponent }}
+        removeAppComponent: ${{ matrix.removeAppComponent }}
+        family: ${{ matrix.family }}
+        appType: ${{ matrix.appType }}
+        technology: OpenThread
+        workflow_name: 'SQA Build'
+        artifact_path: ${{ matrix.appType }}_${{ matrix.board }}_${{ matrix.technology }}_${{ matrix.app }}
 
-    name: ${{ matrix.app }}-${{ matrix.suffix }} ${{ matrix.addAppComponent}} ${{ matrix.board }} ${{ matrix.appType }}
+    - name: Save Artifact Name
+      run: echo "ARTIFACT_${{ matrix.appType }}_${{ matrix.board }}_${{ matrix.technology }}_${{ matrix.app }}=${{ matrix.appType }}_${{ matrix.board }}_${{ matrix.technology }}_${{ matrix.app }}" >> $GITHUB_ENV
 
-    uses: ./.github/workflows/generate-and-build.yaml
-    with:
-      app: ${{ matrix.app }}
-      board: ${{ matrix.board }}
-      suffix: ${{ matrix.suffix }}
-      addAppComponent: ${{ matrix.addAppComponent }}
-      removeAppComponent: ${{ matrix.removeAppComponent }}
-      family: ${{ matrix.family }}
-      appType: ${{ matrix.appType }}
-      technology: OpenThread
-      workflow_name: 'SQA Build'
   # TODO: Test below
   zip_artifacts:
     runs-on: ubuntu-latest
@@ -43,11 +49,21 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Download SQA Build Binaries Folder
-        uses: actions/download-artifact@v4
-        with:
-          name: sqa_build_binaries
-          path: sqa-build-binaries
+      - name: Download artifacts into proper folder path
+        run: | 
+          for artifact in $(printenv | grep ARTIFACT_ | sed 's/.*=//'); do
+            base_name=$(echo $artifact | sed 's/_[^_]*$//')
+            folder_structure=$(echo base_name | tr '_' '/')
+            mkdir -p out/$folder_structure 
+            gh run download -n $artifact -D out/$folder_structure ; 
+          done
+
+      - name: Create SQA Build Binaries Top Folder
+        run: mkdir -p sqa-build-binaries
+
+      - name: Move Artifacts to New Folder
+        run: | 
+          find out -type f -exec mv {} sqa_build_binaries/ \;
 
       - name: List Directory Contents
         run: ls -R sqa-build-binaries
