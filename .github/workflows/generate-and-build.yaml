@@ -135,7 +135,7 @@ jobs:
       - name: Create Directory to Store Artifact
         if: ${{ inputs.workflow_name == 'SQA Build' }}
         run: |
-          FOLDER_PATH="sqa-build-binaries/out/${{  inputs.appType }}/${{ inputs.board }}/ ${{ inputs.technology }}"
+          FOLDER_PATH="sqa-build-binaries/out/${{ inputs.appType }}/${{ inputs.board }}/${{ inputs.technology }}"
           mkdir -p $FOLDER_PATH
           echo "FOLDER_PATH=$FOLDER_PATH" >> $GITHUB_ENV
 
