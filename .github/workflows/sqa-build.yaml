@@ -44,7 +44,9 @@ jobs:
       - name: Download artifacts into out file
         run: |
           mkdir -p out
-          gh run download -n ${{ needs[lto].outputs.artifact_name }} -D out
+          for job in lto; do
+            gh run download -n ${{ needs[job].outputs.artifact_name }} -D out
+          done
 #          for artifact in $(printenv | grep ARTIFACT_ | sed 's/.*=//'); do
 #            echo "Processing artifact: $artifact"
 #            base_name=$(echo $artifact | sed 's/_[^_]*$//')
