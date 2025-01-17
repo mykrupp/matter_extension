@@ -42,10 +42,10 @@ on:
       technology:
         required: false
         type: string
-      workflow_name:
+      workflowName:
         required: false
         type: string
-      artifact_path:
+      artifactPath:
         required: false
         type: string
 
@@ -137,14 +137,17 @@ jobs:
           make all -C ${MATTER_EXTN_ROOT}/${{ inputs.board }}/${{ inputs.app }}-${{ inputs.suffix }} -f ${WORKSPACE_PATH}.solution.Makefile -j8
 
       - name: Upload SQA Build Artifact
-        if: ${{ inputs.workflow_name == 'SQA Build' }}
+        if: ${{ inputs.workflowName == 'SQA Build' }}
         uses: actions/upload-artifact@v4
         with:
           name: ${{ inputs.artifact_path }}
           path: ${{ env.MATTER_EXTN_ROOT }}/${{ inputs.board }}/${{ inputs.app }}-${{ inputs.suffix }}/${{ inputs.app }}-${{ inputs.suffix }}/build/debug/${{ inputs.app }}-${{ inputs.suffix }}.s37
 
+      - name: Save Artifact Name
+        run: echo "ARTIFACT_${{ inputs.artifactPath }}}=${{ inputs.artifactPath }}" >> $GITHUB_ENV
+
       - name: Upload Artifactory
-        if: ${{ inputs.workflow_name != 'SQA Build' }}
+        if: ${{ inputs.workflowName != 'SQA Build' }}
         uses: actions/upload-artifact@v4
         with:
           name: ${{ inputs.addAppComponent }} ${{ inputs.optionalSlcParams }} ${{ inputs.app }}-${{ inputs.suffix }} ${{ inputs.board }}

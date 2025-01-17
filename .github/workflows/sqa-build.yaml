@@ -11,7 +11,6 @@ jobs:
   lto:
     # Job triggered either automatically by release_ or main branch, or manual trigger (if needed)
     # if: ${{ github.event_name == 'workflow_run' && (startsWith(github.event.workflow_run.head_branch, 'release_' || github.event.workflow_run.head_branch == 'main')) || github.event_name == 'workflow_dispatch' }}
-    runs-on: ubuntu-latest
     strategy:
       matrix:
         # Every app builds for every board and suffix
@@ -21,23 +20,20 @@ jobs:
         appType: [ lto ]
         family: [ series-2 ]
         addAppComponent: [ ', toolchain_gcc_lto' ]
-    steps:
-    - name: ${{ matrix.app }}-${{ matrix.suffix }} ${{ matrix.addAppComponent}} ${{ matrix.board }} ${{ matrix.appType }}
-      uses: ./.github/workflows/generate-and-build.yaml
-      with:
-        app: ${{ matrix.app }}
-        board: ${{ matrix.board }}
-        suffix: ${{ matrix.suffix }}
-        addAppComponent: ${{ matrix.addAppComponent }}
-        removeAppComponent: ${{ matrix.removeAppComponent }}
-        family: ${{ matrix.family }}
-        appType: ${{ matrix.appType }}
-        technology: OpenThread
-        workflow_name: 'SQA Build'
-        artifact_path: ${{ matrix.appType }}_${{ matrix.board }}_${{ matrix.technology }}_${{ matrix.app }}
 
-    - name: Save Artifact Name
-      run: echo "ARTIFACT_${{ matrix.appType }}_${{ matrix.board }}_${{ matrix.technology }}_${{ matrix.app }}=${{ matrix.appType }}_${{ matrix.board }}_${{ matrix.technology }}_${{ matrix.app }}" >> $GITHUB_ENV
+    name: ${{ matrix.app }}-${{ matrix.suffix }} ${{ matrix.addAppComponent}} ${{ matrix.board }} ${{ matrix.appType }}
+    uses: ./.github/workflows/generate-and-build.yaml
+    with:
+      app: ${{ matrix.app }}
+      board: ${{ matrix.board }}
+      suffix: ${{ matrix.suffix }}
+      addAppComponent: ${{ matrix.addAppComponent }}
+      removeAppComponent: ${{ matrix.removeAppComponent }}
+      family: ${{ matrix.family }}
+      appType: ${{ matrix.appType }}
+      technology: OpenThread
+      workflowName: 'SQA Build'
+      artifactPath: ${{ matrix.appType }}_${{ matrix.board }}_${{ matrix.technology }}_${{ matrix.app }}
 
   zip_artifacts:
     runs-on: ubuntu-latest
