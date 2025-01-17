@@ -151,8 +151,8 @@ jobs:
         if: ${{ inputs.workflow_name == 'SQA Build' }}
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ env.FULL_ARTIFACT_PATH }}
-          path: ${{ env.FOLDER_PATH }}/
+          name: ${{ inputs.addAppComponent }} ${{ inputs.optionalSlcParams }} ${{ inputs.app }}-${{ inputs.suffix }} ${{ inputs.board }}
+          path: ${{ env.FULL_ARTIFACT_PATH }}/
 
       - name: Upload Artifactory
         if: ${{ inputs.workflow_name != 'SQA Build' }}
