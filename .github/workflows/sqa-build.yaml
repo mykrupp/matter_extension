@@ -11,6 +11,7 @@ jobs:
   lto:
     # Job triggered either automatically by release_ or main branch, or manual trigger (if needed)
     # if: ${{ github.event_name == 'workflow_run' && (startsWith(github.event.workflow_run.head_branch, 'release_' || github.event.workflow_run.head_branch == 'main')) || github.event_name == 'workflow_dispatch' }}
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         # Every app builds for every board and suffix
@@ -20,12 +21,10 @@ jobs:
         appType: [ lto ]
         family: [ series-2 ]
         addAppComponent: [ ', toolchain_gcc_lto' ]
-    runs-on: ubuntu-latest
     steps:
     - name: Checkout
       uses: actions/checkout@v4
     - name: ${{ matrix.app }}-${{ matrix.suffix }} ${{ matrix.addAppComponent}} ${{ matrix.board }} ${{ matrix.appType }}
-      id: build_binary
       uses: ./.github/workflows/generate-and-build.yaml
       with:
         app: ${{ matrix.app }}
