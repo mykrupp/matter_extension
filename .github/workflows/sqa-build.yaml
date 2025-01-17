@@ -45,11 +45,16 @@ jobs:
       - name: Download artifacts into proper folder path
         run: | 
           for artifact in $(printenv | grep ARTIFACT_ | sed 's/.*=//'); do
+            echo "Processing artifact: $artifact"
             base_name=$(echo $artifact | sed 's/_[^_]*$//')
             folder_structure=$(echo base_name | tr '_' '/')
+            echo "Creating directory: out/$folder_structure"
             mkdir -p out/$folder_structure 
             gh run download -n $artifact -D out/$folder_structure ; 
           done
+
+      - name: Debug List Created Directories
+        run: ls -R out
 
       - name: Create SQA Build Binaries Top Folder
         run: mkdir -p sqa-build-binaries
