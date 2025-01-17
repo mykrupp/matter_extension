@@ -43,11 +43,20 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Download SQA Build Binaries Folder
+        uses: actions/download-artifact@v4
+        with:
+          name: sqa_build_binaries
+          path: sqa-build-binaries
+
+      - name: List Directory Contents
+        run: ls -R sqa-build-binaries
+
       - name: Zip Artifacts into SQA Build Binaries
         run: zip -r sqa-build-binaries.zip sqa-build-binaries
 
       - name: Upload SQA Build Binaries
         uses: actions/upload-artifact@v4
         with:
-          name: sqa-build-binaries
+          name: sqa_build_binaries_zip
           path: sqa-build-binaries.zip

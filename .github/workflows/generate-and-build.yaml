@@ -145,11 +145,11 @@ jobs:
           FILE_PATH="${{ env.MATTER_EXTN_ROOT }}/${{ inputs.board }}/${{ inputs.app }}-${{ inputs.suffix }}/${{ inputs.app }}-${{ inputs.suffix }}/build/debug/${{ inputs.app }}-${{ inputs.suffix }}.s37"
           mv $FILE_PATH ${{ env.FOLDER_PATH }}/
 
-      - name: Upload SQA Artifact
+      - name: Upload SQA Build Artifact
         if: ${{ inputs.workflow_name == 'SQA Build' }}
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ inputs.addAppComponent }} ${{ inputs.optionalSlcParams }} ${{ inputs.app }}-${{ inputs.suffix }} ${{ inputs.board }}
+          name: sqa_build_binaries
           path: ${{ env.FOLDER_PATH }}/
 
       - name: Upload Artifactory
