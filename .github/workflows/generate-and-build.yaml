@@ -144,12 +144,14 @@ jobs:
         run: |
           FILE_PATH="${{ env.MATTER_EXTN_ROOT }}/${{ inputs.board }}/${{ inputs.app }}-${{ inputs.suffix }}/${{ inputs.app }}-${{ inputs.suffix }}/build/debug/${{ inputs.app }}-${{ inputs.suffix }}.s37"
           mv $FILE_PATH ${{ env.FOLDER_PATH }}/
+          FULL_ARTIFACT_PATH="${{ env.FOLDER_PATH }}/${{ inputs.app }}-${{ inputs.suffix }}.s37"
+          echo "FULL_ARTIFACT_PATH=FULL_ARTIFACT_PATH" >> $GITHUB_ENV
 
       - name: Upload SQA Build Artifact
         if: ${{ inputs.workflow_name == 'SQA Build' }}
         uses: actions/upload-artifact@v4
         with:
-          name: sqa_build_binaries
+          name: ${{ env.FULL_ARTIFACT_PATH }}
           path: ${{ env.FOLDER_PATH }}/
 
       - name: Upload Artifactory
