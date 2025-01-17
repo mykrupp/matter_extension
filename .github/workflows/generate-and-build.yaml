@@ -45,9 +45,6 @@ on:
       workflowName:
         required: false
         type: string
-      artifactPath:
-        required: false
-        type: string
 
 jobs:
   build:
@@ -136,15 +133,15 @@ jobs:
           export POST_BUILD_EXE=${{ env.POST_BUILD_EXE }}
           make all -C ${MATTER_EXTN_ROOT}/${{ inputs.board }}/${{ inputs.app }}-${{ inputs.suffix }} -f ${WORKSPACE_PATH}.solution.Makefile -j8
 
+      - name: Save Artifact Name
+        run: echo "ARTIFACT_${{ input.appType }}_${{ input.board }}_${{ input.technology }}_${{ input.app }}=${{ input.appType }}_${{ input.board }}_${{ input.technology }}_${{ input.app }}" >> $GITHUB_ENV
+
       - name: Upload SQA Build Artifact
         if: ${{ inputs.workflowName == 'SQA Build' }}
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ inputs.artifactPath }}
+          name: ${{ input.appType }}_${{ input.board }}_${{ input.technology }}_${{ input.app }}
           path: ${{ env.MATTER_EXTN_ROOT }}/${{ inputs.board }}/${{ inputs.app }}-${{ inputs.suffix }}/${{ inputs.app }}-${{ inputs.suffix }}/build/debug/${{ inputs.app }}-${{ inputs.suffix }}.s37
-
-      - name: Save Artifact Name
-        run: echo "ARTIFACT_${{ inputs.artifactPath }}}=${{ inputs.artifactPath }}" >> $GITHUB_ENV
 
       - name: Upload Artifactory
         if: ${{ inputs.workflowName != 'SQA Build' }}
