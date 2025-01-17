@@ -152,7 +152,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: ${{ inputs.addAppComponent }} ${{ inputs.optionalSlcParams }} ${{ inputs.app }}-${{ inputs.suffix }} ${{ inputs.board }}
-          path: ${{ env.FULL_ARTIFACT_PATH }}/
+          path: ${{ env.FULL_ARTIFACT_PATH }}
 
       - name: Upload Artifactory
         if: ${{ inputs.workflow_name != 'SQA Build' }}
