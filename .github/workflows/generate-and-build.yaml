@@ -134,13 +134,13 @@ jobs:
           make all -C ${MATTER_EXTN_ROOT}/${{ inputs.board }}/${{ inputs.app }}-${{ inputs.suffix }} -f ${WORKSPACE_PATH}.solution.Makefile -j8
 
       - name: Save Artifact Name
-        run: echo "ARTIFACT_${{ input.appType }}_${{ input.board }}_${{ input.technology }}_${{ input.app }}=${{ input.appType }}_${{ input.board }}_${{ input.technology }}_${{ input.app }}" >> $GITHUB_ENV
+        run: echo "ARTIFACT_${{ inputs.appType }}_${{ inputs.board }}_${{ inputs.technology }}_${{ inputs.app }}=${{ inputs.appType }}_${{ inputs.board }}_${{ inputs.technology }}_${{ inputs.app }}" >> $GITHUB_ENV
 
       - name: Upload SQA Build Artifact
         if: ${{ inputs.workflowName == 'SQA Build' }}
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ input.appType }}_${{ input.board }}_${{ input.technology }}_${{ input.app }}
+          name: ${{ inputs.appType }}_${{ inputs.board }}_${{ inputs.technology }}_${{ inputs.app }}
           path: ${{ env.MATTER_EXTN_ROOT }}/${{ inputs.board }}/${{ inputs.app }}-${{ inputs.suffix }}/${{ inputs.app }}-${{ inputs.suffix }}/build/debug/${{ inputs.app }}-${{ inputs.suffix }}.s37
 
       - name: Upload Artifactory
