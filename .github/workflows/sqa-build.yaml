@@ -41,11 +41,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Create SQA Build Binaries Top Folder
+        run: mkdir -p sqa-build-binaries
+
       - name: Download artifacts into out file
         run: |
-          mkdir -p out
           for job in lto; do
-            gh run download -n ${{ needs[job].outputs.artifact_name }} -D out
+            gh run download -n ${{ needs[job].outputs.artifact_name }} -D sqa-build-binaries
           done
 #          for artifact in $(printenv | grep ARTIFACT_ | sed 's/.*=//'); do
 #            echo "Processing artifact: $artifact"
@@ -59,8 +61,8 @@ jobs:
       - name: Debug List Created Directories
         run: ls -R out
 
-      - name: Create SQA Build Binaries Top Folder
-        run: mkdir -p sqa-build-binaries
+#      - name: Create SQA Build Binaries Top Folder
+#        run: mkdir -p sqa-build-binaries
 
       - name: Move Artifacts to New Folder
         run: | 
