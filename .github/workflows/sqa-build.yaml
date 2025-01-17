@@ -20,7 +20,6 @@ jobs:
         appType: [ lto ]
         family: [ series-2 ]
         addAppComponent: [ ', toolchain_gcc_lto' ]
-
     name: ${{ matrix.app }}-${{ matrix.suffix }} ${{ matrix.addAppComponent}} ${{ matrix.board }} ${{ matrix.appType }}
     uses: ./.github/workflows/generate-and-build.yaml
     with:
@@ -42,16 +41,18 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Download artifacts into proper folder path
-        run: | 
-          for artifact in $(printenv | grep ARTIFACT_ | sed 's/.*=//'); do
-            echo "Processing artifact: $artifact"
-            base_name=$(echo $artifact | sed 's/_[^_]*$//')
-            folder_structure=$(echo base_name | tr '_' '/')
-            echo "Creating directory: out/$folder_structure"
-            mkdir -p out/$folder_structure 
-            gh run download -n $artifact -D out/$folder_structure ; 
-          done
+      - name: Download artifacts into out file
+        run: |
+          mkdir -p out
+          gh run download -n ${{ needs[lto].outputs.artifact_name }} -D out
+#          for artifact in $(printenv | grep ARTIFACT_ | sed 's/.*=//'); do
+#            echo "Processing artifact: $artifact"
+#            base_name=$(echo $artifact | sed 's/_[^_]*$//')
+#            folder_structure=$(echo base_name | tr '_' '/')
+#            echo "Creating directory: out/$folder_structure"
+#            mkdir -p out/$folder_structure
+#            gh run download -n $artifact -D out/$folder_structure ;
+#          done
 
       - name: Debug List Created Directories
         run: ls -R out

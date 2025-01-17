@@ -52,7 +52,7 @@ jobs:
     
     container:
       image: ghcr.io/siliconlabssoftware/matter_extension_dependencies:latest
-  
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -133,16 +133,21 @@ jobs:
           export POST_BUILD_EXE=${{ env.POST_BUILD_EXE }}
           make all -C ${MATTER_EXTN_ROOT}/${{ inputs.board }}/${{ inputs.app }}-${{ inputs.suffix }} -f ${WORKSPACE_PATH}.solution.Makefile -j8
 
-      - name: Save Artifact Name
-        run: echo "ARTIFACT_${{ inputs.appType }}_${{ inputs.board }}_${{ inputs.technology }}_${{ inputs.app }}=${{ inputs.appType }}_${{ inputs.board }}_${{ inputs.technology }}_${{ inputs.app }}" >> $GITHUB_ENV
+#      - name: Save Artifact Path
+#        id: save_artifact_path
+#        run: echo "ARTIFACT_${{ inputs.appType }}_${{ inputs.board }}_${{ inputs.technology }}_${{ inputs.app }}=${{ inputs.appType }}_${{ inputs.board }}_${{ inputs.technology }}_${{ inputs.app }}" >> $GITHUB_ENV
 
       - name: Upload SQA Build Artifact
+        id: upload_artifact
         if: ${{ inputs.workflowName == 'SQA Build' }}
         uses: actions/upload-artifact@v4
         with:
           name: ${{ inputs.appType }}_${{ inputs.board }}_${{ inputs.technology }}_${{ inputs.app }}
           path: ${{ env.MATTER_EXTN_ROOT }}/${{ inputs.board }}/${{ inputs.app }}-${{ inputs.suffix }}/${{ inputs.app }}-${{ inputs.suffix }}/build/debug/${{ inputs.app }}-${{ inputs.suffix }}.s37
-
+      - name: Set Output Variables
+        run: | 
+          echo "artifact_name=${{ inputs.appType }}_${{ inputs.board }}_${{ inputs.technology }}_${{ inputs.app }}" >> $GITHUB_OUTPUT
+#          echo "artifact_path=sqa-build-binaries/out/${{ inputs.app }}_${{ inputs.board }}_${{ inputs.suffix }}" >> $GITHUB_OUTPUT
       - name: Upload Artifactory
         if: ${{ inputs.workflowName != 'SQA Build' }}
         uses: actions/upload-artifact@v4
