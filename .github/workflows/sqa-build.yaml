@@ -22,6 +22,8 @@ jobs:
         addAppComponent: [ ', toolchain_gcc_lto' ]
     runs-on: ubuntu-latest
     steps:
+    - name: Checkout
+      uses: actions/checkout@v4
     - name: ${{ matrix.app }}-${{ matrix.suffix }} ${{ matrix.addAppComponent}} ${{ matrix.board }} ${{ matrix.appType }}
       id: build_binary
       uses: ./.github/workflows/generate-and-build.yaml
@@ -36,11 +38,9 @@ jobs:
         technology: OpenThread
         workflow_name: 'SQA Build'
         artifact_path: ${{ matrix.appType }}_${{ matrix.board }}_${{ matrix.technology }}_${{ matrix.app }}
-
     - name: Save Artifact Name
       run: echo "ARTIFACT_${{ matrix.appType }}_${{ matrix.board }}_${{ matrix.technology }}_${{ matrix.app }}=${{ matrix.appType }}_${{ matrix.board }}_${{ matrix.technology }}_${{ matrix.app }}" >> $GITHUB_ENV
 
-  # TODO: Test below
   zip_artifacts:
     runs-on: ubuntu-latest
     # needs: [ota_thread_v2, ota_thread_v3, ota_thread_lz4_v2, ota_thread_lz4_v3, m_ota_thread, m_ota_enc_thread, low_power, lto, icd_idm, icd_sync ]
