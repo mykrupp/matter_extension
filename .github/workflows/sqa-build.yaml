@@ -46,9 +46,7 @@ jobs:
 
       - name: Download artifacts
         run: |
-          for job in lto; do
-            gh run download -n ${{ needs[job].outputs.artifact_name }} -D sqa-build-binaries
-          done
+          gh run download -n * -D sqa-build-binaries
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Debug List Created Directories
