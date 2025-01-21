@@ -135,7 +135,7 @@ jobs:
 
       - name: Create directory and move artifact inside
         run: |
-          FILE_PATH=out/${{ inputs.appType }}/${{ inputs.board }}/${{ inputs.technology }}/${{ inputs.app }}
+          FILE_PATH=sqa_artifact/out/${{ inputs.appType }}/${{ inputs.board }}/${{ inputs.technology }}/${{ inputs.app }}
           ARTIFACT=${{ env.MATTER_EXTN_ROOT }}/${{ inputs.board }}/${{ inputs.app }}-${{ inputs.suffix }}/${{ inputs.app }}-${{ inputs.suffix }}/build/debug/${{ inputs.app }}-${{ inputs.suffix }}.s37
           mkdir -p $FILE_PATH
           mv $ARTIFACT $FILE_PATH
@@ -146,7 +146,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: ${{ inputs.appType }}_${{ inputs.board }}_${{ inputs.technology }}_${{ inputs.app }}
-          path: out
+          path: sqa_artifact
       - name: Set Output Variables
         run: | 
           echo "artifact_name=${{ inputs.appType }}_${{ inputs.board }}_${{ inputs.technology }}_${{ inputs.app }}" >> $GITHUB_OUTPUT

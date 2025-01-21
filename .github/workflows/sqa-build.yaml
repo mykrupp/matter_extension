@@ -41,32 +41,22 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Create SQA Build Binaries Top Folder
+      - name: Create SQA Build Binaries Folder
         run: mkdir -p sqa-build-binaries
 
-      - name: Download artifacts into out file
+      - name: Download artifacts
         run: |
           for job in lto; do
             gh run download -n ${{ needs[job].outputs.artifact_name }} -D sqa-build-binaries
           done
-#          for artifact in $(printenv | grep ARTIFACT_ | sed 's/.*=//'); do
-#            echo "Processing artifact: $artifact"
-#            base_name=$(echo $artifact | sed 's/_[^_]*$//')
-#            folder_structure=$(echo base_name | tr '_' '/')
-#            echo "Creating directory: out/$folder_structure"
-#            mkdir -p out/$folder_structure
-#            gh run download -n $artifact -D out/$folder_structure ;
-#          done
-
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Debug List Created Directories
         run: ls -R out
 
-#      - name: Create SQA Build Binaries Top Folder
-#        run: mkdir -p sqa-build-binaries
-
-      - name: Move Artifacts to New Folder
-        run: | 
-          find out -type f -exec mv {} sqa_build_binaries/ \;
+#      - name: Move Artifacts to New Folder
+#        run: |
+#          find out -type f -exec mv {} sqa_build_binaries/ \;
 
       - name: List Directory Contents
         run: ls -R sqa-build-binaries
