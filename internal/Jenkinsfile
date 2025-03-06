@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Trigger downstream') {
             steps {
-                build job: 'RunArtInTest', parameters:[string(name: 'branch_name', value:'test_param'), string(name:'build_number', value: "${index}")]
+                build job: 'matter-github-mirror-artifactory', parameters:[string(name: 'branchName', env.BRANCH_NAME), string(name:'buildNumber', value: env.BUILD_NUMBER)]
             }
         }
     }
