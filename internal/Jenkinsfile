@@ -1,0 +1,11 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Trigger downstream') {
+            steps {
+                build job: 'RunArtInTest', parameters:[string(name: 'branch_name', value:'test_param'), string(name:'build_number', value: "${index}")]
+            }
+        }
+    }
+}
