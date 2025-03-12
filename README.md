@@ -1,6 +1,6 @@
 [![Silicon Labs](./docs/images/silabs-logo.jpg)](https://www.silabs.com)
 
-# Silicon Labs Matter
+# Silicon Labs Matter 
 Welcome to the Silicon Labs Matter Extension repo. Matter is an application layer
 that provides a standardized interface between protocols and devices. With
 Matter, it is transparent to the underlying device whether the interaction is
