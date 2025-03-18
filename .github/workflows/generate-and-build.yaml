@@ -169,7 +169,7 @@ jobs:
           curl -L -X PATCH \
                -H "Authorization: token $GH_TOKEN" \
                -H "Accept: application/vnd.github.v3+json" \
-               -d '{"output":{"title":"SQA_BUILD"}}' \
+               -d '{"output":{"title":"SQA_BUILD", "summary":"Build SQA artifacts"}}' \
                https://api.github.com/repos/${{ github.repository_owner }}/${{ github.event.repository.name }}/check-runs/${{ env.CHECK_RUN_ID }}
 
       - name: Upload Artifactory
