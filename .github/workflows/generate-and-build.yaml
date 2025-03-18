@@ -147,12 +147,10 @@ jobs:
         with:
           name: ${{ inputs.appType }}_${{ inputs.board }}_${{ inputs.technology }}_${{ inputs.app }}
           path: sqa_artifact
-#      - name: Set Output Variables
-#        run: |
-#          echo "::set-output name=artifact_name::${{ inputs.appType }}_${{ inputs.board }}_${{ inputs.technology }}_${{ inputs.app }}"
-#      - name: Set Output Variables
-#        run: |
-#          echo "artifact_name=${{ inputs.appType }}_${{ inputs.board }}_${{ inputs.technology }}_${{ inputs.app }}" >> $GITHUB_OUTPUT
+
+      - name: Set Workflow Name
+        run: echo "WORKFLOW_NAME=${{ inputs.workflowName }}" >> $GITHUB_ENV
+
       - name: Upload Artifactory
         if: ${{ inputs.workflowName != 'SQA Build' }}
         uses: actions/upload-artifact@v4
