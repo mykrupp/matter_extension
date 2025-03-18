@@ -157,11 +157,11 @@ jobs:
           COMMIT_ID: ${{ github.sha }}
           OWNER: ${{ github.repository_owner }}
           REPO: ${{ github.event.repository.name }}
-          WORKFLOW: ${{ github.workflow }}
         run: |
-          curl -H "Authorization: token $GH_TOKEN" \
+          curl -L -X PATCH \
+               -H "Authorization: token $GH_TOKEN" \
                -H "Accept: application/vnd.github.v3+json" \
-               -d '{"workflow_name":"$WORKFLOW"}' \
+               -d '{"output":{"title":"SQA_BUILD}}' \
                https://api.github.com/repos/$OWNER/$REPO/commits/$COMMIT_ID/check-runs
 
       - name: Upload Artifactory
