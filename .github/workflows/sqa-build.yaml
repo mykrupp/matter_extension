@@ -87,7 +87,7 @@ jobs:
       configs: ${{ matrix.configs }}
       appType: ${{ matrix.appType }}
       technology: OpenThread
-      workflow_name: 'SQA Build'
+      workflowName: 'SQA Build'
 #
 #  ota_thread_v3:
 #    # Job triggered either automatically by release_ or main branch, or manual trigger (if needed)
