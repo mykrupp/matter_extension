@@ -146,6 +146,9 @@ jobs:
         with:
           name: ${{ inputs.appType }}_${{ inputs.board }}_${{ inputs.technology }}_${{ inputs.app }}
           path: sqa_artifact
+      # Debug purpose
+      - name: Print Job Name
+        run: echo "The job name is $GITHUB_JOB"
 
       - name: List Check Runs
         id: list_check_runs
@@ -160,7 +163,6 @@ jobs:
         run: |
           CHECK_RUN_ID=$(jq -r --arg JOB_NAME "$GITHUB_JOB" '.check_runs[] | select(.name == $JOB_NAME) | .id' check_runs.json)
           echo "CHECK_RUN_ID=$CHECK_RUN_ID" >> $GITHUB_ENV
-
 
       - name: Send Workflow Name to Check Run
         env:
