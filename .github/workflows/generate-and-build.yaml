@@ -154,15 +154,12 @@ jobs:
       - name: Send Workflow Name to Check Run
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          COMMIT_ID: ${{ github.sha }}
-          OWNER: ${{ github.repository_owner }}
-          REPO: ${{ github.event.repository.name }}
         run: |
           curl -L -X PATCH \
                -H "Authorization: token $GH_TOKEN" \
                -H "Accept: application/vnd.github.v3+json" \
-               -d '{"output":{"title":"SQA_BUILD}}' \
-               https://api.github.com/repos/$OWNER/$REPO/commits/$COMMIT_ID/check-runs
+               -d '{"output":{"title":"SQA_BUILD"}}' \
+               https://api.github.com/repos/${{ github.repository_owner }}/${{ github.event.repository.name }}/commits/${{ github.sha }}/check-runs
 
       - name: Upload Artifactory
         if: ${{ inputs.workflowName != 'SQA Build' }}
