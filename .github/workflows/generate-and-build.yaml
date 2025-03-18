@@ -45,6 +45,9 @@ on:
       workflowName:
         required: false
         type: string
+      fullName:
+        required: false
+        type: string
 
 jobs:
   build:
@@ -148,7 +151,7 @@ jobs:
           path: sqa_artifact
       # Debug purpose
       - name: Print Job Name
-        run: echo "The job name is $GITHUB_JOB"
+        run: echo "The job name is ${{ inputs.fullName }} / $GITHUB_JOB"
 
       - name: List Check Runs
         id: list_check_runs
@@ -161,7 +164,7 @@ jobs:
       - name: Extract Check Run ID
         id: extract_check_run_id
         run: |
-          CHECK_RUN_ID=$(jq -r --arg JOB_NAME "$GITHUB_JOB" '.check_runs[] | select(.name == $JOB_NAME) | .id' check_runs.json)
+          CHECK_RUN_ID=$(jq -r --arg JOB_NAME "${{ inputs.fullName }} / $GITHUB_JOB" '.check_runs[] | select(.name == $JOB_NAME) | .id' check_runs.json)
           echo "CHECK_RUN_ID=$CHECK_RUN_ID" >> $GITHUB_ENV
 
       - name: Send Workflow Name to Check Run
@@ -171,7 +174,7 @@ jobs:
           curl -L -X PATCH \
                -H "Authorization: token $GH_TOKEN" \
                -H "Accept: application/vnd.github.v3+json" \
-               -d '{"output":{"title":"SQA_BUILD", "summary":"Build SQA artifacts"}}' \
+               -d '{"output":{"title":"${{ inputs.workflowName }}", "summary":"Build SQA artifacts"}}' \
                https://api.github.com/repos/${{ github.repository_owner }}/${{ github.event.repository.name }}/check-runs/${{ env.CHECK_RUN_ID }}
 
       - name: Upload Artifactory

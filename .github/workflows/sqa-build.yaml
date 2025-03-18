@@ -88,6 +88,7 @@ jobs:
       appType: ${{ matrix.appType }}
       technology: OpenThread
       workflowName: 'SQA Build'
+      fullName: ${{ matrix.app }}-${{ matrix.suffix }} ${{ matrix.addAppComponent}} ${{ matrix.board }} ${{ matrix.appType }}
 #
 #  ota_thread_v3:
 #    # Job triggered either automatically by release_ or main branch, or manual trigger (if needed)
