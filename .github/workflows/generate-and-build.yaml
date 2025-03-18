@@ -147,8 +147,9 @@ jobs:
           name: ${{ inputs.appType }}_${{ inputs.board }}_${{ inputs.technology }}_${{ inputs.app }}
           path: sqa_artifact
 
-      - name: Set Workflow Name
-        run: echo "WORKFLOW_NAME=${{ inputs.workflowName }}" >> $GITHUB_ENV
+      - name: Set Title
+        id: set_output
+        run: echo "::set-output name=title::${{ inputs.workflowName }}"
 
       - name: Upload Artifactory
         if: ${{ inputs.workflowName != 'SQA Build' }}
