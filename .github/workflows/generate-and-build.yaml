@@ -158,7 +158,7 @@ jobs:
       - name: Extract Check Run ID
         id: extract_check_run_id
         run: |
-          CHECK_RUN_ID=$(jq -r '.check_runs[0].id' check_runs.json)
+          CHECK_RUN_ID=$(jq -r --arg JOB_NAME "$GITHUB_JOB" '.check_runs[] | select(.name == $JOB_NAME) | .id' check_runs.json)
           echo "CHECK_RUN_ID=$CHECK_RUN_ID" >> $GITHUB_ENV
 
 
