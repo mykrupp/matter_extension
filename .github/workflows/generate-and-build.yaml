@@ -148,7 +148,17 @@ jobs:
           path: sqa_artifact
 
       - name: Set WorkFlow Name Variable
-        run: echo "Workflow_Name=${{ inputs.workflowName }}" >> $GITHUB_OUTPUT
+        id: set_workflow_name
+        run: echo "workflow_name=${{ inputs.workflowName }}" >> $GITHUB_OUTPUT
+
+      - name: Send Workflow Name to Check Run
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          curl -H "Authorization: token ${{ $GH_TOKEN }}" \
+               -H "Accept: application/vnd.github.v3+json" \
+               -d '{"workflow_name":"${{ steps.set_workflow_name.outputs.workflow_name }}"}' \
+               https://api.github.com/repos/OWNER/REPO/commits/COMMIT_ID/check-runs
 
       - name: Upload Artifactory
         if: ${{ inputs.workflowName != 'SQA Build' }}
