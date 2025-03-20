@@ -1,0 +1,60 @@
+name: Common Build
+
+on:
+    workflow_call:
+        inputs:
+            example-app:
+                required: true
+                type: string
+            output-directory:
+                required: true
+                type: string
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+
+        container:
+            image: ghcr.io/project-chip/chip-build-efr32:115
+
+        strategy:
+            fail-fast: false
+            matrix:
+                platform: [mg24]
+
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v4
+              with:
+                submodules: 'true'
+
+            - name: Install tools
+              uses: ./.github/actions/install-tools
+
+            - name: Copy matter_extension to simplicity_sdk and set Matter Extension Environment Variable
+              run: |
+                mkdir -p ${SISDK_ROOT}/extension
+                cd ..
+                cp -r matter_extension ${SISDK_ROOT}/extension
+                echo "MATTER_EXTN_ROOT=${SISDK_ROOT}extension/matter_extension" >> $GITHUB_ENV
+                echo "STUDIO_ADAPTER_PACK_PATH=/opt/silabs/zap-linux-x64" >> $GITHUB_ENV
+      
+            - name: SLC Trust
+              run: |
+                slc configuration --sdk ${SISDK_ROOT}
+                slc signature trust --development-trust
+                slc signature trust --extension-path "${MATTER_EXTN_ROOT}"
+                slc signature trust --extension-path "${WIFI_SDK_ROOT}"
+                slc signature trust --sdk ${SISDK_ROOT}
+                
+            - name: Build ${{ inputs.example-app }} configurations
+              uses: SiliconLabsSoftware/matter_build_action@v1.2.0
+              with:
+                  json-file-path: >                   
+                      ${{ matrix.platform == 'mg24' && './.github/silabs-builds-mg24.json' ||
+                          matrix.platform == 'mgm24' && './.github/silabs-builds-mgm24.json' ||
+                          matrix.platform == 'mg26' && './.github/silabs-builds-mg26.json' ||
+                          matrix.platform == 'siwx' && './.github/silabs-builds-siwx.json' }}
+                  example-app: ${{ inputs.example-app }}
+                  build-script: "./slc/sl_build.py"
+                  output-directory: ${{ inputs.output-directory }}
