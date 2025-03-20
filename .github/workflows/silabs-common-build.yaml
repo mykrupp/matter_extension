@@ -43,9 +43,9 @@ jobs:
               run: |
                 slc configuration --sdk ${SISDK_ROOT}
                 slc signature trust --development-trust
-                slc signature trust --extension-path "${MATTER_EXTN_ROOT}"
-                slc signature trust --extension-path "${WIFI_SDK_ROOT}"
+                slc signature trust --extension-path "${MATTER_EXTN_ROOT}" 
                 slc signature trust --sdk ${SISDK_ROOT}
+          # TODO fix      slc signature trust --extension-path "${WIFI_SDK_ROOT}"
                 
             - name: Build ${{ inputs.example-app }} configurations
               uses: SiliconLabsSoftware/matter_build_action@v1.2.0
