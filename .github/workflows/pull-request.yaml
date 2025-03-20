@@ -1,129 +1,115 @@
-name: PR Build
+name: Build Silabs Examples apps
 
 on:
-  push:
-  pull_request:
+    push:
+# TODO add these lines back       branches:
+#            - main
+#            - "release_*"
+    pull_request:
+        branches:
+            - main
+            - "release_*"
+    workflow_dispatch:
+
+concurrency:
+    group: silabs-build-examples-${{ github.ref }}
+    cancel-in-progress: true
 
 jobs:
-  efr32:
-    strategy:
-      matrix:
-        # Every app builds for every board and suffix
-        app: [dishwasher-app, light-switch-app, lighting-app, lock-app, onoff-plug-app, sensor-app, window-app]
-        board: [brd4187c, brd4316a, brd4337a]
-        suffix: [thread]
-        # Build only specific combinations of app, board and suffix
-        include:
-          # Thread boards that have thermostats
-          - app: thermostat
-            board: brd4187c
-            suffix: thread
-          - app: thermostat
-            board: brd4316a
-            suffix: thread
-          # Wi-Fi NCP combos
-          - app: thermostat
-            board: brd4187c
-            suffix: 917-ncp
-          - app: thermostat
-            board: brd4187c
-            suffix: rs911x
-          - app: thermostat
-            board: brd4187c
-            suffix: wf200
-          - app: lock-app
-            board: brd4187c
-            suffix: 917-ncp
-          - app: lock-app
-            board: brd4187c
-            suffix: rs911x
-          - app: lock-app
-            board: brd4187c
-            suffix: wf200  
-          - app: window-app
-            board: brd4187c
-            suffix: 917-ncp          
+    build-lighting-app:
+        name: Build Lighting-App variations
+        uses: ./.github/workflows/silabs-common-build.yaml
+        with:
+            example-app: "lighting-app"
+            output-directory: "./out/lighting-app"
 
-    name: ${{ matrix.app }}-${{ matrix.suffix }} ${{ matrix.board }} 
-    uses: ./.github/workflows/generate-and-build.yaml
-    with:
-      app: ${{ matrix.app }}
-      board: ${{ matrix.board }}
-      suffix: ${{ matrix.suffix }}
-      family: series-2
+    build-air-quality-sensor-app:
+        name: Build Air-Quality-Sensor-App variations
+        uses: ./.github/workflows/silabs-common-build.yaml
+        with:
+            example-app: "air-quality-sensor-app"
+            output-directory: "./out/air-quality-sensor-app"
 
-  siwx917:
-    strategy:
-      matrix:
-        # Every app builds for every board and suffix
-        app: [dishwasher-app, light-switch-app, lighting-app, lock-app, onoff-plug-app, sensor-app, window-app]
-        board: [brd4338a, brd4342a]
-        suffix: [917-soc]
+    build-dishwasher-app:
+        name: Build Dishwasher-App variations
+        uses: ./.github/workflows/silabs-common-build.yaml
+        with:
+            example-app: "dishwasher-app"
+            output-directory: "./out/dishwasher-app"
 
-    name: ${{ matrix.app }}-${{ matrix.suffix }} ${{ matrix.board }} 
+    build-light-switch-app:
+        name: Build Light-Switch-App variations
+        uses: ./.github/workflows/silabs-common-build.yaml
+        with:
+            example-app: "light-switch-app"
+            output-directory: "./out/light-switch-app"
 
-    uses: ./.github/workflows/generate-and-build.yaml
-    with:
-      app: ${{ matrix.app }}
-      board: ${{ matrix.board }}
-      board_extension: ;wiseconnect3_sdk
-      suffix: ${{ matrix.suffix }}
-      family: siwx917
+    build-lock-app:
+        name: Build Lock-App variations
+        uses: ./.github/workflows/silabs-common-build.yaml
+        with:
+            example-app: "lock-app"
+            output-directory: "./out/lock-app"
 
-  cmp:
-    strategy:
-      matrix:
-        # Every app builds for every board and suffix
-        app: [zigbee-matter]
-        board: [brd4187c, brd4116a, brd4117a, brd4118a]
-        suffix: [light]
-        addAppComponent: [matter_zigbee_concurrent;matter, matter_zigbee_sequential;matter]
+    build-thermostat:
+        name: Build Thermostat variations
+        uses: ./.github/workflows/silabs-common-build.yaml
+        with:
+            example-app: "thermostat"
+            output-directory: "./out/thermostat"
 
-    name: ${{ matrix.app }}-${{ matrix.suffix }} ${{ matrix.addAppComponent}} ${{ matrix.board }} 
+    build-pump-app:
+        name: Build Pump-App variations
+        uses: ./.github/workflows/silabs-common-build.yaml
+        with:
+            example-app: "pump-app"
+            output-directory: "./out/pump-app"
 
-    uses: ./.github/workflows/generate-and-build.yaml
-    with:
-      app: ${{ matrix.app }}
-      board: ${{ matrix.board }}
-      suffix: ${{ matrix.suffix }}
-      addAppComponent: ${{ matrix.addAppComponent }}
-      family: series-2
+    build-window-app:
+        name: Build Window-App variations
+        uses: ./.github/workflows/silabs-common-build.yaml
+        with:
+            example-app: "window-app"
+            output-directory: "./out/window-app"
 
-  copy-sources:
-    strategy:
-      matrix:
-        include:
-          - app: sensor-app
-            board: brd4187c
-            suffix: thread
-            family: series-2
-          - app: thermostat
-            board: brd4187c
-            suffix: rs911x
-            family: series-2
-          - app: lock-app
-            board: brd4187c
-            suffix: wf200
-            family: series-2
-          - app: window-app
-            board: brd4187c
-            suffix: 917-ncp
-            family: series-2
-          - app: lighting-app
-            board: brd4338a
-            board_extension: ;wiseconnect3_sdk
-            suffix: 917-soc
-            family: siwx917            
+    build-smoke-co-alarm:
+        name: Build Smoke-CO-Alarm variations
+        uses: ./.github/workflows/silabs-common-build.yaml
+        with:
+            example-app: "smoke-co-alarm-app"
+            output-directory: "./out/smoke-co-alarm-app"
 
-    name: copy-sources ${{ matrix.app }}-${{ matrix.suffix }} ${{ matrix.board }} 
+    build-lit-icd-app:
+        name: Build Lit-ICD-App variations
+        uses: ./.github/workflows/silabs-common-build.yaml
+        with:
+            example-app: "lit-icd-app"
+            output-directory: "./out/lit-icd-app"
 
-    uses: ./.github/workflows/generate-and-build.yaml
-    with:
-      app: ${{ matrix.app }}
-      board: ${{ matrix.board }}
-      board_extension: ${{ matrix.board_extension }}
-      suffix: ${{ matrix.suffix }}
-      family: ${{ matrix.family }}
-      optionalSlcParams: copy-sources
-    
-      
+    build-refrigerator-app:
+        name: Build Refrigerator-App variations
+        uses: ./.github/workflows/silabs-common-build.yaml
+        with:
+            example-app: "refrigerator-app"
+            output-directory: "./out/refrigerator-app"
+
+    build-fan-control-app:
+        name: Build Fan-Control-App variations
+        uses: ./.github/workflows/silabs-common-build.yaml
+        with:
+            example-app: "fan-control-app"
+            output-directory: "./out/fan-control-app"
+
+    build-multi-sensor-app:
+        name: Build Multi-Sensor-App variations
+        uses: ./.github/workflows/silabs-common-build.yaml
+        with:
+            example-app: "multi-sensor-app"
+            output-directory: "./out/multi-sensor-app"
+
+    build-onoff-plug-app:
+        name: Build OnOff-Plug-App variations
+        uses: ./.github/workflows/silabs-common-build.yaml
+        with:
+            example-app: "onoff-plug-app"
+            output-directory: "./out/onoff-plug-app"

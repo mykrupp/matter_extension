@@ -11,7 +11,7 @@ class createApp:
     def __init__(self):
         self.EXAMPLE_USAGE = "python slc/sl_create_new_app.py <NewAppName> <PathToReferenceProjectFile(.slcp or .slcw)> <SilabsBoard>"
         self.SoC_boards = ["brd4338a"]
-        self.get_environment()
+        # TODO uncomment this self.get_environment()
 
     def print_usage_and_exit(self):
         print("Example usage:", self.EXAMPLE_USAGE)
