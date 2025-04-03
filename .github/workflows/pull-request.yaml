@@ -21,6 +21,7 @@ jobs:
         uses: ./.github/workflows/silabs-common-build.yaml
         with:
             example-app: "lighting-app"
+            path-to-example-app: "slc/sample-app/lighting-app/efr32"
             output-directory: "./out/lighting-app"
 
     build-air-quality-sensor-app:
@@ -28,6 +29,7 @@ jobs:
         uses: ./.github/workflows/silabs-common-build.yaml
         with:
             example-app: "air-quality-sensor-app"
+            path-to-example-app: "slc/sample-app/air-quality-sensor-app/efr32"            
             output-directory: "./out/air-quality-sensor-app"
 
     build-dishwasher-app:
@@ -35,6 +37,7 @@ jobs:
         uses: ./.github/workflows/silabs-common-build.yaml
         with:
             example-app: "dishwasher-app"
+            path-to-example-app: "slc/sample-app/dishwasher-app/efr32"
             output-directory: "./out/dishwasher-app"
 
     build-light-switch-app:
@@ -42,6 +45,7 @@ jobs:
         uses: ./.github/workflows/silabs-common-build.yaml
         with:
             example-app: "light-switch-app"
+            path-to-example-app: "slc/sample-app/light-switch-app/efr32"
             output-directory: "./out/light-switch-app"
 
     build-lock-app:
@@ -49,6 +53,7 @@ jobs:
         uses: ./.github/workflows/silabs-common-build.yaml
         with:
             example-app: "lock-app"
+            path-to-example-app: "slc/sample-app/lock-app/efr32"
             output-directory: "./out/lock-app"
 
     build-thermostat:
@@ -56,48 +61,23 @@ jobs:
         uses: ./.github/workflows/silabs-common-build.yaml
         with:
             example-app: "thermostat"
-            output-directory: "./out/thermostat"
-
-    build-pump-app:
-        name: Build Pump-App variations
-        uses: ./.github/workflows/silabs-common-build.yaml
-        with:
-            example-app: "pump-app"
-            output-directory: "./out/pump-app"
+            path-to-example-app: "slc/sample-app/thermostat/efr32"
+            output-directory: "./out/thermostat" 
 
     build-window-app:
         name: Build Window-App variations
         uses: ./.github/workflows/silabs-common-build.yaml
         with:
             example-app: "window-app"
+            path-to-example-app: "slc/sample-app/window-app/efr32"
             output-directory: "./out/window-app"
-
-    build-smoke-co-alarm:
-        name: Build Smoke-CO-Alarm variations
-        uses: ./.github/workflows/silabs-common-build.yaml
-        with:
-            example-app: "smoke-co-alarm-app"
-            output-directory: "./out/smoke-co-alarm-app"
-
-    build-lit-icd-app:
-        name: Build Lit-ICD-App variations
-        uses: ./.github/workflows/silabs-common-build.yaml
-        with:
-            example-app: "lit-icd-app"
-            output-directory: "./out/lit-icd-app"
-
-    build-refrigerator-app:
-        name: Build Refrigerator-App variations
-        uses: ./.github/workflows/silabs-common-build.yaml
-        with:
-            example-app: "refrigerator-app"
-            output-directory: "./out/refrigerator-app"
 
     build-fan-control-app:
         name: Build Fan-Control-App variations
         uses: ./.github/workflows/silabs-common-build.yaml
         with:
             example-app: "fan-control-app"
+            path-to-example-app: "slc/sample-app/fan-control-app/efr32"
             output-directory: "./out/fan-control-app"
 
     build-multi-sensor-app:
@@ -105,6 +85,7 @@ jobs:
         uses: ./.github/workflows/silabs-common-build.yaml
         with:
             example-app: "multi-sensor-app"
+            path-to-example-app: "slc/sample-app/sensor-app/efr32"
             output-directory: "./out/multi-sensor-app"
 
     build-onoff-plug-app:
@@ -112,4 +93,5 @@ jobs:
         uses: ./.github/workflows/silabs-common-build.yaml
         with:
             example-app: "onoff-plug-app"
+            path-to-example-app: "slc/sample-app/onoff-plug-app/efr32"
             output-directory: "./out/onoff-plug-app"
