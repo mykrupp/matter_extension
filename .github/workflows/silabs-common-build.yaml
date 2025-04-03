@@ -9,6 +9,9 @@ on:
             output-directory:
                 required: true
                 type: string
+            build-type:
+                required: true
+                type: string
 
 jobs:
     build:
@@ -59,3 +62,4 @@ jobs:
                   example-app: ${{ inputs.example-app }}
                   build-script: "./slc/sl_build.py"
                   output-directory: ${{ inputs.output-directory }}
+                  build-type: ${{ inputs.build-type }}

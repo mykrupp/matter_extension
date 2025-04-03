@@ -2,19 +2,8 @@
     "default": [
         {
             "boards": ["brd4186c", "brd4187c", "brd2601b", "brd2703a"],
-            //"arguments": ["-thread"]
-        }//,
-//        {
-//            "boards": ["BRD4187C"],
-//            "arguments": ["-917-ncp"]
-//        },
-//        {
-//            "boards": ["BRD4187C"],
-//            "arguments": ["-rs911x"]
-//        },
-//        {
-//            "boards": ["BRD4187C"],
-//            "arguments": ["-wf200"]
-//        }
+            "arguments": [""]
+        }
+
     ]
 }

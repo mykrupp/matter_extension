@@ -22,6 +22,7 @@ jobs:
         with:
             example-app: "lighting-app"
             output-directory: "./out/lighting-app"
+            build-type: "standard"
 
     build-air-quality-sensor-app:
         name: Build Air-Quality-Sensor-App variations
@@ -29,6 +30,8 @@ jobs:
         with:
             example-app: "air-quality-sensor-app"
             output-directory: "./out/air-quality-sensor-app"
+            build-type: "standard"
+
 
     build-dishwasher-app:
         name: Build Dishwasher-App variations
@@ -36,6 +39,8 @@ jobs:
         with:
             example-app: "dishwasher-app"
             output-directory: "./out/dishwasher-app"
+            build-type: "standard"
+
 
     build-light-switch-app:
         name: Build Light-Switch-App variations
@@ -43,6 +48,8 @@ jobs:
         with:
             example-app: "light-switch-app"
             output-directory: "./out/light-switch-app"
+            build-type: "standard"
+
 
     build-lock-app:
         name: Build Lock-App variations
@@ -50,6 +57,8 @@ jobs:
         with:
             example-app: "lock-app"
             output-directory: "./out/lock-app"
+            build-type: "standard"
+
 
     build-thermostat:
         name: Build Thermostat variations
@@ -57,6 +66,8 @@ jobs:
         with:
             example-app: "thermostat"
             output-directory: "./out/thermostat" 
+            build-type: "standard"
+
 
     build-window-app:
         name: Build Window-App variations
@@ -64,6 +75,8 @@ jobs:
         with:
             example-app: "window-app"
             output-directory: "./out/window-app"
+            build-type: "standard"
+
 
     build-fan-control-app:
         name: Build Fan-Control-App variations
@@ -71,13 +84,17 @@ jobs:
         with:
             example-app: "fan-control-app"
             output-directory: "./out/fan-control-app"
+            build-type: "standard"
+
 
     build-multi-sensor-app:
         name: Build Multi-Sensor-App variations
         uses: ./.github/workflows/silabs-common-build.yaml
         with:
-            example-app: "multi-sensor-app"
-            output-directory: "./out/multi-sensor-app"
+            example-app: "sensor-app"
+            output-directory: "./out/sensor-app"
+            build-type: "standard"
+
 
     build-onoff-plug-app:
         name: Build OnOff-Plug-App variations
@@ -85,3 +102,4 @@ jobs:
         with:
             example-app: "onoff-plug-app"
             output-directory: "./out/onoff-plug-app"
+            build-type: "standard"
