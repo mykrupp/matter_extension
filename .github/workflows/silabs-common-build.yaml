@@ -61,5 +61,6 @@ jobs:
                   path-to-example-app: slc/sample-app/${{ inputs.example-app }}/efr32/${{ inputs.example-app }}-thread.slcp
                   example-app: ${{ inputs.example-app }}
                   build-script: "./slc/build.sh"
-                  output-directory: ${{ inputs.output-directory }}
+                  #output-directory: ${{ inputs.output-directory }}
+                  output-directory: " "
                   build-type: ${{ inputs.build-type }}
