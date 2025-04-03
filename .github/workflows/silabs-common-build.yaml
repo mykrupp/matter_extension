@@ -55,6 +55,7 @@ jobs:
                           matrix.platform == 'mgm24' && './.github/silabs-builds-mgm24.json' ||
                           matrix.platform == 'mg26' && './.github/silabs-builds-mg26.json' ||
                           matrix.platform == 'siwx' && './.github/silabs-builds-siwx.json' }}
+                  path-to-example-app: slc/sample-app/${{ inputs.example-app }}/efr32
                   example-app: ${{ inputs.example-app }}
                   build-script: "./slc/sl_build.py"
                   output-directory: ${{ inputs.output-directory }}
