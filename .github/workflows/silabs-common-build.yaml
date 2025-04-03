@@ -51,7 +51,7 @@ jobs:
           # TODO fix      slc signature trust --extension-path "${WIFI_SDK_ROOT}"
                 
             - name: Build ${{ inputs.example-app }} configurations
-              uses: SiliconLabsSoftware/matter_build_action@c8bf467bfef32eeddea061a1c3928abf1deb4ab4
+              uses: SiliconLabsSoftware/matter_build_action@3fa7357e526337fb8f370a20158b8857aeb708ab
               with:
                   json-file-path: >                   
                       ${{ matrix.platform == 'mg24' && './.github/silabs-builds-mg24.json' ||
