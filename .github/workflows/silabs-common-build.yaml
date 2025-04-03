@@ -60,6 +60,6 @@ jobs:
                           matrix.platform == 'siwx' && './.github/silabs-builds-siwx.json' }}
                   path-to-example-app: slc/sample-app/${{ inputs.example-app }}/efr32
                   example-app: ${{ inputs.example-app }}
-                  build-script: "./slc/sl_build.py"
+                  build-script: "./slc/build.sh"
                   output-directory: ${{ inputs.output-directory }}
                   build-type: ${{ inputs.build-type }}
