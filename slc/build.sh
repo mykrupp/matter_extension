@@ -36,7 +36,6 @@ SILABS_APP_PATH=$1
 SILABS_BOARD=$2
 CONFIG_ARGS=""
 BRD_ONLY=$(echo $SILABS_BOARD | cut -f1 -d";")
-export POST_BUILD_EXE=$(which commander)
 
 # Determine vars based on project type provided (.slcw solution example or .slcp project example file)
 if [[ "$SILABS_APP_PATH" == *.slcw ]]; then
