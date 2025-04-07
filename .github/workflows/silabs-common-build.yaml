@@ -41,12 +41,12 @@ jobs:
                 echo "MATTER_EXTN_ROOT=${SISDK_ROOT}extension/matter_extension" >> $GITHUB_ENV
                 echo "STUDIO_ADAPTER_PACK_PATH=/opt/silabs/zap-linux-x64" >> $GITHUB_ENV
       
-            - name: SLC Trust
-              run: |
-                slc configuration --sdk ${SISDK_ROOT}
-                slc signature trust --development-trust
-                slc signature trust --extension-path "${MATTER_EXTN_ROOT}" 
-                slc signature trust --sdk ${SISDK_ROOT}
+#            - name: SLC Trust
+#              run: |
+#                slc configuration --sdk ${SISDK_ROOT}
+#                slc signature trust --development-trust
+#                slc signature trust --extension-path "${MATTER_EXTN_ROOT}" 
+#                slc signature trust --sdk ${SISDK_ROOT}
           # TODO fix      slc signature trust --extension-path "${WIFI_SDK_ROOT}"
                 
             - name: Build ${{ inputs.example-app }} configurations
