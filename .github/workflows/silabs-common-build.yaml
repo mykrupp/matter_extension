@@ -43,7 +43,7 @@ jobs:
                 echo "ADDITIONAL_APP_ARGS=thread" >> $GITHUB_ENV
 
             - name: Path to example app string
-              if: ${{ inputs.platform == 'siwx'}}
+              if: ${{ matrix.platform == 'siwx'}}
               run: echo "ADDITIONAL_APP_ARGS=917-soc" >> $GITHUB_ENV
                 
             - name: Build ${{ inputs.example-app }} configurations
