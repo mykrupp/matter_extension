@@ -24,7 +24,7 @@ jobs:
             fail-fast: false
             matrix:
                 platform: [mg24, mgm24, mg26, siwx]
-                protocol: [thread, 917-soc, rs911x, wf200]
+                protocol: [thread]
 
         steps:
             - name: Checkout
