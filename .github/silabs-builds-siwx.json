@@ -2,7 +2,7 @@
     "standard": {
         "default": [
             {
-                "boards": ["brd4338a;wiseconnect", "brd2605a;wiseconnect", "brd4343a;wiseconnect", "brd4342a;wiseconnect"],
+                "boards": ["brd4338a\;wiseconnect", "brd2605a\;wiseconnect", "brd4343a\;wiseconnect", "brd4342a\;wiseconnect"],
                 "arguments": [""]
             }
         ]
