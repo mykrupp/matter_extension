@@ -35,12 +35,11 @@ jobs:
             - name: Install tools
               uses: ./.github/actions/install-tools
 
-            - name: Copy matter_extension to simplicity_sdk and set Matter Extension Environment Variable
+            - name: git lfs pull and set STUDIO_ADAPTER_PACK_PATH
               run: |
                 cd third_party/simplicity_sdk
                 git lfs install
                 git lfs pull
-                echo "MATTER_EXTN_ROOT=${SISDK_ROOT}extension/matter_extension" >> $GITHUB_ENV
                 echo "STUDIO_ADAPTER_PACK_PATH=/opt/silabs/zap-linux-x64" >> $GITHUB_ENV
                 
             - name: Build ${{ inputs.example-app }} configurations

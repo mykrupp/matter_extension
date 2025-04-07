@@ -1,0 +1,10 @@
+{
+    "standard": {
+        "default": [
+            {
+                "boards": ["BRD4116A", "BRD4117A", "BRD4118A", "BRD2608A"],
+                "arguments": [""]
+            }
+        ]
+    }
+}
