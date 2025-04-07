@@ -37,17 +37,10 @@ jobs:
             - name: Copy matter_extension to simplicity_sdk and set Matter Extension Environment Variable
               run: |
                 cd third_party/simplicity_sdk
+                git lfs install
                 git lfs pull
                 echo "MATTER_EXTN_ROOT=${SISDK_ROOT}extension/matter_extension" >> $GITHUB_ENV
                 echo "STUDIO_ADAPTER_PACK_PATH=/opt/silabs/zap-linux-x64" >> $GITHUB_ENV
-      
-#            - name: SLC Trust
-#              run: |
-#                slc configuration --sdk ${SISDK_ROOT}
-#                slc signature trust --development-trust
-#                slc signature trust --extension-path "${MATTER_EXTN_ROOT}" 
-#                slc signature trust --sdk ${SISDK_ROOT}
-          # TODO fix      slc signature trust --extension-path "${WIFI_SDK_ROOT}"
                 
             - name: Build ${{ inputs.example-app }} configurations
               uses: SiliconLabsSoftware/matter_build_action@3fa7357e526337fb8f370a20158b8857aeb708ab
