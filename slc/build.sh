@@ -31,7 +31,7 @@
 
 
 MATTER_ROOT=$( pwd -P )
-GSDK_ROOT=$MATTER_ROOT/../..
+GSDK_ROOT=$MATTER_ROOT/third_party/simplicity_sdk
 SILABS_APP_PATH=$1
 SILABS_BOARD=$2
 CONFIG_ARGS=""

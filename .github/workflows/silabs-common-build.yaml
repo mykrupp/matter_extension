@@ -36,9 +36,8 @@ jobs:
 
             - name: Copy matter_extension to simplicity_sdk and set Matter Extension Environment Variable
               run: |
-                mkdir -p ${SISDK_ROOT}/extension
-                cd ..
-                cp -r matter_extension ${SISDK_ROOT}/extension
+                rm -rf third_party/simplicity_sdk
+                cp -r ${SISDK_ROOT} third_party
                 echo "MATTER_EXTN_ROOT=${SISDK_ROOT}extension/matter_extension" >> $GITHUB_ENV
                 echo "STUDIO_ADAPTER_PACK_PATH=/opt/silabs/zap-linux-x64" >> $GITHUB_ENV
       
