@@ -23,7 +23,8 @@ jobs:
         strategy:
             fail-fast: false
             matrix:
-                platform: [mg24]
+                platform: [mg24, mgm24, mg26, siwx]
+                protocol: [thread, 917-soc, rs911x, wf200]
 
         steps:
             - name: Checkout
@@ -50,7 +51,7 @@ jobs:
                           matrix.platform == 'mgm24' && './.github/silabs-builds-mgm24.json' ||
                           matrix.platform == 'mg26' && './.github/silabs-builds-mg26.json' ||
                           matrix.platform == 'siwx' && './.github/silabs-builds-siwx.json' }}
-                  path-to-example-app: slc/sample-app/${{ inputs.example-app }}/efr32/${{ inputs.example-app }}-thread.slcp
+                  path-to-example-app: slc/sample-app/${{ inputs.example-app }}/efr32/${{ inputs.example-app }}-${{ matrix.protocol}}.slcp
                   example-app: ${{ inputs.example-app }}
                   build-script: "./slc/build.sh"
                   #output-directory: ${{ inputs.output-directory }}
