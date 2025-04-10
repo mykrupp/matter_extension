@@ -143,15 +143,15 @@ configuration:
   - {name: SL_ULPUART_DMA_CONFIG_ENABLE, value: '0'}
 
 config_file:
-  - path: ../../../../third_party/matter_sdk/examples/lighting-app/silabs/data_model/lighting-wifi-app.zap
+  - path: ../../../third_party/matter_sdk/examples/lighting-app/silabs/data_model/lighting-wifi-app.zap
     directory: common
     file_id: zap_config
-  - path: ../../../../provision.mattpconf
+  - path: ../../../provision.mattpconf
     directory: provision
     file_id: provision_config
 
 include:
-  - path: ../../../../third_party/matter_sdk/examples/lighting-app/silabs/include
+  - path: ../../../third_party/matter_sdk/examples/lighting-app/silabs/include
     file_list:
       - path: AppConfig.h
       - path: AppEvent.h
@@ -161,13 +161,13 @@ include:
     directory: include
 
 source:
-  - path: ../../../../third_party/matter_sdk/examples/lighting-app/silabs/src/AppTask.cpp
+  - path: ../../../third_party/matter_sdk/examples/lighting-app/silabs/src/AppTask.cpp
     directory: src
-  - path: ../../../../third_party/matter_sdk/examples/lighting-app/silabs/src/LightingManager.cpp
+  - path: ../../../third_party/matter_sdk/examples/lighting-app/silabs/src/LightingManager.cpp
     directory: src
-  - path: ../../../../third_party/matter_sdk/examples/platform/silabs/main.cpp
+  - path: ../../../third_party/matter_sdk/examples/platform/silabs/main.cpp
     directory: src
-  - path: ../../../../third_party/matter_sdk/examples/lighting-app/silabs/src/ZclCallbacks.cpp
+  - path: ../../../third_party/matter_sdk/examples/lighting-app/silabs/src/ZclCallbacks.cpp
     directory: src
 
 define:

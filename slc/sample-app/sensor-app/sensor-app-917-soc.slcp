@@ -135,15 +135,15 @@ component:
     id: ulp_timers_instance
 
 config_file:
-  - path: ../../../../examples/silabs-sensors/data_model/sensor-wifi-app.zap
+  - path: ../../../examples/silabs-sensors/data_model/sensor-wifi-app.zap
     directory: common
     file_id: zap_config
-  - path: ../../../../provision.mattpconf
+  - path: ../../../provision.mattpconf
     directory: provision
     file_id: provision_config
 
 include:
-  - path: ../../../../examples/silabs-sensors/include
+  - path: ../../../examples/silabs-sensors/include
     file_list:
       - path: AppConfig.h
       - path: AppEvent.h
@@ -156,17 +156,17 @@ include:
     directory: include
 
 source:
-  - path: ../../../../examples/silabs-sensors/src/AppTask.cpp
+  - path: ../../../examples/silabs-sensors/src/AppTask.cpp
     directory: src
-  - path: ../../../../examples/silabs-sensors/src/SensorsCallbacks.cpp
+  - path: ../../../examples/silabs-sensors/src/SensorsCallbacks.cpp
     directory: src
-  - path: ../../../../examples/silabs-sensors/src/SensorsUI.cpp
+  - path: ../../../examples/silabs-sensors/src/SensorsUI.cpp
     directory: src
     condition:
     - matter_lcd_917SOC
-  - path: ../../../../third_party/matter_sdk/examples/platform/silabs/main.cpp
+  - path: ../../../third_party/matter_sdk/examples/platform/silabs/main.cpp
     directory: src
-  - path: ../../../../examples/silabs-sensors/src/ZclCallbacks.cpp
+  - path: ../../../examples/silabs-sensors/src/ZclCallbacks.cpp
     directory: src
 
 define:
