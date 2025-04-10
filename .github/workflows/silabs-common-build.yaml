@@ -43,7 +43,7 @@ jobs:
                 echo "ADDITIONAL_APP_ARGS=thread" >> $GITHUB_ENV
 
             - name: Path to example app string
-              if: ${{ matrix.platform == '917-soc' || matrix.platform == '917-ncp' || matrix.platform == 'wf200' || matrix.platform == 'rs9116' }}
+              if: ${{ matrix.platform == '917-soc' || matrix.platform == '917-ncp' || matrix.platform == 'wf200' || matrix.platform == 'rs911x' }}
               run: |
                 echo "ADDITIONAL_APP_ARGS=${{ matrix.platform }}" >> $GITHUB_ENV          
                 
@@ -57,7 +57,7 @@ jobs:
                           matrix.platform == 'rs911x' && './.github/silabs-builds-mg24.json' ||
                           matrix.platform == 'mgm24' && './.github/silabs-builds-mgm24.json' ||
                           matrix.platform == 'mg26' && './.github/silabs-builds-mg26.json' ||
-                          matrix.platform == 'siwx' && './.github/silabs-builds-siwx.json' }}
+                          matrix.platform == '917-soc' && './.github/silabs-builds-siwx.json' }}
                   path-to-example-app: slc/sample-app/${{ inputs.example-app }}/${{ inputs.example-app }}-${ADDITIONAL_APP_ARGS}.slcp
                   example-app: ${{ inputs.example-app }}
                   build-script: "./slc/build.sh"
