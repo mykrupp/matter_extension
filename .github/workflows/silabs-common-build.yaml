@@ -43,11 +43,7 @@ jobs:
                 echo "ADDITIONAL_APP_ARGS=thread" >> $GITHUB_ENV
 
             - name: Path to example app string
-              if: |
-                ${{ (matrix.platform  == '917-soc') ||
-                ( matrix.platform  == '917-ncp' && ( inputs.example-app  == 'lock-app' ||  inputs.example-app  == 'thermostat' ||  inputs.example-app  == 'window-app')) ||
-                ( matrix.platform  == 'wf200' && ( inputs.example-app  == 'lock-app' ||  inputs.example-app  == 'thermostat' )) || 
-                ( matrix.platform  == 'rs911x' && ( inputs.example-app  == 'lock-app' ||  inputs.example-app  == 'thermostat' )) }}
+              if: ${{ (matrix.platform  == '917-soc') || ( matrix.platform  == '917-ncp' && ( inputs.example-app  == 'lock-app' ||  inputs.example-app  == 'thermostat' ||  inputs.example-app  == 'window-app')) || ( matrix.platform  == 'wf200' && ( inputs.example-app  == 'lock-app' ||  inputs.example-app  == 'thermostat' )) || ( matrix.platform  == 'rs911x' && ( inputs.example-app  == 'lock-app' ||  inputs.example-app  == 'thermostat' )) }}
               run: |
                 echo "ADDITIONAL_APP_ARGS=${{ matrix.platform }}" >> $GITHUB_ENV          
                 
