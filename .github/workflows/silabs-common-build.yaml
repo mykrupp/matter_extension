@@ -41,7 +41,7 @@ jobs:
                 git lfs pull
                 echo "STUDIO_ADAPTER_PACK_PATH=/opt/silabs/zap-linux-x64" >> $GITHUB_ENV
                 echo "ADDITIONAL_APP_ARGS=thread" >> $GITHUB_ENV
-                echo "SILABS_PLATFORM=efr32"
+                echo "SILABS_PLATFORM=efr32" >> $GITHUB_ENV
 
             - name: Path to example app string
               if: ${{ matrix.platform == 'siwx'}}
