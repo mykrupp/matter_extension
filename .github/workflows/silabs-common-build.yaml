@@ -23,7 +23,7 @@ jobs:
         strategy:
             fail-fast: false
             matrix:
-                platform: [mg24, mgm24, mg26, 917-soc, 917-ncp, wf200, rs9116]
+                platform: [mg24, mgm24, mg26, 917-soc, 917-ncp, wf200, rs911x]
 
         steps:
             - name: Checkout
@@ -52,6 +52,9 @@ jobs:
               with:
                   json-file-path: >                   
                       ${{ matrix.platform == 'mg24' && './.github/silabs-builds-mg24.json' ||
+                          matrix.platform == '917-ncp' && './.github/silabs-builds-mg24.json' ||
+                          matrix.platform == 'wf200' && './.github/silabs-builds-mg24.json' ||
+                          matrix.platform == 'rs911x' && './.github/silabs-builds-mg24.json' ||
                           matrix.platform == 'mgm24' && './.github/silabs-builds-mgm24.json' ||
                           matrix.platform == 'mg26' && './.github/silabs-builds-mg26.json' ||
                           matrix.platform == 'siwx' && './.github/silabs-builds-siwx.json' }}
