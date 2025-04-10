@@ -1,7 +1,7 @@
-project_name: dishwasher-app-917-soc
-label: Matter Dishwasher
+project_name: onoff-plug-app-917-soc
+label: Matter Onoff Plug
 description: >
-  Matter Dishwasher App
+  Matter Onoff Plug App
 quality: production
 package: Matter
 
@@ -20,28 +20,28 @@ component:
     from: matter
   - id: matter_crypto_tinycrypt_siwx917
     from: matter
-
-  - id: matter_wifi
+  - id: matter_fw_upgrade_917
     from: matter
-
-  - id: matter_dishwasher
+  - id: matter_wifi
     from: matter
   - id: app_common
     from: matter
   - id: matter_provision_flash
     from: matter
 
+  - id: matter_onoff_plug
+    from: matter   
   - id: matter_access_control
     from: matter
   - id: matter_administrator_commissioning
     from: matter
   - id: matter_basic_information
     from: matter
-  - id: matter_bindings
-    from: matter
   - id: matter_descriptor
     from: matter
   - id: matter_diagnostic_logs
+    from: matter
+  - id: matter_ethernet_network_diagnostics
     from: matter
   - id: matter_fixed_label
     from: matter
@@ -51,17 +51,33 @@ component:
     from: matter
   - id: matter_group_key_mgmt
     from: matter
+  - id: matter_groups
+    from: matter
   - id: matter_identify
+    from: matter
+  - id: matter_level_control
     from: matter
   - id: matter_localization_configuration
     from: matter
   - id: matter_network_commissioning
     from: matter
+  - id: matter_on_off
+    from: matter
+  - id: matter_scenes
+    from: matter
   - id: matter_operational_credentials
     from: matter
-  - id: matter_operational_state
+  - id: matter_bridged_device_basic_information
+    from: matter 
+  - id: matter_ota_requestor
+    from: matter
+  - id: matter_ota_support
     from: matter
   - id: matter_software_diagnostics
+    from: matter 
+  - id: matter_switch
+    from: matter
+  - id: matter_thread_network_diagnostics
     from: matter
   - id: matter_time_format_localization
     from: matter
@@ -69,25 +85,21 @@ component:
     from: matter
   - id: matter_wifi_network_diagnostics
     from: matter
-  # Override configuration for JTAG use
-  - id: matter_configuration_over_swo
-    from: matter
-  - id: segger_rtt 
-  - id: matter_ota_requestor
+  - id: matter_bindings
     from: matter
   - id: toolchain_gcc_common
     from: matter
-  - id: matter_power_source
-    from: matter
-  - id: matter_ota_support
-    from: matter
-  - id: matter_fw_upgrade_917
+  - id: matter_shell
     from: matter
   - id: matter_lcd_917SOC
     from: matter
   - id: matter_qr_code
     from: matter
-
+    
+  # Override configuration for JTAG use
+  - id: matter_configuration_over_swo
+    from: matter
+  - id: segger_rtt
   - id: sl_si91x_common_flash_nvm3
     from: wiseconnect3_sdk
   - id: sl_si91x_wireless
@@ -112,9 +124,9 @@ component:
     from: wiseconnect3_sdk
   - id: wifi_resources
     from: wiseconnect3_sdk
-  - id: ble
-    from: wiseconnect3_sdk
   - id: sl_si91x_soc_soft_reset
+    from: wiseconnect3_sdk
+  - id: ble
     from: wiseconnect3_sdk
   - id: network_manager
     from: wiseconnect3_sdk
@@ -132,7 +144,7 @@ configuration:
   - {name: SL_ULPUART_DMA_CONFIG_ENABLE, value: '0'}
 
 config_file:
-  - path: ../../../../examples/dishwasher-app/silabs/data_model/dishwasher-wifi-app.zap
+  - path: ../../../../examples/onoff-plug-app/onoff-plug-common/onoff-plug-app.zap
     directory: common
     file_id: zap_config
   - path: ../../../../provision.mattpconf
@@ -140,26 +152,23 @@ config_file:
     file_id: provision_config
 
 include:
-  - path: ../../../../examples/dishwasher-app/silabs/include
+  - path: ../../../../examples/onoff-plug-app/include
     file_list:
       - path: AppConfig.h
       - path: AppEvent.h
       - path: AppTask.h
       - path: CHIPProjectConfig.h
-      - path: DishwasherManager.h
-      - path: operational-state-delegate-impl.h
+      - path: OnOffPlugManager.h
     directory: include
-
+    
 source:
-  - path: ../../../../examples/dishwasher-app/silabs/src/AppTask.cpp
+  - path: ../../../../examples/onoff-plug-app/src/AppTask.cpp
     directory: src
   - path: ../../../../third_party/matter_sdk/examples/platform/silabs/main.cpp
     directory: src
-  - path: ../../../../examples/dishwasher-app/silabs/src/DishwasherManager.cpp
+  - path: ../../../../examples/onoff-plug-app/src/ZclCallbacks.cpp
     directory: src
-  - path: ../../../../examples/dishwasher-app/silabs/src/operational-state-delegate-impl.cpp
-    directory: src
-  - path: ../../../../examples/dishwasher-app/silabs/src/ZclCallbacks.cpp
+  - path: ../../../../examples/onoff-plug-app/src/OnOffPlugManager.cpp
     directory: src
 
 define:
@@ -175,14 +184,12 @@ define:
   - name: NVM3_DEFAULT_MAX_OBJECT_SIZE
     value: "4092"
   - name: SI917_SOC
-    value: 1 
-
+    value: 1
 toolchain_settings:
   - option: cxx_standard
     value: gnu++17
   - option: nano_c_libs
     value: enabled
-    
 template_contribution:
   - name: memory_flash_start
     value: 0x081C2000
@@ -196,10 +203,10 @@ template_contribution:
     value: 1
 
 readme:
-  - path: ./README_WiFi.md
+  - path: ./README_917.md
 ui_hints:
   highlight:
-    - path: README_WiFi.md
+    - path: README_917.md
       focus: false
 
 tag:

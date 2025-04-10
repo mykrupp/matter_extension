@@ -23,7 +23,7 @@ jobs:
         strategy:
             fail-fast: false
             matrix:
-                platform: [mg24, mgm24, mg26, siwx]
+                platform: [mg24, mgm24, mg26, 917-soc, 917-ncp, wf200, rs9116]
 
         steps:
             - name: Checkout
@@ -41,14 +41,11 @@ jobs:
                 git lfs pull
                 echo "STUDIO_ADAPTER_PACK_PATH=/opt/silabs/zap-linux-x64" >> $GITHUB_ENV
                 echo "ADDITIONAL_APP_ARGS=thread" >> $GITHUB_ENV
-                echo "SILABS_PLATFORM=efr32" >> $GITHUB_ENV
 
             - name: Path to example app string
-              if: ${{ matrix.platform == 'siwx'}}
+              if: ${{ matrix.platform == '917-soc' || matrix.platform == '917-ncp' || matrix.platform == 'wf200' || matrix.platform == 'rs9116' }}
               run: |
-                echo "ADDITIONAL_APP_ARGS=917-soc" >> $GITHUB_ENV
-                echo "SILABS_PLATFORM=siwx917" >> $GITHUB_ENV
-            
+                echo "ADDITIONAL_APP_ARGS=${{ matrix.platform }}" >> $GITHUB_ENV          
                 
             - name: Build ${{ inputs.example-app }} configurations
               uses: SiliconLabsSoftware/matter_build_action@3fa7357e526337fb8f370a20158b8857aeb708ab
@@ -58,7 +55,7 @@ jobs:
                           matrix.platform == 'mgm24' && './.github/silabs-builds-mgm24.json' ||
                           matrix.platform == 'mg26' && './.github/silabs-builds-mg26.json' ||
                           matrix.platform == 'siwx' && './.github/silabs-builds-siwx.json' }}
-                  path-to-example-app: slc/sample-app/${{ inputs.example-app }}/${SILABS_PLATFORM}/${{ inputs.example-app }}-${ADDITIONAL_APP_ARGS}.slcp
+                  path-to-example-app: slc/sample-app/${{ inputs.example-app }}/${{ inputs.example-app }}-${ADDITIONAL_APP_ARGS}.slcp
                   example-app: ${{ inputs.example-app }}
                   build-script: "./slc/build.sh"
                   #output-directory: ${{ inputs.output-directory }}

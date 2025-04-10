@@ -1,7 +1,7 @@
-project_name: lock-app-917-soc
-label: Matter Lock WiFi
+project_name: sensor-app-917-soc
+label: Matter sensor WiFi
 description: >
-  Matter Lock App For WiFi
+  Matter Sensor App For WiFi
 quality: production
 package: Matter
 
@@ -38,8 +38,7 @@ component:
   - id: matter_descriptor
     from: matter
   - id: matter_diagnostic_logs
-    from: matter
-  - id: matter_door_lock
+
     from: matter
   - id: matter_ethernet_network_diagnostics
     from: matter
@@ -69,8 +68,6 @@ component:
     from: matter
   - id: matter_switch
     from: matter
-  - id: matter_thread_network_diagnostics
-    from: matter
   - id: matter_time_format_localization
     from: matter
   - id: matter_user_label
@@ -84,9 +81,9 @@ component:
 
   - id: matter_ota_requestor
     from: matter
-  - id: matter_ota_support
+  - id: matter_occupancy_sensor
     from: matter
-  - id: matter_lock
+  - id: matter_ota_support
     from: matter
   - id: toolchain_gcc_common
     from: matter
@@ -95,10 +92,6 @@ component:
   - id: matter_lcd_917SOC
     from: matter
   - id: matter_qr_code
-    from: matter
-  - id: matter_icd_core
-    from: matter
-  - id: matter_icd_management
     from: matter
 
   - id: sl_si91x_common_flash_nvm3
@@ -142,7 +135,7 @@ component:
     id: ulp_timers_instance
 
 config_file:
-  - path: ../../../../third_party/matter_sdk/examples/lock-app/lock-common/lock-app.zap
+  - path: ../../../../examples/silabs-sensors/data_model/sensor-wifi-app.zap
     directory: common
     file_id: zap_config
   - path: ../../../../provision.mattpconf
@@ -150,23 +143,30 @@ config_file:
     file_id: provision_config
 
 include:
-  - path: ../../../../third_party/matter_sdk/examples/lock-app/silabs/include
+  - path: ../../../../examples/silabs-sensors/include
     file_list:
       - path: AppConfig.h
       - path: AppEvent.h
       - path: AppTask.h
-      - path: LockManager.h
+      - path: SensorsCallbacks.h
+      - path: SensorsUI.h
+        condition:
+        - matter_lcd_917SOC
       - path: CHIPProjectConfig.h
     directory: include
 
 source:
-  - path: ../../../../third_party/matter_sdk/examples/lock-app/silabs/src/AppTask.cpp
+  - path: ../../../../examples/silabs-sensors/src/AppTask.cpp
     directory: src
-  - path: ../../../../third_party/matter_sdk/examples/lock-app/silabs/src/LockManager.cpp
+  - path: ../../../../examples/silabs-sensors/src/SensorsCallbacks.cpp
     directory: src
+  - path: ../../../../examples/silabs-sensors/src/SensorsUI.cpp
+    directory: src
+    condition:
+    - matter_lcd_917SOC
   - path: ../../../../third_party/matter_sdk/examples/platform/silabs/main.cpp
     directory: src
-  - path: ../../../../third_party/matter_sdk/examples/lock-app/silabs/src/ZclCallbacks.cpp
+  - path: ../../../../examples/silabs-sensors/src/ZclCallbacks.cpp
     directory: src
 
 define:
@@ -176,8 +176,6 @@ define:
   - name: CHIP_CRYPTO_PLATFORM
     value: "1"
   - name: _WANT_REENT_SMALL
-    value: "1"
-  - name: IS_DEMO_LOCK
     value: "1"
   - name: NVM3_DEFAULT_NVM_SIZE
     value: "40960"
@@ -214,10 +212,10 @@ template_contribution:
     value: 1
 
 readme:
-  - path: ./README_WiFi.md
+  - path: ./README_917.md
 ui_hints:
   highlight:
-    - path: README_WiFi.md
+    - path: README_917.md
       focus: false
 
 tag:
