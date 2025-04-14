@@ -5,8 +5,7 @@
                 "boards": [
                     "brd4316a",
                     "brd4317a",
-                    "brd4318a",
-                    "brd2704a"
+                    "brd4318a"
                 ],
                 "arguments": [""]
             }
