@@ -6,7 +6,6 @@
                     "brd4316a",
                     "brd4317a",
                     "brd4318a",
-                    //"brd4319a", TODO: uncomment after rebase
                     "brd2704a"
                 ],
                 "arguments": [""]
