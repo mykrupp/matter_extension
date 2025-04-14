@@ -39,7 +39,7 @@ BRD_ONLY=$(echo $SILABS_BOARD | cut -f1 -d";")
 
 # Determine vars based on project type provided (.slcw solution example or .slcp project example file)
 if [[ "$SILABS_APP_PATH" == *.slcw ]]; then
-    SILABS_APP=$(basename "$SILABS_APP_PATH" -bootloader.slcw)
+    SILABS_APP=$(basename "$SILABS_APP_PATH" .slcw)
     PROJECT_FLAG="-w"
     OUTPUT_DIR="out/$BRD_ONLY/$SILABS_APP-solution"
     MAKE_FILE=$SILABS_APP-bootloader.solution.Makefile
