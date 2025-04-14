@@ -42,7 +42,7 @@ if [[ "$SILABS_APP_PATH" == *.slcw ]]; then
     SILABS_APP=$(basename "$SILABS_APP_PATH" .slcw)
     PROJECT_FLAG="-w"
     OUTPUT_DIR="out/$BRD_ONLY/$SILABS_APP-solution"
-    MAKE_FILE=$SILABS_APP-bootloader.solution.Makefile
+    MAKE_FILE=$SILABS_APP.solution.Makefile
 
 elif [[ "$SILABS_APP_PATH" == *.slcp ]]; then
     SILABS_APP=$(basename "$SILABS_APP_PATH" .slcp)
