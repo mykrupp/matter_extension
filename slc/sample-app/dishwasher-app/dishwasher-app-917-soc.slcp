@@ -206,4 +206,4 @@ tag:
   - hardware:component:led:2+
 
 post_build:
-  path: ../../../postbuild/matter_wifi_soc.slpb
+  path: ../../postbuild/matter_wifi_soc.slpb
