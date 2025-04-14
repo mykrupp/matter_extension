@@ -2,6 +2,6 @@ label: lock-app-917-soc
 quality: production
 description: Matter workspace container for Lock App over WiFi
 project:
-  - path: ../../sample-app/lock-app/siwx917/lock-app-917-soc.slcp
+  - path: ../../sample-app/lock-app/lock-app-917-soc.slcp
     id: application
     output: lock-app-917-soc

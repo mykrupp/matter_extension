@@ -2,6 +2,6 @@ label: lighting-app-917-soc
 quality: production
 description: Matter workspace container for Lighting App over WiFi
 project:
-  - path: ../../sample-app/lighting-app/siwx917/lighting-app-917-soc.slcp
+  - path: ../../sample-app/lighting-app/lighting-app-917-soc.slcp
     id: application
     output: lighting-app-917-soc

@@ -2,7 +2,7 @@ label: sensor-app-thread-internal-bootloader
 quality: production
 description: Matter workspace container both a Matter bootloader and Sensor over Thread Example
 project:
-  - path: ../../sample-app/sensor-app/efr32/sensor-app-thread.slcp
+  - path: ../../sample-app/sensor-app/sensor-app-thread.slcp
     id: application
     output: sensor-app-thread
   - path: ../../sample-app/bootloaders/bootloader-storage-internal-single-series-2/bootloader-storage-internal-single-series-2.slcp

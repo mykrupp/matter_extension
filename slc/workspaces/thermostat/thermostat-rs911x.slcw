@@ -2,7 +2,7 @@ label: thermostat-rs911x-bootloader
 quality: production
 description: Matter workspace container both a Matter bootloader and Thermostat over WiFi Example
 project:
-  - path: ../../sample-app/thermostat/efr32/thermostat-rs911x.slcp
+  - path: ../../sample-app/thermostat/thermostat-rs911x.slcp
     id: application
     output: thermostat-rs911x
   - path: ../../sample-app/bootloaders/bootloader-storage-internal-single-series-2/bootloader-storage-internal-single-series-2.slcp
