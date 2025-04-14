@@ -40,15 +40,24 @@ jobs:
                 git lfs install
                 git lfs pull
                 echo "STUDIO_ADAPTER_PACK_PATH=/opt/silabs/zap-linux-x64" >> $GITHUB_ENV
-                echo "ADDITIONAL_APP_ARGS=thread" >> $GITHUB_ENV
 
             - name: Path to example app string
-              if: ${{ ((matrix.platform  == '917-soc') || ( matrix.platform  == '917-ncp' && ( inputs.example-app  == 'lock-app' ||  inputs.example-app  == 'thermostat' ||  inputs.example-app  == 'window-app')) || ( matrix.platform  == 'wf200' && ( inputs.example-app  == 'lock-app' ||  inputs.example-app  == 'thermostat' )) || ( matrix.platform  == 'rs911x' && ( inputs.example-app  == 'lock-app' ||  inputs.example-app  == 'thermostat' ))) }}
+              id: ParseExampleString
+              continue-on-error: true
               run: |
-                echo "ADDITIONAL_APP_ARGS=${{ matrix.platform }}" >> $GITHUB_ENV          
+                if [ ${{ matrix.platform  == 'mg24' || matrix.platform == 'mg26' || matrix.platform == 'mgm24' }} ] ; then
+                  echo "ADDITIONAL_APP_ARGS=thread" >> $GITHUB_ENV
+                else if [ ${{ ((matrix.platform  == '917-soc') || ( matrix.platform  == '917-ncp' && ( inputs.example-app  == 'lock-app' ||  inputs.example-app  == 'thermostat' ||  inputs.example-app  == 'window-app')) || ( matrix.platform  == 'wf200' && ( inputs.example-app  == 'lock-app' ||  inputs.example-app  == 'thermostat' )) || ( matrix.platform  == 'rs911x' && ( inputs.example-app  == 'lock-app' ||  inputs.example-app  == 'thermostat' ))) }} ]; then
+                  echo "ADDITIONAL_APP_ARGS=${{ matrix.platform }}" >> $GITHUB_ENV
+                else
+                  exit 1
+                    
+                
+                    
                 
             - name: Build ${{ inputs.example-app }} configurations
               uses: SiliconLabsSoftware/matter_build_action@3fa7357e526337fb8f370a20158b8857aeb708ab
+              if: steps.ParseExampleString.conclusion == 'success'
               with:
                   json-file-path: >                   
                       ${{ matrix.platform == 'mg24' && './.github/silabs-builds-mg24.json' ||
