@@ -41,6 +41,10 @@ jobs:
                 git lfs install
                 git lfs pull
                 echo "STUDIO_ADAPTER_PACK_PATH=/opt/silabs/zap-linux-x64" >> $GITHUB_ENV
+                echo "PROJECT_TYPE=slcp" >> $GITHUB_ENV
+                if [ ${{ matrix.project_type == 'workspaces' }} = true ] ; then
+                  echo "PROJECT_TYPE=slcw" >> $GITHUB_ENV
+                fi
 
             - name: Path to example app string
               id: ParseExampleString
@@ -61,7 +65,7 @@ jobs:
                           matrix.platform == 'mgm24' && './.github/silabs-builds-mgm24.json' ||
                           matrix.platform == 'mg26' && './.github/silabs-builds-mg26.json' ||
                           matrix.platform == '917-soc' && './.github/silabs-builds-siwx.json' }}
-                  path-to-example-app: slc/${{ inputs.project_type }}/${{ inputs.example-app }}/${{ inputs.example-app }}-${ADDITIONAL_APP_ARGS}.slcp
+                  path-to-example-app: slc/${{ matrix.project_type }}/${{ inputs.example-app }}/${{ inputs.example-app }}-${ADDITIONAL_APP_ARGS}.${PROJECT_TYPE}
                   example-app: ${{ inputs.example-app }}
                   build-script: "./slc/build.sh"
                   #output-directory: ${{ inputs.output-directory }}
