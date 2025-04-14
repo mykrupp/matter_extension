@@ -51,6 +51,7 @@ jobs:
                   echo "ADDITIONAL_APP_ARGS=${{ matrix.platform }}" >> $GITHUB_ENV
                 else
                   exit 1
+                fi
                     
                 
                     
