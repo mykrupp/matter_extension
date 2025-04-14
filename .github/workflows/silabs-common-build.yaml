@@ -24,6 +24,7 @@ jobs:
             fail-fast: false
             matrix:
                 platform: [mg24, mgm24, mg26, 917-soc, 917-ncp, wf200, rs911x]
+                project_type: [workspaces]
 
         steps:
             - name: Checkout
@@ -60,7 +61,7 @@ jobs:
                           matrix.platform == 'mgm24' && './.github/silabs-builds-mgm24.json' ||
                           matrix.platform == 'mg26' && './.github/silabs-builds-mg26.json' ||
                           matrix.platform == '917-soc' && './.github/silabs-builds-siwx.json' }}
-                  path-to-example-app: slc/sample-app/${{ inputs.example-app }}/${{ inputs.example-app }}-${ADDITIONAL_APP_ARGS}.slcp
+                  path-to-example-app: slc/${{ inputs.project_type }}/${{ inputs.example-app }}/${{ inputs.example-app }}-${ADDITIONAL_APP_ARGS}.slcp
                   example-app: ${{ inputs.example-app }}
                   build-script: "./slc/build.sh"
                   #output-directory: ${{ inputs.output-directory }}
