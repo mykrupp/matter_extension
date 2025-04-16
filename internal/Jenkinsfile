@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Trigger downstream') {
             steps {
-                build job: 'matter-github-mirror-artifactory', parameters:[string(name: 'branchName', value: env.BRANCH_NAME), string(name:'buildNumber', value: env.BUILD_NUMBER)]
+                build job: 'Matter GitHub Jenkins/sqa_test_branch', parameters:[string(name: 'branchName', value: env.BRANCH_NAME), string(name:'buildNumber', value: env.BUILD_NUMBER)]
             }
         }
     }
