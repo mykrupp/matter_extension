@@ -70,12 +70,12 @@ jobs:
             - name: Build ${{ inputs.example-app }} configurations
               uses: SiliconLabsSoftware/matter_build_action@3fa7357e526337fb8f370a20158b8857aeb708ab
               with:
-                  json-file-path: ${JSON_FILE_PATH}                  
+                  json-file-path: ${{ env.JSON_FILE_PATH }}
                   path-to-example-app: slc/${{ matrix.project_type }}/${{ inputs.example-app }}/${{ inputs.example-app }}-${ADDITIONAL_APP_ARGS}${BOOTLOADER}.${PROJECT_TYPE}
                   example-app: ${{ inputs.example-app }}
                   build-script: "./slc/build.sh"
                   output-directory: " "
-                  build-type: standard
+                  build-type: ${{ inputs.build-type }}
 
             - uses: actions/upload-artifact@v4
               with:
