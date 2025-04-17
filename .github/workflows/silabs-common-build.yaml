@@ -80,5 +80,5 @@ jobs:
             - uses: actions/upload-artifact@v4
               with:
                 name: ${{ inputs.example-app }}-${ADDITIONAL_APP_ARGS} ${{ inputs.board }}
-                path: out/fromJson(${JSON_FILE_PATH}).${{ inputs.build-type.default.boards }}/${{ inputs.example-app }}
+                path: out/${{ fromJson(env.JSON_FILE_PATH).inputs.build-type.default.boards }}/${{ inputs.example-app }}
                 
