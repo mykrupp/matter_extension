@@ -65,7 +65,7 @@ jobs:
                                          matrix.platform == 'rs911x' && './.github/silabs-builds-mg24.json' ||
                                          matrix.platform == 'mgm24' && './.github/silabs-builds-mgm24.json' ||
                                          matrix.platform == 'mg26' && './.github/silabs-builds-mg26.json' ||
-                                         matrix.platform == '917-soc' && './.github/silabs-builds-siwx.json' }}"            
+                                         matrix.platform == '917-soc' && './.github/silabs-builds-siwx.json' }}" >> $GITHUB_ENV         
 
             - name: Build ${{ inputs.example-app }} configurations
               uses: SiliconLabsSoftware/matter_build_action@3fa7357e526337fb8f370a20158b8857aeb708ab
