@@ -77,8 +77,8 @@ jobs:
                   output-directory: " "
                   build-type: ${{ inputs.build-type }}
 
-            - uses: actions/upload-artifact@v4
-              with:
-                name: ${{ inputs.example-app }}-${ADDITIONAL_APP_ARGS} ${{ inputs.board }}
-                path: ${{ env.ARTIFACT_PATH }}
+#            - uses: actions/upload-artifact@v4
+#              with:
+#                name: ${{ inputs.example-app }}-${ADDITIONAL_APP_ARGS} ${{ inputs.board }}
+#                path: TODO: add artifact path with board id
                 
