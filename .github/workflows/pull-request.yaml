@@ -104,21 +104,48 @@ jobs:
 #            output-directory: "./out/onoff-plug-app"
 #            build-type: "standard"
 
-
+    # THE LOGIC BELOW IS TO WAIT FOR JENKINS SANITY TEST TO FINISH, WHEN IT FINISHED IT WILL UPDATE THE check-runs.
+    # HERE WE LIST THEM AND THEN EXTRACT THE CORRECT CHECK RUN ID. ONCE THAT IS DONE WE POLL THE TITLE, SUMMARY AND TEXT
+    # OF THE CHECK RUN UNTIL THEY ARE NOT EMPTY. ONCE THEY ARE NOT EMPTY WE BREAK THE LOOP.
     wait-for-jenkins-status:
         name: Wait for Jenkins Status
         needs: build-multi-sensor-app
         runs-on: ubuntu-latest
         steps:
-            - name: Check Jenkins Status
+            - name: List Check Runs
+              id: list_check_runs
               run: |
-                  if [[ "${{ github.event.context }}" == "jenkins/sanity_tests" ]]; then
-                    if [[ "${{ github.event.state }}" == "success" ]]; then
-                      echo "Jenkins tests passed. Proceeding..."
-                    else
-                      echo "Jenkins tests failed. Exiting..."
-                      exit 1
-                    fi
-                  else
-                    echo "Waiting for Jenkins status update..."
-                  fi
+                  curl -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+                       -H "Accept: application/vnd.github.v3+json" \
+                        https://api.github.com/repos/${{ github.repository }}/commits/${{ github.sha }}/check-runs > check_runs.json
+                  cat check_runs.json
+
+            - name: Extract Check Run ID
+              id: extract_check_run_id
+              run: |
+                  CHECK_RUN_ID=$(jq -r --arg JOB_NAME "Wait for Jenkins Status" '.check_runs[] | select(.name == $JOB_NAME) | .id' check_runs.json)
+                  echo "CHECK_RUN_ID=$CHECK_RUN_ID" >> $GITHUB_ENV
+
+            - name: Wait for Check Run Output Update
+              run: |
+                  echo "Waiting for check run output to be updated..."
+                  while true; do
+                      response=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+                          -H "Accept: application/vnd.github.v3+json" \
+                          https://api.github.com/repos/${{ github.repository }}/check-runs/${CHECK_RUN_ID})
+
+                      title=$(echo "$response" | jq -r '.output.title // empty')
+                      summary=$(echo "$response" | jq -r '.output.summary // empty')
+                      text=$(echo "$response" | jq -r '.output.text // empty')
+
+                      if [[ -n "$title" && -n "$summary" && -n "$text" ]]; then
+                          echo "Check run output updated:"
+                          echo "Title: $title"
+                          echo "Summary: $summary"
+                          echo "Text: $text"
+                          break
+                      else
+                          echo "Waiting for output fields to be updated..."
+                          sleep 120
+                      fi
+                  done
