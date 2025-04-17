@@ -121,3 +121,4 @@ jobs:
                     fi
                   else
                     echo "Waiting for Jenkins status update..."
+                  fi
