@@ -50,7 +50,7 @@ jobs:
                 fi
 
                 echo "PROJECT_TYPE=slcp" >> $GITHUB_ENV
-                if [ ${{ matrix.project_type == 'workspaces' }} = true ] ; then
+                if [ ${{ matrix.project_type == 'solutions' }} = true ] ; then
                   echo "PROJECT_TYPE=slcw" >> $GITHUB_ENV
                 fi
 
