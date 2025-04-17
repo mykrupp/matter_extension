@@ -68,15 +68,20 @@ jobs:
                                          matrix.platform == '917-soc' && './.github/silabs-builds-siwx.json' }}" >> $GITHUB_ENV
 
                 echo "PLATFORM=efr32" >> $GITHUB_ENV
-                if [ ${{ matrix.platofmr == '917-soc' }} = true ] ; then
-                  echo "PLATFORM=917-soc" >> $GITHUB_ENV
+                if [ ${{ matrix.platform == '917-soc' }} = true ] ; then
+                  echo "PLATFORM=siwx917" >> $GITHUB_ENV
                 fi    
+
+                echo "SERIES=series-2" >> $GITHUB_ENV
+                if [ ${{ matrix.platform == '917-soc' }} = true ] ; then
+                  echo "SERIES=siwx917" >> $GITHUB_ENV
+                fi  
 
             - name: Build ${{ inputs.example-app }} configurations
               uses: SiliconLabsSoftware/matter_build_action@3fa7357e526337fb8f370a20158b8857aeb708ab
               with:
                   json-file-path: ${{ env.JSON_FILE_PATH }}
-                  path-to-example-app: slc/${{ matrix.project_type }}/${{ inputs.example-app }}/${{ inputs.example-app }}-${ADDITIONAL_APP_ARGS}${BOOTLOADER}.${PROJECT_TYPE}
+                  path-to-example-app: slc/${{ matrix.project_type }}/${{ inputs.example-app }}/${SERIES}/${{ inputs.example-app }}-${ADDITIONAL_APP_ARGS}${BOOTLOADER}.${PROJECT_TYPE}
                   example-app: ${{ inputs.example-app }}
                   build-script: "./slc/build.sh"
                   output-directory: " "
