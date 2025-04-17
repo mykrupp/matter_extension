@@ -91,8 +91,8 @@ jobs:
         name: Build Multi-Sensor-App variations
         uses: ./.github/workflows/silabs-common-build.yaml
         with:
-            example-app: "sensor-app"
-            output-directory: "./out/sensor-app"
+            example-app: "multi-sensor-app"
+            output-directory: "./out/multi-sensor-app"
             build-type: "standard"
 
 

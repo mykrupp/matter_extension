@@ -89,6 +89,6 @@ jobs:
 
 #            - uses: actions/upload-artifact@v4
 #              with:
-#                name: ${{ inputs.example-app }}-${ADDITIONAL_APP_ARGS} ${{ inputs.board }}
+#                name: ${{ inputs.example-app }}-${ADDITIONAL_APP_ARGS}
 #                path: TODO: add artifact path with board id
                 
