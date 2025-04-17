@@ -1,0 +1,89 @@
+name: Common Build
+
+on:
+    workflow_call:
+        inputs:
+            example-app:
+                required: true
+                type: string
+            output-directory:
+                required: true
+                type: string
+            build-type:
+                required: true
+                type: string
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+
+        container:
+            image: ghcr.io/project-chip/chip-build-efr32:115
+
+        strategy:
+            fail-fast: false
+            matrix:
+                platform: [mg24, mgm24, mg26, 917-soc, 917-ncp, wf200, rs911x]
+                project_type: [workspaces]
+
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v4
+              with:
+                submodules: 'true'
+
+            - name: Install tools
+              uses: ./.github/actions/install-tools
+
+            - name: git lfs pull and set STUDIO_ADAPTER_PACK_PATH
+              run: |
+                cd third_party/simplicity_sdk
+                git lfs install
+                git lfs pull
+                echo "STUDIO_ADAPTER_PACK_PATH=/opt/silabs/zap-linux-x64" >> $GITHUB_ENV
+
+            - name: Create SLCP string configurations
+              run: |
+                echo "ADDITIONAL_APP_ARGS=thread" >> $GITHUB_ENV
+                if [ ${{ ((matrix.platform  == '917-soc') || ( matrix.platform  == '917-ncp' && ( inputs.example-app  == 'lock-app' ||  inputs.example-app  == 'thermostat' ||  inputs.example-app  == 'window-app')) || ( matrix.platform  == 'wf200' && ( inputs.example-app  == 'lock-app' ||  inputs.example-app  == 'thermostat' )) || ( matrix.platform  == 'rs911x' && ( inputs.example-app  == 'lock-app' ||  inputs.example-app  == 'thermostat' ))) }} = true ]; then
+                  echo "ADDITIONAL_APP_ARGS=${{ matrix.platform }}" >> $GITHUB_ENV
+                fi
+
+                echo "PROJECT_TYPE=slcp" >> $GITHUB_ENV
+                if [ ${{ matrix.project_type == 'workspaces' }} = true ] ; then
+                  echo "PROJECT_TYPE=slcw" >> $GITHUB_ENV
+                fi
+
+                echo "BOOTLOADER=" >> $GITHUB_ENV
+                if [ ${{ matrix.platform == '917-soc' }} != true ] ; then
+                  echo "BOOTLOADER=-bootloader" >> $GITHUB_ENV
+                fi
+
+                echo "JSON_FILE_PATH=${{ matrix.platform == 'mg24' && './.github/silabs-builds-mg24.json' ||
+                                         matrix.platform == '917-ncp' && './.github/silabs-builds-mg24.json' ||
+                                         matrix.platform == 'wf200' && './.github/silabs-builds-mg24.json' ||
+                                         matrix.platform == 'rs911x' && './.github/silabs-builds-mg24.json' ||
+                                         matrix.platform == 'mgm24' && './.github/silabs-builds-mgm24.json' ||
+                                         matrix.platform == 'mg26' && './.github/silabs-builds-mg26.json' ||
+                                         matrix.platform == '917-soc' && './.github/silabs-builds-siwx.json' }}" >> $GITHUB_ENV
+
+                echo "PLATFORM=efr32" >> $GITHUB_ENV
+                if [ ${{ matrix.platofmr == '917-soc' }} = true ] ; then
+                  echo "PLATFORM=917-soc" >> $GITHUB_ENV
+                fi    
+
+            - name: Build ${{ inputs.example-app }} configurations
+              uses: SiliconLabsSoftware/matter_build_action@3fa7357e526337fb8f370a20158b8857aeb708ab
+              with:
+                  json-file-path: ${{ env.JSON_FILE_PATH }}
+                  path-to-example-app: slc/${{ matrix.project_type }}/${{ inputs.example-app }}/${{ inputs.example-app }}-${ADDITIONAL_APP_ARGS}${BOOTLOADER}.${PROJECT_TYPE}
+                  example-app: ${{ inputs.example-app }}
+                  build-script: "./slc/build.sh"
+                  output-directory: " "
+                  build-type: ${{ inputs.build-type }}
+
+#            - uses: actions/upload-artifact@v4
+#              with:
+#                name: ${{ inputs.example-app }}-${ADDITIONAL_APP_ARGS} ${{ inputs.board }}
+#                path: TODO: add artifact path with board id
+                
