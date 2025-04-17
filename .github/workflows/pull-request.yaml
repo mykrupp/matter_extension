@@ -103,3 +103,21 @@ jobs:
 #            example-app: "onoff-plug-app"
 #            output-directory: "./out/onoff-plug-app"
 #            build-type: "standard"
+
+
+    wait-for-jenkins-status:
+        name: Wait for Jenkins Status
+        needs: build-multi-sensor-app
+        runs-on: ubuntu-latest
+        steps:
+            - name: Check Jenkins Status
+              run: |
+                  if [[ "${{ github.event.context }}" == "jenkins/sanity_tests" ]]; then
+                    if [[ "${{ github.event.state }}" == "success" ]]; then
+                      echo "Jenkins tests passed. Proceeding..."
+                    else
+                      echo "Jenkins tests failed. Exiting..."
+                      exit 1
+                    fi
+                  else
+                    echo "Waiting for Jenkins status update..."
