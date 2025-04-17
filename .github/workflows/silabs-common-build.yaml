@@ -42,9 +42,7 @@ jobs:
                 git lfs pull
                 echo "STUDIO_ADAPTER_PACK_PATH=/opt/silabs/zap-linux-x64" >> $GITHUB_ENV
 
-
-
-            - name: Path to example app string
+            - name: Create SLCP string configurations
               run: |
                 echo "ADDITIONAL_APP_ARGS=thread" >> $GITHUB_ENV
                 if [ ${{ ((matrix.platform  == '917-soc') || ( matrix.platform  == '917-ncp' && ( inputs.example-app  == 'lock-app' ||  inputs.example-app  == 'thermostat' ||  inputs.example-app  == 'window-app')) || ( matrix.platform  == 'wf200' && ( inputs.example-app  == 'lock-app' ||  inputs.example-app  == 'thermostat' )) || ( matrix.platform  == 'rs911x' && ( inputs.example-app  == 'lock-app' ||  inputs.example-app  == 'thermostat' ))) }} = true ]; then
@@ -59,22 +57,29 @@ jobs:
                 echo "BOOTLOADER=" >> $GITHUB_ENV
                 if [ ${{ matrix.platform == '917-soc' }} != true ] ; then
                   echo "BOOTLOADER=-bootloader" >> $GITHUB_ENV
-                fi                
+                fi
+
+                echo "JSON_FILE_PATH=${{ matrix.platform == 'mg24' && './.github/silabs-builds-mg24.json' ||
+                                         matrix.platform == '917-ncp' && './.github/silabs-builds-mg24.json' ||
+                                         matrix.platform == 'wf200' && './.github/silabs-builds-mg24.json' ||
+                                         matrix.platform == 'rs911x' && './.github/silabs-builds-mg24.json' ||
+                                         matrix.platform == 'mgm24' && './.github/silabs-builds-mgm24.json' ||
+                                         matrix.platform == 'mg26' && './.github/silabs-builds-mg26.json' ||
+                                         matrix.platform == '917-soc' && './.github/silabs-builds-siwx.json' }}"            
 
             - name: Build ${{ inputs.example-app }} configurations
               uses: SiliconLabsSoftware/matter_build_action@3fa7357e526337fb8f370a20158b8857aeb708ab
               with:
-                  json-file-path: >                   
-                      ${{ matrix.platform == 'mg24' && './.github/silabs-builds-mg24.json' ||
-                          matrix.platform == '917-ncp' && './.github/silabs-builds-mg24.json' ||
-                          matrix.platform == 'wf200' && './.github/silabs-builds-mg24.json' ||
-                          matrix.platform == 'rs911x' && './.github/silabs-builds-mg24.json' ||
-                          matrix.platform == 'mgm24' && './.github/silabs-builds-mgm24.json' ||
-                          matrix.platform == 'mg26' && './.github/silabs-builds-mg26.json' ||
-                          matrix.platform == '917-soc' && './.github/silabs-builds-siwx.json' }}
+                  json-file-path: ${JSON_FILE_PATH}                  
+                      
                   path-to-example-app: slc/${{ matrix.project_type }}/${{ inputs.example-app }}/${{ inputs.example-app }}-${ADDITIONAL_APP_ARGS}${BOOTLOADER}.${PROJECT_TYPE}
                   example-app: ${{ inputs.example-app }}
                   build-script: "./slc/build.sh"
-                  #output-directory: ${{ inputs.output-directory }}
                   output-directory: " "
                   build-type: ${{ inputs.build-type }}
+
+            - uses: actions/upload-artifact@v4
+              with:
+                name: ${{ inputs.example-app }}-${ADDITIONAL_APP_ARGS} ${{ inputs.board }}
+                path: out/${{ fromJson(${JSON_FILE_PATH}).inputs.build-type/default/boards }}/${{ input.example-app }}
+                
