@@ -1,6 +1,6 @@
 pipeline {
     agent any
-    // Trigger job 5
+    // Trigger job 6
     stages {
         stage('Trigger downstream') {
             steps {
