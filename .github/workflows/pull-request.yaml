@@ -11,6 +11,10 @@ on:
             - "release_*"
     workflow_dispatch:
 
+# Test adding this permission to see if check-runs can be updated from Jenkins
+permissions:
+    checks: write
+
 concurrency:
     group: silabs-build-examples-${{ github.ref }}
     cancel-in-progress: true
