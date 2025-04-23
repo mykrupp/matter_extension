@@ -11,8 +11,6 @@ on:
             - "release_*"
     workflow_dispatch:
 
-permissions: write-all
-
 concurrency:
     group: silabs-build-examples-${{ github.ref }}
     cancel-in-progress: true
