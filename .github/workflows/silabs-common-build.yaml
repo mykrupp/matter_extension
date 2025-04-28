@@ -82,9 +82,10 @@ jobs:
                   build-type: ${{ inputs.build-type }}
 
             - name: set PACKAGE JSON
-              run: |
-                echo "PACKAGE_JSON=$(jq -c . < ${{ env.JSON_FILE_PATH }})" >> $GITHUB_ENV
-                echo '${{ fromJson(env.PACKAGE_JSON).standard }}'
+              run: echo "PACKAGE_JSON=$(jq -c . < ${{ env.JSON_FILE_PATH }})" >> $GITHUB_ENV
+                
+            - name: use PACKAGE JSON  
+              run: echo '${{ fromJson(env.PACKAGE_JSON).standard }}'
 
               
 
