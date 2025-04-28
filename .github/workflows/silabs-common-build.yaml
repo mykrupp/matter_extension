@@ -72,7 +72,7 @@ jobs:
                 fi  
 
             - name: Build ${{ inputs.example-app }} configurations
-              uses: SiliconLabsSoftware/matter_build_action@3fa7357e526337fb8f370a20158b8857aeb708ab
+              uses: SiliconLabsSoftware/matter_build_action@ad6a1e182f50853bb8f978b43ca8920544b73248
               with:
                   json-file-path: ${{ env.JSON_FILE_PATH }}
                   path-to-example-app: slc/solutions/${{ inputs.example-app }}/${SERIES}/${{ inputs.example-app }}-${ADDITIONAL_APP_ARGS}${BOOTLOADER}.slcw
