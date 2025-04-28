@@ -81,12 +81,12 @@ jobs:
                   output-directory: " "
                   build-type: ${{ inputs.build-type }}
 
-            - name: get board_id
-              id: board_id
-              uses: ActionsTools/read-json-action@main
-              with:
-                file_path: ${{ env.JSON_FILE_PATH }}
-                prop_path: "standard.default.boards"
+            - name: set PACKAGE JSON
+              run: |
+                echo "PACKAGE_JSON=$(jq -c . < ${{ env.JSON_FILE_PATH }})" >> $GITHUB_ENV
+                echo '${{ fromJson(env.PACKAGE_JSON).standard }}'
+
+              
 
             - uses: actions/upload-artifact@v4
               with:
