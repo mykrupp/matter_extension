@@ -81,17 +81,14 @@ jobs:
                   output-directory: " "
                   build-type: ${{ inputs.build-type }}
 
-            - name: set BOARD JSON
-              run: echo "BOARD_JSON=$(jq -c . < ${{ env.JSON_FILE_PATH }})" >> $GITHUB_ENV
-                
-            - name: Extract from json
-              uses: sergeysova/jq-action@v2
-              id: board
+            - name: get specified property
+              id: board_id
+              uses: ActionsTools/read-json-action@main
               with:
-                cmd: 'jq .standard ${{ env.JSON_FILE_PATH }} -r'
+                file_path: ${{ env.JSON_FILE_PATH }}
+                prop_path: "default"
 
-            - name: print board
-              run: 'echo "board ${{ steps.board.outputs.value }}"'
+            - run: echo ${{steps.board_id.outputs.value}}
               
 
             - uses: actions/upload-artifact@v4
