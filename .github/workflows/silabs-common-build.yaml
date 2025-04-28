@@ -85,8 +85,13 @@ jobs:
               run: echo "BOARD_JSON=$(jq -c . < ${{ env.JSON_FILE_PATH }})" >> $GITHUB_ENV
                 
             - name: use BOARD JSON  
-              run: echo "${{ fromJson(env.BOARD_JSON).standard }}"
+              run: echo "${{fromJson(steps.get_env_data.outputs.deployment_env).port}}"
 
+            - name: PORT
+              run: PORT="${{ fromJson(env.BOARD_JSON).standard }}" >> $GITHUB_ENV
+
+            - name: ECHO
+              run: echo ${{ env.PORT }}
               
 
             - uses: actions/upload-artifact@v4
