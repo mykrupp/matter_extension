@@ -24,7 +24,6 @@ jobs:
             fail-fast: false
             matrix:
                 platform: [mg24, mgm24, mg26, 917-soc, 917-ncp, wf200, rs911x]
-                project_type: [solutions]
 
         steps:
             - name: Checkout
@@ -47,11 +46,6 @@ jobs:
                 echo "ADDITIONAL_APP_ARGS=thread" >> $GITHUB_ENV
                 if [ ${{ ((matrix.platform  == '917-soc') || ( matrix.platform  == '917-ncp' && ( inputs.example-app  == 'lock-app' ||  inputs.example-app  == 'thermostat' ||  inputs.example-app  == 'window-app')) || ( matrix.platform  == 'wf200' && ( inputs.example-app  == 'lock-app' ||  inputs.example-app  == 'thermostat' )) || ( matrix.platform  == 'rs911x' && ( inputs.example-app  == 'lock-app' ||  inputs.example-app  == 'thermostat' ))) }} = true ]; then
                   echo "ADDITIONAL_APP_ARGS=${{ matrix.platform }}" >> $GITHUB_ENV
-                fi
-
-                echo "PROJECT_TYPE=slcp" >> $GITHUB_ENV
-                if [ ${{ matrix.project_type == 'solutions' }} = true ] ; then
-                  echo "PROJECT_TYPE=slcw" >> $GITHUB_ENV
                 fi
 
                 echo "BOOTLOADER=" >> $GITHUB_ENV
@@ -81,14 +75,21 @@ jobs:
               uses: SiliconLabsSoftware/matter_build_action@3fa7357e526337fb8f370a20158b8857aeb708ab
               with:
                   json-file-path: ${{ env.JSON_FILE_PATH }}
-                  path-to-example-app: slc/${{ matrix.project_type }}/${{ inputs.example-app }}/${SERIES}/${{ inputs.example-app }}-${ADDITIONAL_APP_ARGS}${BOOTLOADER}.${PROJECT_TYPE}
+                  path-to-example-app: slc/solutions/${{ inputs.example-app }}/${SERIES}/${{ inputs.example-app }}-${ADDITIONAL_APP_ARGS}${BOOTLOADER}.slcw
                   example-app: ${{ inputs.example-app }}
                   build-script: "./slc/build.sh"
                   output-directory: " "
                   build-type: ${{ inputs.build-type }}
 
-#            - uses: actions/upload-artifact@v4
-#              with:
-#                name: ${{ inputs.example-app }}-${ADDITIONAL_APP_ARGS}
-#                path: TODO: add artifact path with board id
+            - name: get board_id
+              id: board_id
+              uses: ActionsTools/read-json-action@main
+              with:
+                file_path: ${{ env.JSON_FILE_PATH }}
+                prop_path: "standard.boards"
+
+            - uses: actions/upload-artifact@v4
+              with:
+                name: ${{ inputs.example-app }}-${ADDITIONAL_APP_ARGS} ${{ inputs.board }}
+                path: "out/${{steps.board_id.outputs.value}}/${{ inputs.example-app }}-${ADDITIONAL_APP_ARGS}${BOOTLOADER}-solution/${{ inputs.example-app }}-${ADDITIONAL_APP_ARGS}/artifact/${{ inputs.example-app }}-${ADDITIONAL_APP_ARGS}${BOOTLOADER}-full.s37
                 
