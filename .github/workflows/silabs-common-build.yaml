@@ -92,5 +92,5 @@ jobs:
             - uses: actions/upload-artifact@v4
               with:
                 name: ${{ inputs.example-app }}-${ADDITIONAL_APP_ARGS} ${{ inputs.board }}
-                path: "out/${{steps.board_id.outputs.value}}/${{ inputs.example-app }}-${ADDITIONAL_APP_ARGS}${BOOTLOADER}-solution/${{ inputs.example-app }}-${ADDITIONAL_APP_ARGS}/artifact/${{ inputs.example-app }}-${ADDITIONAL_APP_ARGS}${BOOTLOADER}-full.s37"
+                path: "out/${{steps.board_id.outputs.value}}/${{ inputs.example-app }}-${ADDITIONAL_APP_ARGS}-solution/${{ inputs.example-app }}-${ADDITIONAL_APP_ARGS}/artifact/${{ inputs.example-app }}-${ADDITIONAL_APP_ARGS}${BOOTLOADER}-full.s37"
                 
