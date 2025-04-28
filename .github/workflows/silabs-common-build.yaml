@@ -85,7 +85,7 @@ jobs:
               run: echo "PACKAGE_JSON=$(jq -c . < ${{ env.JSON_FILE_PATH }})" >> $GITHUB_ENV
                 
             - name: use PACKAGE JSON  
-              run: echo '${{ fromJson(env.PACKAGE_JSON).standard.default.boards }}'
+              run: echo '${{ fromJson(env.PACKAGE_JSON).standard }}'
 
               
 
