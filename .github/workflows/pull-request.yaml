@@ -22,7 +22,7 @@ jobs:
         with:
             example-app: "lighting-app"
             output-directory: "./out/lighting-app"
-            build-type: "standard"
+             
 
     build-air-quality-sensor-app:
         name: Build Air-Quality-Sensor-App variations
@@ -30,7 +30,7 @@ jobs:
         with:
             example-app: "air-quality-sensor-app"
             output-directory: "./out/air-quality-sensor-app"
-            build-type: "standard"
+             
 
 
     build-dishwasher-app:
@@ -39,7 +39,7 @@ jobs:
         with:
             example-app: "dishwasher-app"
             output-directory: "./out/dishwasher-app"
-            build-type: "standard"
+             
 
 
     build-light-switch-app:
@@ -48,7 +48,7 @@ jobs:
         with:
             example-app: "light-switch-app"
             output-directory: "./out/light-switch-app"
-            build-type: "standard"
+             
 
 
     build-lock-app:
@@ -57,7 +57,7 @@ jobs:
         with:
             example-app: "lock-app"
             output-directory: "./out/lock-app"
-            build-type: "standard"
+             
 
 
     build-thermostat:
@@ -66,7 +66,7 @@ jobs:
         with:
             example-app: "thermostat"
             output-directory: "./out/thermostat" 
-            build-type: "standard"
+             
 
 
     build-window-app:
@@ -75,7 +75,7 @@ jobs:
         with:
             example-app: "window-app"
             output-directory: "./out/window-app"
-            build-type: "standard"
+             
 
 
     build-fan-control-app:
@@ -84,7 +84,7 @@ jobs:
         with:
             example-app: "fan-control-app"
             output-directory: "./out/fan-control-app"
-            build-type: "standard"
+             
 
 
     build-multi-sensor-app:
@@ -93,7 +93,7 @@ jobs:
         with:
             example-app: "multi-sensor-app"
             output-directory: "./out/multi-sensor-app"
-            build-type: "standard"
+             
 
 
     build-onoff-plug-app:
@@ -102,4 +102,4 @@ jobs:
         with:
             example-app: "onoff-plug-app"
             output-directory: "./out/onoff-plug-app"
-            build-type: "standard"
+             
