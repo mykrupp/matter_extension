@@ -86,7 +86,7 @@ jobs:
               uses: ActionsTools/read-json-action@main
               with:
                 file_path: ${{ env.JSON_FILE_PATH }}
-                prop_path: "standard.boards"
+                prop_path: "standard.default.boards"
 
             - uses: actions/upload-artifact@v4
               with:
