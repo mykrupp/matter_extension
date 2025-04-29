@@ -68,7 +68,9 @@ jobs:
                 prop_path: "default.0.boards"
 
             - run: |
-                echo ${{steps.get_boards.outputs.value}}
+                echo ${{ fromJSON(steps.get_boards.outputs.value) }}
+                echo ${{ toJSON(steps.get_boards.outputs.value) }}
+
     
             - name: Set up boards matrix
               run: |
