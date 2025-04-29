@@ -14,6 +14,9 @@ jobs:
     build:
         runs-on: ubuntu-latest
 
+        outputs: 
+          board_matrix: {{ steps.get_boards.outputs.BOARD_MATRIX }}
+
         container:
             image: ghcr.io/project-chip/chip-build-efr32:115
 
@@ -82,24 +85,26 @@ jobs:
               uses: zoexx/github-action-json-file-properties@release
               with:
                 file_path: ${{ env.JSON_FILE_PATH }}
-                prop_path: "default.0.boards.0"
+                prop_path: "default.0.boards"
     
             - name: Set up boards matrix
               run: |
                 echo "BOARD_MATRIX=$(echo '${{ steps.get_boards.outputs.value }}' | jq -c)" >> $GITHUB_ENV
 
-            - name: pwd
-              run: pwd
+    upload:
+        runs-on: ubuntu-latest
+        needs: build
+        strategy:
+            matrix:
+                board: ${{ fromJSON(needs.build.outputs.board_matrix) }}
+        steps:
 
-            - name: cd
-              run: |
-                cd out/${{steps.get_boards.outputs.value}}/${{ inputs.example-app }}-${{ env.ADDITIONAL_APP_ARGS }}-solution
-                ls
-                cd artifact
-                ls
+          - name: Board ID
+            run: |
+              echo "Processing board: ${{ matrix.board }}"
 
-            - uses: actions/upload-artifact@v4
-              with:
-                name: ${{ inputs.example-app }}-${{ env.ADDITIONAL_APP_ARGS }} ${{ inputs.board }}
-                path: ${{ github.workspace }}/out/${{steps.get_boards.outputs.value}}/${{ inputs.example-app }}-${{ env.ADDITIONAL_APP_ARGS }}-solution/artifact/${{ inputs.example-app }}-${{ env.ADDITIONAL_APP_ARGS }}${{ env.BOOTLOADER }}-full.s37
+          - uses: actions/upload-artifact@v4
+            with:
+              name: ${{ inputs.example-app }}-${{ env.ADDITIONAL_APP_ARGS }} ${{ inputs.board }}
+              path: ${{ github.workspace }}/out/${{matrix.board}}/${{ inputs.example-app }}-${{ env.ADDITIONAL_APP_ARGS }}-solution/artifact/${{ inputs.example-app }}-${{ env.ADDITIONAL_APP_ARGS }}${{ env.BOOTLOADER }}-full.s37
                 
