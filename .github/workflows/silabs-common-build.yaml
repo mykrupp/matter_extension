@@ -14,9 +14,6 @@ jobs:
     build:
         runs-on: ubuntu-latest
 
-        outputs: 
-          board_matrix: ${{ steps.get_boards.outputs.BOARD_MATRIX }}
-
         container:
             image: ghcr.io/project-chip/chip-build-efr32:115
 
@@ -65,7 +62,7 @@ jobs:
 
             - name: get boards
               id: get_boards
-              uses: ActionsTools/read-json-action@main
+              uses: zoexx/github-action-json-file-properties@release
               with:
                 file_path: ${{ env.JSON_FILE_PATH }}
                 prop_path: "default.0.boards"
