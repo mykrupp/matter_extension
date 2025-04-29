@@ -31,15 +31,7 @@ jobs:
               with:
                 submodules: 'true'
 
-            - name: Install tools
-              uses: ./.github/actions/install-tools
 
-            - name: git lfs pull and set STUDIO_ADAPTER_PACK_PATH
-              run: |
-                cd third_party/simplicity_sdk
-                git lfs install
-                git lfs pull
-                echo "STUDIO_ADAPTER_PACK_PATH=/opt/silabs/zap-linux-x64" >> $GITHUB_ENV
 
             - name: Create SLCP string configurations
               run: |
