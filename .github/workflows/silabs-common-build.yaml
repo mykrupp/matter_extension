@@ -65,7 +65,18 @@ jobs:
               uses: zoexx/github-action-json-file-properties@release
               with:
                 file_path: ${{ env.JSON_FILE_PATH }}
-                prop_path: "default.0"
+
+            - run: |
+                echo 1
+                echo ${{steps.get_boards.outputs.default}}
+                echo 2
+                echo ${{steps.get_boards.outputs.default.0}}
+                echo 3
+                echo ${{steps.get_boards.outputs.default.0.boards}}
+                echo 4
+                echo ${{steps.get_boards.outputs.default.0.boards.0}}
+
+
 
             - run: |
                 echo ${{steps.get_boards.outputs.value}}
