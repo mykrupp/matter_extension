@@ -160,4 +160,6 @@ if [ "$skip_gen" = false ]; then
     fi
 fi
 
+echo $OUTPUT_DIR
+
 make all -C $OUTPUT_DIR -f $MAKE_FILE -j13
