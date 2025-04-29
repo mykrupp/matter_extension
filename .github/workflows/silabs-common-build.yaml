@@ -65,7 +65,7 @@ jobs:
               uses: zoexx/github-action-json-file-properties@release
               with:
                 file_path: ${{ env.JSON_FILE_PATH }}
-                prop_path: "default.0.boards"
+                prop_path: default.0.boards
     
             - name: Set up boards matrix
               run: |
