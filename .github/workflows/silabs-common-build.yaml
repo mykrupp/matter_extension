@@ -91,6 +91,13 @@ jobs:
             - name: pwd
               run: pwd
 
+            - name: cd
+              run: |
+                cd out/${{steps.get_boards.outputs.value}}/${{ inputs.example-app }}-${ADDITIONAL_APP_ARGS}-solution
+                ls
+                cd artifact
+                ls
+
             - uses: actions/upload-artifact@v4
               with:
                 name: ${{ inputs.example-app }}-${ADDITIONAL_APP_ARGS} ${{ inputs.board }}
