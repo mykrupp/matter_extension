@@ -67,9 +67,9 @@ jobs:
                 file_path: ${{ env.JSON_FILE_PATH }}
                 prop_path: "default.0.boards"
 
-            - run: |
-                echo ${{ toJSON(steps.get_boards.outputs.value) }}
-
+            - name: 
+              run: |
+                echo '${{ fromJson(env.JSON_FILE_PATH).default[0] }}'
     
             - name: Set up boards matrix
               run: |
