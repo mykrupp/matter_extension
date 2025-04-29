@@ -72,7 +72,7 @@ jobs:
     
             - name: Set up boards matrix
               run: |
-                echo "BOARD_MATRIX=$(echo '${{ fromJSON(steps.get_boards.outputs.value) }}' | jq -c)" >> $GITHUB_ENV
+                echo "BOARD_MATRIX=$(echo '${{ steps.get_boards.outputs.value }}' | jq -c)" >> $GITHUB_ENV
 
     upload:
         runs-on: ubuntu-latest
