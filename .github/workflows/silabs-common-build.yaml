@@ -72,7 +72,7 @@ jobs:
               uses: SiliconLabsSoftware/matter_build_action@ad6a1e182f50853bb8f978b43ca8920544b73248
               with:
                   json-file-path: ${{ env.JSON_FILE_PATH }}
-                  path-to-example-app: slc/solutions/${{ inputs.example-app }}/${SERIES}/${{ inputs.example-app }}-${ADDITIONAL_APP_ARGS}${BOOTLOADER}.slcw
+                  path-to-example-app: slc/solutions/${{ inputs.example-app }}/${SERIES}/${{ inputs.example-app }}- ${{ env.ADDITIONAL_APP_ARGS }}${{ env.BOOTLOADER }}.slcw
                   example-app: ${{ inputs.example-app }}
                   build-script: "./slc/build.sh"
                   output-directory: " "
@@ -93,13 +93,13 @@ jobs:
 
             - name: cd
               run: |
-                cd out/${{steps.get_boards.outputs.value}}/${{ inputs.example-app }}-${ADDITIONAL_APP_ARGS}-solution
+                cd out/${{steps.get_boards.outputs.value}}/${{ inputs.example-app }}- ${{ env.ADDITIONAL_APP_ARGS }}-solution
                 ls
                 cd artifact
                 ls
 
             - uses: actions/upload-artifact@v4
               with:
-                name: ${{ inputs.example-app }}-${ADDITIONAL_APP_ARGS} ${{ inputs.board }}
-                path: "${{ github.workspace }}/out/${{steps.get_boards.outputs.value}}/${{ inputs.example-app }}-${ADDITIONAL_APP_ARGS}-solution/artifact/${{ inputs.example-app }}-${ADDITIONAL_APP_ARGS}${BOOTLOADER}-full.s37"
+                name: ${{ inputs.example-app }}- ${{ env.ADDITIONAL_APP_ARGS }} ${{ inputs.board }}
+                path: ${{ github.workspace }}/out/${{steps.get_boards.outputs.value}}/${{ inputs.example-app }}- ${{ env.ADDITIONAL_APP_ARGS }}-solution/artifact/${{ inputs.example-app }}- ${{ env.ADDITIONAL_APP_ARGS }}${{ env.BOOTLOADER }}-full.s37
                 
