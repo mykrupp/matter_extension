@@ -71,15 +71,6 @@ jobs:
                   echo "SERIES=siwx917" >> $GITHUB_ENV
                 fi  
 
-            - name: Build ${{ inputs.example-app }} configurations
-              uses: SiliconLabsSoftware/matter_build_action@ad6a1e182f50853bb8f978b43ca8920544b73248
-              with:
-                  json-file-path: ${{ env.JSON_FILE_PATH }}
-                  path-to-example-app: slc/solutions/${{ inputs.example-app }}/${SERIES}/${{ inputs.example-app }}-${{ env.ADDITIONAL_APP_ARGS }}${{ env.BOOTLOADER }}.slcw
-                  example-app: ${{ inputs.example-app }}
-                  build-script: "./slc/build.sh"
-                  output-directory: " "
-
             - name: get boards
               id: get_boards
               uses: zoexx/github-action-json-file-properties@release
