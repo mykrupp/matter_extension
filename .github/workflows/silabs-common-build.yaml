@@ -65,7 +65,7 @@ jobs:
 
             - name: get boards
               id: get_boards
-              uses: zoexx/github-action-json-file-properties@release
+              uses: ActionsTools/read-json-action@main
               with:
                 file_path: ${{ env.JSON_FILE_PATH }}
                 prop_path: "default.0.boards"
