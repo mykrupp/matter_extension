@@ -89,14 +89,14 @@ jobs:
     
             - name: Set up boards matrix
               run: |
-                echo "BOARD_MATRIX=$(echo '${{ steps.get_boards.outputs.value }}' | jq -c)" >> $GITHUB_ENV
+                echo "BOARD_MATRIX=$(echo '${{ fromJSON(steps.get_boards.outputs.value) }}' | jq -c)" >> $GITHUB_ENV
 
     upload:
         runs-on: ubuntu-latest
         needs: build
         strategy:
             matrix:
-                board: ${{ fromJSON(needs.build.outputs.board_matrix) }}
+                board: ${{ needs.build.outputs.board_matrix }}
         steps:
 
           - name: Board ID
