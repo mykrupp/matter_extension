@@ -42,7 +42,7 @@ jobs:
                 git lfs pull
                 echo "STUDIO_ADAPTER_PACK_PATH=/opt/silabs/zap-linux-x64" >> $GITHUB_ENV
 
-            - name: Create SLCP string configurations
+            - name: Create SLCW string configurations
               run: |
                 echo "ADDITIONAL_APP_ARGS=thread" >> $GITHUB_ENV
                 if [ ${{ ((matrix.platform  == '917-soc') || ( matrix.platform  == '917-ncp' && ( inputs.example-app  == 'lock-app' ||  inputs.example-app  == 'thermostat' ||  inputs.example-app  == 'window-app')) || ( matrix.platform  == 'wf200' && ( inputs.example-app  == 'lock-app' ||  inputs.example-app  == 'thermostat' )) || ( matrix.platform  == 'rs911x' && ( inputs.example-app  == 'lock-app' ||  inputs.example-app  == 'thermostat' ))) }} = true ]; then
@@ -73,7 +73,7 @@ jobs:
                 fi
 
             - name: Build ${{ inputs.example-app }} configurations
-              uses: SiliconLabsSoftware/matter_build_action@ad6a1e182f50853bb8f978b43ca8920544b73248
+              uses: SiliconLabsSoftware/matter_build_action@3fa7357e526337fb8f370a20158b8857aeb708ab
               with:
                   json-file-path: ${{ env.JSON_FILE_PATH }}
                   path-to-example-app: slc/solutions/${{ inputs.example-app }}/${SERIES}/${{ inputs.example-app }}-${{ env.ADDITIONAL_APP_ARGS }}${{ env.BOOTLOADER }}.slcw
