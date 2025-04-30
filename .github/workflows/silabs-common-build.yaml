@@ -76,11 +76,10 @@ jobs:
                   else
                     artifacts="${artifacts}out/${board}/${{ inputs.example-app }}-${{ env.ADDITIONAL_APP_ARGS }}-solution/artifact/${{ inputs.example-app }}-${{ env.ADDITIONAL_APP_ARGS }}${{ env.BOOTLOADER }}-full.s37 "
                   fi
-                  echo $artifacts
+                  echo $artifacts >> $GITHUB_ENV
                 done
-                echo "Final artifacts: '$artifacts'"
-                echo "Final artifacts: '${artifacts}'"
-                echo "ARTIFACTS=${artifacts}" >> $GITHUB_ENV
+                echo "$artifacts"
+                echo "ARTIFACTS=$artifacts" >> $GITHUB_ENV
 
             - name: Upload artifacts
               uses: actions/upload-artifact@v4
