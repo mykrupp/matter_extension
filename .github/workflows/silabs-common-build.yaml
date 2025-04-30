@@ -22,7 +22,7 @@ jobs:
         strategy:
             fail-fast: false
             matrix:
-                platform: [mg24,mgm24, mg26, 917-soc, 917-ncp, wf200, rs911x]
+                platform: [917-soc]
 
         steps:
             - name: Checkout
@@ -86,6 +86,12 @@ jobs:
                 echo "ARTIFACTS="
                 jq --raw-output '.standard.default[0].boards[]' ${{env.JSON_FILE_PATH}} | while read board; do
                   echo "Processing board: $board"
+                  # Remove single quotes
+                  board="${board//\'/}"
+                  # Remove ";wiseconnect3_sdk"
+                  board="${board/;wiseconnect3_sdk/}"
+                  echo "$board"
+                  
                   echo "ARTIFACTS=$ARTIFACTS out/$board/${{ inputs.example-app }}-${{ env.ADDITIONAL_APP_ARGS }}-solution/artifact/${{ inputs.example-app }}-${{ env.ADDITIONAL_APP_ARGS }}${{ env.BOOTLOADER }}-full.s37" >> $GITHUB_ENV
                 done
 
