@@ -90,7 +90,7 @@ jobs:
                 jq --raw-output '.standard.default[0].boards[]' ${{env.JSON_FILE_PATH}} | while read board; do
                   echo "Processing board: $board"
                   # Create a ZIP of the artifact
-                  ls -l ${{ github.workspace }}/out/$board/${{ inputs.example-app }}-${{ env.ADDITIONAL_APP_ARGS }}-solution/artifact/
+                  ls -l "${{ github.workspace }}/out/$board/${{ inputs.example-app }}-${{ env.ADDITIONAL_APP_ARGS }}-solution/artifact"
                   zip "${{ inputs.example-app }}-${{ env.ADDITIONAL_APP_ARGS }}${{ env.BOOTLOADER }}-full.s37.zip ${{ github.workspace }}/out/$board/${{ inputs.example-app }}-${{ env.ADDITIONAL_APP_ARGS }}-solution/artifact/${{ inputs.example-app }}-${{ env.ADDITIONAL_APP_ARGS }}${{ env.BOOTLOADER }}-full.s37"
                   # Upload Artifact using GitHub API
                   curl -X POST -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
