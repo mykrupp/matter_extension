@@ -24,7 +24,7 @@ jobs:
         strategy:
             fail-fast: false
             matrix:
-                platform: [mg24, mgm24, mg26, 917-soc, 917-ncp, wf200, rs911x]
+                platform: [mg24]
 
         steps:
             - name: Checkout
@@ -86,20 +86,18 @@ jobs:
               id: extract_boards
               run: echo "boards=$(jq -c '.standard.default[0].boards' ${{env.JSON_FILE_PATH}})" >> "$GITHUB_OUTPUT"
 
-    upload:
-        runs-on: ubuntu-latest
-        needs: build
-        strategy:
-            matrix:
-                board: ${{ fromJson(needs.build.outputs.boards) }}
-        steps:
+            - name: Loop through boards
+              run: |
+                boards=${{ env.boards }}
+                for board in $(echo "$boards" | jq -r '.[]'); do
+                  echo "Processing board: $board"
+                  # Create a ZIP of the artifact
+                  zip ${{ inputs.example-app }}-${{ env.ADDITIONAL_APP_ARGS }}${{ env.BOOTLOADER }}-full.s37.zip ${{ github.workspace }}/out/${{matrix.board}}/${{ inputs.example-app }}-${{ env.ADDITIONAL_APP_ARGS }}-solution/artifact/
 
-          - name: Board ID
-            run: |
-              echo "Processing board: ${{ matrix.board }}"
-
-          - uses: actions/upload-artifact@v4
-            with:
-              name: ${{ inputs.example-app }}-${{ env.ADDITIONAL_APP_ARGS }} ${{ matrix.board }}
-              path: ${{ github.workspace }}/out/${{matrix.board}}/${{ inputs.example-app }}-${{ env.ADDITIONAL_APP_ARGS }}-solution/artifact/${{ inputs.example-app }}-${{ env.ADDITIONAL_APP_ARGS }}${{ env.BOOTLOADER }}-full.s37
-                
+                  # Upload Artifact using GitHub API
+                  curl -X POST -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+                       -H "Accept: application/vnd.github.v3+json" \
+                       -H "Content-Type: application/zip" \
+                       --data-binary @${{ inputs.example-app }}-${{ env.ADDITIONAL_APP_ARGS }}${{ env.BOOTLOADER }}-full.s37.zip \
+                       "https://api.github.com/repos/mykrupp/matter_extension/actions/runs/${{ github.run_id }}/artifacts"
+                done
