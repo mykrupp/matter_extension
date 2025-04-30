@@ -76,7 +76,7 @@ jobs:
                     echo ARTIFACTS="${ARTIFACTS}out/${board}/${{ inputs.example-app }}-${{ env.ADDITIONAL_APP_ARGS }}-solution/artifact/${{ inputs.example-app }}-${{ env.ADDITIONAL_APP_ARGS }}${{ env.BOOTLOADER }}-full.s37 "
                   fi
                 done
-                echo "ARTIFACT_PATH_LIST=${ARTIFACTS}" >> "$GITHUB_ENV"
+                echo ARTIFACT_PATH_LIST="${ARTIFACTS}" >> $GITHUB_ENV
 
             - name: Upload artifacts
               uses: actions/upload-artifact@v4
