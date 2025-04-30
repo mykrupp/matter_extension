@@ -80,7 +80,7 @@ jobs:
 
             - name: Extract board list from json
               id: extract_boards
-              run: echo "boards=$(jq -c '.default[0].boards' ${{env.JSON_FILE_PATH}})" >> "$GITHUB_OUTPUT"
+              run: echo "boards=$(jq -c '.standard.default[0].boards' ${{env.JSON_FILE_PATH}})" >> "$GITHUB_OUTPUT"
 
     upload:
         runs-on: ubuntu-latest
