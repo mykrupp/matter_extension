@@ -73,14 +73,14 @@ jobs:
             - name: Create artifact paths to be uploaded
               run: |
                 echo "boards=$(jq -c '.standard.default[0].boards' ${{env.JSON_FILE_PATH}})"
-                echo "ARTIFACTS="
+                echo "ARTIFACTS=''"
                 jq --raw-output '.standard.default[0].boards[]' ${{env.JSON_FILE_PATH}} | while read board; do
                   echo "Processing board: $board"
                   if [ ${{ matrix.platform == '917-soc' }} = true ] ; then
                     board=$(echo "$board" | sed "s/'//g; s/;wiseconnect3_sdk//")
-                    echo "ARTIFACTS+=$ARTIFACTS out/$board/${{ inputs.example-app }}-${{ env.ADDITIONAL_APP_ARGS }}-solution/${{ inputs.example-app }}-${{ env.ADDITIONAL_APP_ARGS }}/build/debug/${{ inputs.example-app }}-${{ env.ADDITIONAL_APP_ARGS }}.s37" >> $GITHUB_ENV
+                    ARTIFACTS+="$ARTIFACTS out/$board/${{ inputs.example-app }}-${{ env.ADDITIONAL_APP_ARGS }}-solution/${{ inputs.example-app }}-${{ env.ADDITIONAL_APP_ARGS }}/build/debug/${{ inputs.example-app }}-${{ env.ADDITIONAL_APP_ARGS }}.s37 " >> $GITHUB_ENV
                   else
-                    echo "ARTIFACTS+="$ARTIFACTS out/$board/${{ inputs.example-app }}-${{ env.ADDITIONAL_APP_ARGS }}-solution/artifact/${{ inputs.example-app }}-${{ env.ADDITIONAL_APP_ARGS }}${{ env.BOOTLOADER }}-full.s37" >> $GITHUB_ENV
+                    ARTIFACTS+="$ARTIFACTS out/$board/${{ inputs.example-app }}-${{ env.ADDITIONAL_APP_ARGS }}-solution/artifact/${{ inputs.example-app }}-${{ env.ADDITIONAL_APP_ARGS }}${{ env.BOOTLOADER }}-full.s37 " >> $GITHUB_ENV
                   fi
                 done
 
