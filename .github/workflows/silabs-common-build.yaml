@@ -70,16 +70,6 @@ jobs:
                   echo "SERIES=siwx917" >> $GITHUB_ENV
                 fi
 
-            - name: Build ${{ inputs.example-app }} configurations
-              uses: SiliconLabsSoftware/matter_build_action@3fa7357e526337fb8f370a20158b8857aeb708ab
-              with:
-                  json-file-path: ${{ env.JSON_FILE_PATH }}
-                  path-to-example-app: slc/solutions/${{ inputs.example-app }}/${SERIES}/${{ inputs.example-app }}-${{ env.ADDITIONAL_APP_ARGS }}${{ env.BOOTLOADER }}.slcw
-                  example-app: ${{ inputs.example-app }}
-                  build-script: "./slc/build.sh"
-                  output-directory: " "
-                  build-type: ${{ inputs.build-type }}
-
             - name: Extract board list from json
               id: extract_boards
               run: echo "boards=$(jq -c '.standard.default[0].boards' ${{env.JSON_FILE_PATH}})"
@@ -89,13 +79,11 @@ jobs:
                 echo "boards=$(jq -c '.standard.default[0].boards' ${{env.JSON_FILE_PATH}})"
                 jq --raw-output '.standard.default[0].boards[]' ${{env.JSON_FILE_PATH}} | while read board; do
                   echo "Processing board: $board"
-                  # Create a ZIP of the artifact
-                  ls -l "out/$board/${{ inputs.example-app }}-${{ env.ADDITIONAL_APP_ARGS }}-solution/artifact"
-                  zip "${{ inputs.example-app }}-${{ env.ADDITIONAL_APP_ARGS }}${{ env.BOOTLOADER }}-full.s37.zip" "out/$board/${{ inputs.example-app }}-${{ env.ADDITIONAL_APP_ARGS }}-solution/artifact/${{ inputs.example-app }}-${{ env.ADDITIONAL_APP_ARGS }}${{ env.BOOTLOADER }}-full.s37"
-                  # Upload Artifact using GitHub API
-                  curl -X POST -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
-                       -H "Accept: application/vnd.github.v3+json" \
-                       -H "Content-Type: application/zip" \
-                       --data-binary @"${{ inputs.example-app }}-${{ env.ADDITIONAL_APP_ARGS }}${{ env.BOOTLOADER }}-full.s37.zip" \
-                       "https://api.github.com/repos/mykrupp/matter_extension/actions/runs/${{ github.run_id }}/artifacts"
+                  echo "ARTIFACTS+=$board" >> $GITHUB_ENV
                 done
+
+            - name: Upload artifacts
+              uses: actions/upload-artifact@v3
+              with:
+                name: ${{ inputs.example-app }}-${{ env.ADDITIONAL_APP_ARGS }}${{ env.BOOTLOADER }}-full.s37
+                path: ${{ env.ARTIFACTS }}
