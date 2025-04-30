@@ -76,10 +76,10 @@ jobs:
                   else
                     artifacts="${artifacts}out/${board}/${{ inputs.example-app }}-${{ env.ADDITIONAL_APP_ARGS }}-solution/artifact/${{ inputs.example-app }}-${{ env.ADDITIONAL_APP_ARGS }}${{ env.BOOTLOADER }}-full.s37 "
                   fi
-                  {
                   echo "${artifacts}"
-                  } >> $GITHUB_ENV
+
                 done
+                echo "these"
                 echo "$artifacts"
 
             - name: Upload artifacts
