@@ -21,14 +21,23 @@ jobs:
         strategy:
             fail-fast: false
             matrix:
-                platform: [mg24]
+                platform: [mg24, mgm24, mg26, 917-soc, 917-ncp, wf200, rs911x]
 
         steps:
             - name: Checkout
               uses: actions/checkout@v4
+              with:
+                submodules: 'true'
 
+            - name: Install tools
+              uses: ./.github/actions/install-tools
 
-
+            - name: git lfs pull and set STUDIO_ADAPTER_PACK_PATH
+              run: |
+                cd third_party/simplicity_sdk
+                git lfs install
+                git lfs pull
+                echo "STUDIO_ADAPTER_PACK_PATH=/opt/silabs/zap-linux-x64" >> $GITHUB_ENV
 
             - name: Create SLCP string configurations
               run: |
@@ -58,7 +67,16 @@ jobs:
                 echo "SERIES=series-2" >> $GITHUB_ENV
                 if [ ${{ matrix.platform == '917-soc' }} = true ] ; then
                   echo "SERIES=siwx917" >> $GITHUB_ENV
-                fi  
+                fi
+
+            - name: Build ${{ inputs.example-app }} configurations
+              uses: SiliconLabsSoftware/matter_build_action@ad6a1e182f50853bb8f978b43ca8920544b73248
+              with:
+                  json-file-path: ${{ env.JSON_FILE_PATH }}
+                  path-to-example-app: slc/solutions/${{ inputs.example-app }}/${SERIES}/${{ inputs.example-app }}-${{ env.ADDITIONAL_APP_ARGS }}${{ env.BOOTLOADER }}.slcw
+                  example-app: ${{ inputs.example-app }}
+                  build-script: "./slc/build.sh"
+                  output-directory: " "  
 
             - name: Extract board list from json
               id: extract_boards
