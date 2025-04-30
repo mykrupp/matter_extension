@@ -62,7 +62,7 @@ jobs:
 
             - name: Extract board list from package.json
               id: extract_boards
-              run: echo "boards=$(jq -c '.config.default[0].boards' ${{env.JSON_FILE_PATH}})" 
+              run: echo "boards=$(jq -c '.default[0].boards' ${{env.JSON_FILE_PATH}})" 
 
     upload:
         runs-on: ubuntu-latest
