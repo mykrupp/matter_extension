@@ -69,7 +69,7 @@ jobs:
         needs: build
         strategy:
             matrix:
-                board: ${{ fromJson((cat needs.build.outputs.package_json)).config.default[0].boards }}
+                board: ${{ fromJson((needs.build.outputs.package_json)).config.default[0].boards }}
         steps:
 
           - name: Board ID
