@@ -61,7 +61,7 @@ jobs:
                 fi  
 
             - run: echo "PACKAGE_JSON=$(jq -c . < ${{ env.JSON_FILE_PATH }})" >> $GITHUB_ENV
-            - run: echo '${{ fromJson(env.PACKAGE_JSON).default }}'
+            - run: echo '${{ fromJson(env.PACKAGE_JSON).default[0] }}'
     
             - name: Set up boards matrix
               run: |
