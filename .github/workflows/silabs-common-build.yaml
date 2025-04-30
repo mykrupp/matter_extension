@@ -78,7 +78,8 @@ jobs:
                   fi
                 done
                 echo "Final artifacts: '$artifacts'"
-                echo "Final artifacts: {$artifacts}"
+                echo "Final artifacts: ${artifacts}"
+                echo "Final artifacts: ${{artifacts}}"
                 echo "ARTIFACTS=${artifacts}" >> $GITHUB_ENV
 
             - name: Upload artifacts
