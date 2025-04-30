@@ -87,11 +87,10 @@ jobs:
             - name: Loop through boards
               run: |
                 echo "boards=$(jq -c '.standard.default[0].boards' ${{env.JSON_FILE_PATH}})"
-                for board in $(echo "$boards" | jq -r '.[]'); do
+                jq -c '.standard.default[0].boards[]' /Users/mirupp/workspace/matter_extension/.github/silabs-builds-mg24.json | while read board; do
                   echo "Processing board: $board"
                   # Create a ZIP of the artifact
-                  zip ${{ inputs.example-app }}-${{ env.ADDITIONAL_APP_ARGS }}${{ env.BOOTLOADER }}-full.s37.zip ${{ github.workspace }}/out/${{matrix.board}}/${{ inputs.example-app }}-${{ env.ADDITIONAL_APP_ARGS }}-solution/artifact/
-
+                  zip ${{ inputs.example-app }}-${{ env.ADDITIONAL_APP_ARGS }}${{ env.BOOTLOADER }}-full.s37.zip ${{ github.workspace }}/out/$board/${{ inputs.example-app }}-${{ env.ADDITIONAL_APP_ARGS }}-solution/artifact/
                   # Upload Artifact using GitHub API
                   curl -X POST -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
                        -H "Accept: application/vnd.github.v3+json" \
