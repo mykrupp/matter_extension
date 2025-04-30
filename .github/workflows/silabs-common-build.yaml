@@ -16,8 +16,6 @@ on:
 jobs:
     build:
         runs-on: ubuntu-latest
-        outputs:
-          boards: ${{ steps.extract_boards.outputs.boards }}
         container:
             image: ghcr.io/project-chip/chip-build-efr32:115
 
@@ -84,11 +82,11 @@ jobs:
 
             - name: Extract board list from json
               id: extract_boards
-              run: echo "boards=$(jq -c '.standard.default[0].boards' ${{env.JSON_FILE_PATH}})" >> "$GITHUB_OUTPUT"
+              run: echo "boards=$(jq -c '.standard.default[0].boards' ${{env.JSON_FILE_PATH}})"
 
             - name: Loop through boards
               run: |
-                boards=${{ env.boards }}
+                echo "boards=$(jq -c '.standard.default[0].boards' ${{env.JSON_FILE_PATH}})"
                 for board in $(echo "$boards" | jq -r '.[]'); do
                   echo "Processing board: $board"
                   # Create a ZIP of the artifact
