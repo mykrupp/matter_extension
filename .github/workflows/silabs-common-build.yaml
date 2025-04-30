@@ -84,7 +84,6 @@ jobs:
                     ARTIFACTS="${ARTIFACTS}out/${board}/${{ inputs.example-app }}-${{ env.ADDITIONAL_APP_ARGS }}-solution/artifact/${{ inputs.example-app }}-${{ env.ADDITIONAL_APP_ARGS }}${{ env.BOOTLOADER }}-full.s37 "
                   fi
                 done
-                echo $ARTIFACTS >> $GITHUB_ENV
 
             - name: Upload artifacts
               uses: actions/upload-artifact@v4
