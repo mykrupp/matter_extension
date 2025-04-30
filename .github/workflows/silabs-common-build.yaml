@@ -62,11 +62,12 @@ jobs:
                          matrix.platform == 'mg26' && './.github/silabs-builds-mg26.json' ||
                          matrix.platform == '917-soc' && './.github/silabs-builds-siwx.json' }}" >> $GITHUB_ENV
 
+            - run: echo "ARTIFACTS=" >> $GITHUB_ENV
+
             - name: Create artifact paths to be uploaded
               shell: bash
               run: |
                 echo "boards=$(jq -c '.standard.default[0].boards' ${{env.JSON_FILE_PATH}})"
-                echo "ARTIFACTS=" >> $GITHUB_ENV
                 jq --raw-output '.standard.default[0].boards[]' ${{env.JSON_FILE_PATH}} | while read board; do
                   echo "Processing board: $board"
                   if [ ${{ matrix.platform == '917-soc' }} = true ] ; then
