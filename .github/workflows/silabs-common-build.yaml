@@ -60,7 +60,8 @@ jobs:
                   echo "SERIES=siwx917" >> $GITHUB_ENV
                 fi  
 
-            - run: echo "PACKAGE_JSON=$(jq -c . < ${{ env.JSON_FILE_PATH }})" >> $GITHUB_ENV
+            - id: get_boards
+              run: echo "PACKAGE_JSON=$(jq -c . < ${{ env.JSON_FILE_PATH }})" >> $GITHUB_ENV
             - run: echo '${{ fromJson(env.PACKAGE_JSON).default[0].boards }}'
 
     upload:
@@ -68,7 +69,7 @@ jobs:
         needs: build
         strategy:
             matrix:
-                board: ${{ fromJson('{needs.build.outputs.package_json}').default[0].boards }}
+                board: ${{ fromJson('${{needs.build.outputs.package_json}}').default[0].boards }}
         steps:
 
           - name: Board ID
