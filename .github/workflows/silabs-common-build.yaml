@@ -60,16 +60,8 @@ jobs:
                   echo "SERIES=siwx917" >> $GITHUB_ENV
                 fi  
 
-            - name: get boards
-              id: get_boards
-              uses: ActionsTools/read-json-action@main
-              with:
-                file_path: ${{ env.JSON_FILE_PATH }}
-                prop_path: "default.0.boards"
-
-            - name: print
-              run: |
-                echo '${{ fromJson(env.JSON_FILE_PATH).default }}'
+            - run: echo "PACKAGE_JSON=$(jq -c . < ${{ JSON_FILE_PATH }})" >> $GITHUB_ENV
+            - run: echo '${{ fromJson(env.PACKAGE_JSON).version }}'
     
             - name: Set up boards matrix
               run: |
