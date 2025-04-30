@@ -13,7 +13,8 @@ on:
 jobs:
     build:
         runs-on: ubuntu-latest
-
+        outputs:
+          package_json: ${{ steps.get_boards.outputs.PACKAGE_JSON }}
         container:
             image: ghcr.io/project-chip/chip-build-efr32:115
 
@@ -25,8 +26,7 @@ jobs:
         steps:
             - name: Checkout
               uses: actions/checkout@v4
-              with:
-                submodules: 'true'
+
 
 
 
@@ -68,7 +68,7 @@ jobs:
         needs: build
         strategy:
             matrix:
-                board: ${{ fromJson('{env.JSON_FILE_PATH}').default[0].boards }}
+                board: ${{ fromJson('{needs.build.outputs.package_json}').default[0].boards }}
         steps:
 
           - name: Board ID
