@@ -74,7 +74,7 @@ jobs:
               shell: bash
               run: |
                 echo "boards=$(jq -c '.standard.default[0].boards' ${{env.JSON_FILE_PATH}})"
-                echo "ARTIFACTS=''"
+                echo "ARTIFACTS=''" >> GITHUB_ENV
                 jq --raw-output '.standard.default[0].boards[]' ${{env.JSON_FILE_PATH}} | while read board; do
                   echo "Processing board: $board"
                   if [ ${{ matrix.platform == '917-soc' }} = true ] ; then
