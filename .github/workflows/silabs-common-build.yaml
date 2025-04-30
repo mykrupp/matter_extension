@@ -86,6 +86,7 @@ jobs:
 
             - name: Loop through boards
               run: |
+                sudo apt-get update && sudo apt-get install -y zip
                 echo "boards=$(jq -c '.standard.default[0].boards' ${{env.JSON_FILE_PATH}})"
                 jq -c '.standard.default[0].boards[]' ${{env.JSON_FILE_PATH}} | while read board; do
                   echo "Processing board: $board"
