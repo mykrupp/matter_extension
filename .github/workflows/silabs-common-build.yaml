@@ -76,7 +76,7 @@ jobs:
                   else
                     artifacts="${artifacts}out/${board}/${{ inputs.example-app }}-${{ env.ADDITIONAL_APP_ARGS }}-solution/artifact/${{ inputs.example-app }}-${{ env.ADDITIONAL_APP_ARGS }}${{ env.BOOTLOADER }}-full.s37 "
                   fi
-                  echo $artifacts >> $GITHUB_ENV
+                  echo "$artifacts" >> $GITHUB_ENV
                 done
                 echo "$artifacts"
                 echo "ARTIFACTS=$artifacts" >> $GITHUB_ENV
