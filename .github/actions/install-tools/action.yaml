@@ -23,6 +23,10 @@ runs:
         else
           echo "File not found"
         fi
+    - name: Install zip
+      shell: bash
+      run: |
+        apt-get update && apt-get install -y zip
     - name: Install Arm GNU Toolchain (arm-none-eabi-gcc)
       uses: carlosperate/arm-none-eabi-gcc-action@v1
       id: arm-none-eabi-gcc-action
