@@ -96,6 +96,6 @@ jobs:
                   curl -X POST -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
                        -H "Accept: application/vnd.github.v3+json" \
                        -H "Content-Type: application/zip" \
-                       --data-binary @${{ inputs.example-app }}-${{ env.ADDITIONAL_APP_ARGS }}${{ env.BOOTLOADER }}-full.s37.zip \
+                       --data-binary @"${{ inputs.example-app }}-${{ env.ADDITIONAL_APP_ARGS }}${{ env.BOOTLOADER }}-full.s37.zip" \
                        "https://api.github.com/repos/mykrupp/matter_extension/actions/runs/${{ github.run_id }}/artifacts"
                 done
