@@ -92,5 +92,5 @@ jobs:
             - name: Upload artifacts
               uses: actions/upload-artifact@v4
               with:
-                name: ${{ inputs.example-app }}-${{ env.ADDITIONAL_APP_ARGS }}${{ env.BOOTLOADER }}-full.s37
+                name: ${{ inputs.example-app }}-${{ env.ADDITIONAL_APP_ARGS }}${{ env.BOOTLOADER }}-full.s37 ${{ matrix.platform }}
                 path: ${{ env.ARTIFACTS }}
