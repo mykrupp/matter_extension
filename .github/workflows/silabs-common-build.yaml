@@ -22,7 +22,7 @@ jobs:
         strategy:
             fail-fast: false
             matrix:
-                platform: [mg24, mgm24, mg26, 917-soc, 917-ncp, wf200, rs911x]
+                platform: [mg24]
 
         steps:
             - name: Checkout
@@ -71,6 +71,7 @@ jobs:
                          matrix.platform == '917-soc' && './.github/silabs-builds-siwx.json' }}" >> $GITHUB_ENV
 
             - name: Create artifact paths to be uploaded
+              shell: bash
               run: |
                 echo "boards=$(jq -c '.standard.default[0].boards' ${{env.JSON_FILE_PATH}})"
                 echo "ARTIFACTS=''"
