@@ -70,16 +70,6 @@ jobs:
                          matrix.platform == 'mg26' && './.github/silabs-builds-mg26.json' ||
                          matrix.platform == '917-soc' && './.github/silabs-builds-siwx.json' }}" >> $GITHUB_ENV
 
-            - name: Build ${{ inputs.example-app }} configurations
-              uses: SiliconLabsSoftware/matter_build_action@3fa7357e526337fb8f370a20158b8857aeb708ab
-              with:
-                  json-file-path: ${{ env.JSON_FILE_PATH }}
-                  path-to-example-app: slc/solutions/${{ inputs.example-app }}/${SERIES}/${{ inputs.example-app }}-${{ env.ADDITIONAL_APP_ARGS }}${{ env.BOOTLOADER }}.slcw
-                  example-app: ${{ inputs.example-app }}
-                  build-script: "./slc/build.sh"
-                  output-directory: " "
-                  build-type: ${{ inputs.build-type }}
-
             - name: Create artifact paths to be uploaded
               run: |
                 echo "boards=$(jq -c '.standard.default[0].boards' ${{env.JSON_FILE_PATH}})"
@@ -88,9 +78,9 @@ jobs:
                   echo "Processing board: $board"
                   if [ ${{ matrix.platform == '917-soc' }} = true ] ; then
                     board=$(echo "$board" | sed "s/'//g; s/;wiseconnect3_sdk//")
-                    echo "ARTIFACTS=$ARTIFACTS out/$board/${{ inputs.example-app }}-${{ env.ADDITIONAL_APP_ARGS }}-solution/${{ inputs.example-app }}-${{ env.ADDITIONAL_APP_ARGS }}/build/debug/${{ inputs.example-app }}-${{ env.ADDITIONAL_APP_ARGS }}.s37" >> $GITHUB_ENV
+                    echo "ARTIFACTS=${ARTIFACTS} out/$board/${{ inputs.example-app }}-${{ env.ADDITIONAL_APP_ARGS }}-solution/${{ inputs.example-app }}-${{ env.ADDITIONAL_APP_ARGS }}/build/debug/${{ inputs.example-app }}-${{ env.ADDITIONAL_APP_ARGS }}.s37" >> $GITHUB_ENV
                   else
-                    echo "ARTIFACTS=$ARTIFACTS out/$board/${{ inputs.example-app }}-${{ env.ADDITIONAL_APP_ARGS }}-solution/artifact/${{ inputs.example-app }}-${{ env.ADDITIONAL_APP_ARGS }}${{ env.BOOTLOADER }}-full.s37" >> $GITHUB_ENV
+                    echo "ARTIFACTS=${ARTIFACTS} out/$board/${{ inputs.example-app }}-${{ env.ADDITIONAL_APP_ARGS }}-solution/artifact/${{ inputs.example-app }}-${{ env.ADDITIONAL_APP_ARGS }}${{ env.BOOTLOADER }}-full.s37" >> $GITHUB_ENV
                   fi
                 done
 
