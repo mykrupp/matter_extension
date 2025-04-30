@@ -70,9 +70,15 @@ jobs:
                   echo "SERIES=siwx917" >> $GITHUB_ENV
                 fi
 
-            - name: Extract board list from json
-              id: extract_boards
-              run: echo "boards=$(jq -c '.standard.default[0].boards' ${{env.JSON_FILE_PATH}})"
+            - name: Build ${{ inputs.example-app }} configurations
+              uses: SiliconLabsSoftware/matter_build_action@3fa7357e526337fb8f370a20158b8857aeb708ab
+              with:
+                  json-file-path: ${{ env.JSON_FILE_PATH }}
+                  path-to-example-app: slc/solutions/${{ inputs.example-app }}/${SERIES}/${{ inputs.example-app }}-${{ env.ADDITIONAL_APP_ARGS }}${{ env.BOOTLOADER }}.slcw
+                  example-app: ${{ inputs.example-app }}
+                  build-script: "./slc/build.sh"
+                  output-directory: " "
+                  build-type: ${{ inputs.build-type }}
 
             - name: Loop through boards
               run: |
