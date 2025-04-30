@@ -61,22 +61,14 @@ jobs:
                 fi  
 
             - run: echo "PACKAGE_JSON=$(jq -c . < ${{ env.JSON_FILE_PATH }})" >> $GITHUB_ENV
-            - run: echo '${{ fromJson(env.PACKAGE_JSON).default[0] }}'
-    
-            - name: Set up boards matrix
-              run: |
-                echo "BOARD_MATRIX=$(echo '${{ steps.get_boards.outputs.value }}' | jq -c)" >> $GITHUB_ENV
-
-            - name: print board matrix
-              run: | 
-                echo "$BOARD_MATRIX"
+            - run: echo '${{ fromJson(env.PACKAGE_JSON).default[0].boards }}'
 
     upload:
         runs-on: ubuntu-latest
         needs: build
         strategy:
             matrix:
-                board: ${{ needs.build.outputs.board_matrix }}
+                board: ${{ fromJson('{env.JSON_FILE_PATH}').default[0].boards }}
         steps:
 
           - name: Board ID
