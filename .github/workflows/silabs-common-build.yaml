@@ -72,14 +72,13 @@ jobs:
                   echo "Processing board: $board"
                   if [ ${{ matrix.platform == '917-soc' }} = true ] ; then
                     board=$(echo "$board" | sed "s/'//g; s/;wiseconnect3_sdk//")
-                    artifacts="${artifacts}out/${board}/${{ inputs.example-app }}-${{ env.ADDITIONAL_APP_ARGS }}-solution/${{ inputs.example-app }}-${{ env.ADDITIONAL_APP_ARGS }}/build/debug/${{ inputs.example-app }}-${{ env.ADDITIONAL_APP_ARGS }}.s37 "
+                    artifacts="${artifacts}out/${board}/${{ inputs.example-app }}-${{ env.ADDITIONAL_APP_ARGS }}-solution/${{ inputs.example-app }}-${{ env.ADDITIONAL_APP_ARGS }}/build/debug/${{ inputs.example-app }}-${{ env.ADDITIONAL_APP_ARGS }}.s37\n"
                   else
-                    artifacts="${artifacts}out/${board}/${{ inputs.example-app }}-${{ env.ADDITIONAL_APP_ARGS }}-solution/artifact/${{ inputs.example-app }}-${{ env.ADDITIONAL_APP_ARGS }}${{ env.BOOTLOADER }}-full.s37 "
+                    artifacts="${artifacts}out/${board}/${{ inputs.example-app }}-${{ env.ADDITIONAL_APP_ARGS }}-solution/artifact/${{ inputs.example-app }}-${{ env.ADDITIONAL_APP_ARGS }}${{ env.BOOTLOADER }}-full.s37\n"
                   fi
                   echo "${artifacts}"
 
                 done
-                echo "${artifacts}"
 
             - name: Upload artifacts
               uses: actions/upload-artifact@v4
