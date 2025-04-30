@@ -77,8 +77,14 @@ jobs:
                     artifacts="${artifacts}out/${board}/${{ inputs.example-app }}-${{ env.ADDITIONAL_APP_ARGS }}-solution/artifact/${{ inputs.example-app }}-${{ env.ADDITIONAL_APP_ARGS }}${{ env.BOOTLOADER }}-full.s37 "
                   fi
                 done
-                echo "Final artifacts: ${artifacts}"
+                echo "Final artifacts: '$artifacts'"
+                echo "Final artifacts: '${artifacts}'"
                 echo "ARTIFACTS=${artifacts}" >> $GITHUB_ENV
+
+            - name: final final
+              run: |
+                echo "Final artifacts: '${artifacts}'"
+                echo "${ARTIFACTS}"
 
             - name: Upload artifacts
               uses: actions/upload-artifact@v4
