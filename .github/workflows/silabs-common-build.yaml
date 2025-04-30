@@ -86,10 +86,7 @@ jobs:
                 echo "ARTIFACTS="
                 jq --raw-output '.standard.default[0].boards[]' ${{env.JSON_FILE_PATH}} | while read board; do
                   echo "Processing board: $board"
-                  # Remove single quotes
-                  board="${board//\'/}"
-                  # Remove ";wiseconnect3_sdk"
-                  board="${board/;wiseconnect3_sdk/}"
+                  board=$(echo "$board" | sed "s/'//g; s/;wiseconnect3_sdk//")
                   echo "$board"
                   
                   echo "ARTIFACTS=$ARTIFACTS out/$board/${{ inputs.example-app }}-${{ env.ADDITIONAL_APP_ARGS }}-solution/artifact/${{ inputs.example-app }}-${{ env.ADDITIONAL_APP_ARGS }}${{ env.BOOTLOADER }}-full.s37" >> $GITHUB_ENV
