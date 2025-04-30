@@ -60,9 +60,9 @@ jobs:
                   echo "SERIES=siwx917" >> $GITHUB_ENV
                 fi  
 
-            - id: get_boards
-              run: echo "PACKAGE_JSON=$(jq -c . < ${{ env.JSON_FILE_PATH }})" >> $GITHUB_ENV
-            - run: echo '${{ fromJson(env.PACKAGE_JSON).default[0].boards }}'
+            - name: Extract board list from package.json
+              id: extract_boards
+              run: echo "boards=$(jq -c '.config.default[0].boards' ${{env.JSON_FILE_PATH}})" 
 
     upload:
         runs-on: ubuntu-latest
