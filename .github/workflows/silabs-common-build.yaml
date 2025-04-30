@@ -80,7 +80,7 @@ jobs:
                 echo "ARTIFACTS="
                 jq --raw-output '.standard.default[0].boards[]' ${{env.JSON_FILE_PATH}} | while read board; do
                   echo "Processing board: $board"
-                  echo "ARTIFACTS+=out/$board/${{ inputs.example-app }}-${{ env.ADDITIONAL_APP_ARGS }}-solution/artifact/${{ inputs.example-app }}-${{ env.ADDITIONAL_APP_ARGS }}${{ env.BOOTLOADER }}-full.s37" >> $GITHUB_ENV
+                  echo "ARTIFACTS=$ARTIFACTS out/$board/${{ inputs.example-app }}-${{ env.ADDITIONAL_APP_ARGS }}-solution/artifact/${{ inputs.example-app }}-${{ env.ADDITIONAL_APP_ARGS }}${{ env.BOOTLOADER }}-full.s37" >> $GITHUB_ENV
                 done
 
             - name: Upload artifacts
