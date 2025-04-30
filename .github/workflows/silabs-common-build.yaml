@@ -68,7 +68,7 @@ jobs:
               run: |
                 echo "boards=$(jq -c '.standard.default[0].boards' ${{env.JSON_FILE_PATH}})"
                 artifacts=""
-                 while read board; do
+                jq --raw-output '.standard.default[0].boards[]' ${{env.JSON_FILE_PATH}} | while read board; do
                   echo "Processing board: $board"
                   if [ ${{ matrix.platform == '917-soc' }} = true ] ; then
                     board=$(echo "$board" | sed "s/'//g; s/;wiseconnect3_sdk//")
@@ -78,12 +78,12 @@ jobs:
                   fi
                   echo "${artifacts}"
 
-                done <jq --raw-output '.standard.default[0].boards[]' ${{env.JSON_FILE_PATH}}
-                echo "${artifacts}"  >> $GITHUB_ENV 
+                done
+                echo "${artifacts}"
 
             - name: Upload artifacts
               uses: actions/upload-artifact@v4
               with:
                 name: ${{ inputs.example-app }}-${{ env.ADDITIONAL_APP_ARGS }}${{ env.BOOTLOADER }}-full.s37 ${{ matrix.platform }}
-                path: ${{ env.ARTIFACTS }}
+                path: ${ARTIFACTS}
 
