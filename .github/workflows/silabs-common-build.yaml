@@ -87,7 +87,7 @@ jobs:
             - name: Loop through boards
               run: |
                 echo "boards=$(jq -c '.standard.default[0].boards' ${{env.JSON_FILE_PATH}})"
-                jq -c '.standard.default[0].boards[]' ${{env.JSON_FILE_PATH}} | while read board; do
+                jq --raw-output '.standard.default[0].boards[]' ${{env.JSON_FILE_PATH}} | while read board; do
                   echo "Processing board: $board"
                   # Create a ZIP of the artifact
                   zip ${{ inputs.example-app }}-${{ env.ADDITIONAL_APP_ARGS }}${{ env.BOOTLOADER }}-full.s37.zip ${{ github.workspace }}/out/$board/${{ inputs.example-app }}-${{ env.ADDITIONAL_APP_ARGS }}-solution/artifact/
