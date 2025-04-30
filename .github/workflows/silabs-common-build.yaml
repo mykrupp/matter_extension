@@ -22,7 +22,7 @@ jobs:
         strategy:
             fail-fast: false
             matrix:
-                platform: [mg24]
+                platform: [mg24,mgm24, mg26, 917-soc, 917-ncp, wf200, rs911x]
 
         steps:
             - name: Checkout
