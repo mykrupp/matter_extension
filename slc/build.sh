@@ -3,30 +3,25 @@
 # This script generates and builds the SLC project for the given Matter application and board.
 #
 #   Usage:
-#   ./slc/build.sh <slcp/slcw path> <board>
+#   ./slc/build.sh <slcp/slcw path> <output-dir> <board>
 #
 #   Example .slcp usage:
-#   ./slc/build.sh slc/sample-app/lighting-app/efr32/lighting-app-thread.slcp brd4187c
-#       output in: out/brd4187c/lighting-app-thread/
+#   ./slc/build.sh slc/sample-app/lighting-app/efr32/lighting-app-thread.slcp out/lighting-app-thread brd4187c
 #
 #   Example .slcw usage:
-#   ./slc/build.sh slc/solutions/lighting-app/series-2/lighting-app-thread-bootloader.slcw brd4187c
-#       output in: out/brd4187c/lighting-app-thread-solution/
+#   ./slc/build.sh slc/solutions/lighting-app/series-2/lighting-app-thread-bootloader.slcw out/lighting-app-thread brd4187c
 #
 #   Example --configuration option usage:
-#   ./slc/build.sh slc/sample-app/lighting-app/efr32/lighting-app-thread.slcp brd4187c --configuration CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION:20,CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION_STRING:\"1.0.0-1.0\"
-#       output in: out/brd4187c/lighting-app-thread/
+#   ./slc/build.sh slc/sample-app/lighting-app/efr32/lighting-app-thread.slcp out/lighting-app-thread brd4187c --configuration CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION:20,CHIP_DEVICE_CONFIG_DEVICE_SOFTWARE_VERSION_STRING:\"1.0.0-1.0\"
 #
 #   --skip_gen option : Allows to skip the slc gen step and only run the make commande to rebuild modified files. slc gen normally regenerate your config, autogen, linker_options and makefile for your output folder.
 #                       This option only works if the project as previously been generated
 #   Example
-#   ./slc/build.sh slc/sample-app/lighting-app/efr32/lighting-app-thread.slcp brd4187c --skip_gen
-#       output in: out/brd4187c/lighting-app-thread/
+#   ./slc/build.sh slc/sample-app/lighting-app/efr32/lighting-app-thread.slcp out/lighting-app-thread brd4187c --skip_gen
 #
 #   --sisdk option : Allows to build a project using a different SISDK folder, at the provided path, rather than the default one found in third_party/simplicity_sdk
 #   Example
-#   ./slc/build.sh slc/sample-app/lighting-app/efr32/lighting-app-thread.slcp brd4187c --sisdk /Users/Shared/silabs/Github/sisdk
-#       output in: out/brd4187c/lighting-app-thread/
+#   ./slc/build.sh slc/sample-app/lighting-app/efr32/lighting-app-thread.slcp out/lighting-app-thread brd4187c --sisdk /Users/Shared/silabs/Github/sisdk
 #
 
 MATTER_ROOT=$(pwd -P)
@@ -41,7 +36,7 @@ set +a
 
 GSDK_ROOT=$MATTER_ROOT/third_party/simplicity_sdk
 SILABS_APP_PATH=$1
-SILABS_BOARD=$2
+SILABS_BOARD=$3
 CONFIG_ARGS=""
 BRD_ONLY=$(echo $SILABS_BOARD | cut -f1 -d";")
 
@@ -55,12 +50,12 @@ if [[ "$SILABS_APP_PATH" == *.slcw ]]; then
         MAKE_FILE=$SILABS_APP-bootloader.solution.Makefile
     fi
     PROJECT_FLAG="-w"
-    OUTPUT_DIR="out/$BRD_ONLY/$SILABS_APP-solution"
+    OUTPUT_DIR=${2:-"out/$BRD_ONLY/$SILABS_APP-solution"}
 
 elif [[ "$SILABS_APP_PATH" == *.slcp ]]; then
     SILABS_APP=$(basename "$SILABS_APP_PATH" .slcp)
     PROJECT_FLAG="-p"
-    OUTPUT_DIR="out/$BRD_ONLY/$SILABS_APP"
+    OUTPUT_DIR=${2:-"out/$BRD_ONLY/$SILABS_APP"}
     MAKE_FILE=$SILABS_APP.Makefile
 
 else
