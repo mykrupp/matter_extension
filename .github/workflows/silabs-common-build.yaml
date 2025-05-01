@@ -30,7 +30,15 @@ jobs:
               with:
                 submodules: 'true'
 
-                
+            - name: Install tools
+              uses: ./.github/actions/install-tools
+
+            - name: git lfs pull and set STUDIO_ADAPTER_PACK_PATH
+              run: |
+                cd third_party/simplicity_sdk
+                git lfs install
+                git lfs pull
+                echo "STUDIO_ADAPTER_PACK_PATH=/opt/silabs/zap-linux-x64" >> $GITHUB_ENV                
 
             - name: Create SLCW string configurations
               run: |
@@ -61,11 +69,20 @@ jobs:
                          matrix.platform == 'mgm24' && './.github/silabs-builds-mgm24.json' ||
                          matrix.platform == 'mg26' && './.github/silabs-builds-mg26.json' ||
                          matrix.platform == '917-soc' && './.github/silabs-builds-siwx.json' }}" >> $GITHUB_ENV
-                mkdir out
+
+            - name: Build ${{ inputs.example-app }} configurations
+              uses: SiliconLabsSoftware/matter_build_action@3fa7357e526337fb8f370a20158b8857aeb708ab
+              with:
+                  json-file-path: ${{ env.JSON_FILE_PATH }}
+                  path-to-example-app: slc/solutions/${{ inputs.example-app }}/${SERIES}/${{ inputs.example-app }}-${{ env.ADDITIONAL_APP_ARGS }}${{ env.BOOTLOADER }}.slcw
+                  example-app: ${{ inputs.example-app }}
+                  build-script: "./slc/build.sh"
+                  output-directory: "artifacts"
+                  build-type: ${{ inputs.build-type }}
 
             - name: Upload artifacts
               uses: actions/upload-artifact@v4
               with:
                 name: ${{ inputs.example-app }}-${{ env.ADDITIONAL_APP_ARGS }}${{ env.BOOTLOADER }}-full.s37 ${{ matrix.platform }}
-                path: out
+                path: artifacts
 
