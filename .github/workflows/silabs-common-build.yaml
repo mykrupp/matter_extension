@@ -58,12 +58,6 @@ jobs:
                   echo "SERIES=siwx917" >> $GITHUB_ENV
                 fi
 
-                # fan-control-app only has slcp for 917-soc
-                echo "skip_build=0" >> $GITHUB_ENV
-                if [ ${{ (inputs.example-app == 'fan-control-app') && (matrix.platform != '917-soc') }} = true ] ; then
-                  echo "skip_build=1" >> $GITHUB_ENV
-                fi
-
                 echo "JSON_FILE_PATH=${{ matrix.platform == 'mg24' && './.github/silabs-builds-mg24.json' ||
                          matrix.platform == '917-ncp' && './.github/silabs-builds-ncp.json' ||
                          matrix.platform == 'wf200' && './.github/silabs-builds-ncp.json' ||
@@ -73,7 +67,6 @@ jobs:
                          matrix.platform == '917-soc' && './.github/silabs-builds-siwx.json' }}" >> $GITHUB_ENV
 
             - name: Build ${{ inputs.example-app }} configurations
-              if: ${{ env.skip_build == 0 }}
               uses: SiliconLabsSoftware/matter_build_action@3fa7357e526337fb8f370a20158b8857aeb708ab
               with:
                   json-file-path: ${{ env.JSON_FILE_PATH }}

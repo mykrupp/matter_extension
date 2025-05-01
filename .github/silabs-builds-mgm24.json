@@ -9,6 +9,13 @@
                 ],
                 "arguments": [""]
             }
+        ],
+        "fan-control-app": [
+            {
+                "boards": [""],
+                "arguments": [""]
+            }
+
         ]
     }
 }
