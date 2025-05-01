@@ -65,9 +65,9 @@ jobs:
                 fi
 
                 echo "JSON_FILE_PATH=${{ matrix.platform == 'mg24' && './.github/silabs-builds-mg24.json' ||
-                         matrix.platform == '917-ncp' && './.github/silabs-builds-mg24.json' ||
-                         matrix.platform == 'wf200' && './.github/silabs-builds-mg24.json' ||
-                         matrix.platform == 'rs911x' && './.github/silabs-builds-mg24.json' ||
+                         matrix.platform == '917-ncp' && './.github/silabs-builds-ncp.json' ||
+                         matrix.platform == 'wf200' && './.github/silabs-builds-ncp.json' ||
+                         matrix.platform == 'rs911x' && './.github/silabs-builds-ncp.json' ||
                          matrix.platform == 'mgm24' && './.github/silabs-builds-mgm24.json' ||
                          matrix.platform == 'mg26' && './.github/silabs-builds-mg26.json' ||
                          matrix.platform == '917-soc' && './.github/silabs-builds-siwx.json' }}" >> $GITHUB_ENV
@@ -86,6 +86,6 @@ jobs:
             - name: Upload artifacts
               uses: actions/upload-artifact@v4
               with:
-                name: ${{ inputs.example-app }}-${{ env.ADDITIONAL_APP_ARGS }}${{ env.BOOTLOADER }}-full.s37 ${{ matrix.platform }}
+                name: ${{ inputs.example-app }}-${{ env.ADDITIONAL_APP_ARGS }}${{ env.BOOTLOADER }}-full.s37 ${{ matrix.platform }} 
                 path: out/**/${{ inputs.example-app }}-${{ env.ADDITIONAL_APP_ARGS }}-solution/artifact/${{ inputs.example-app }}-${{ env.ADDITIONAL_APP_ARGS }}${{ env.BOOTLOADER }}-full.s37
 
