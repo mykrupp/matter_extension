@@ -43,8 +43,12 @@ jobs:
             - name: Create SLCW string configurations
               run: |
                 echo "ADDITIONAL_APP_ARGS=thread" >> $GITHUB_ENV
-                if [ ${{ ((matrix.platform  == '917-soc') || ( matrix.platform  == '917-ncp' && ( inputs.example-app  == 'lock-app' ||  inputs.example-app  == 'thermostat' ||  inputs.example-app  == 'window-app')) || ( matrix.platform  == 'wf200' && ( inputs.example-app  == 'lock-app' ||  inputs.example-app  == 'thermostat' )) || ( matrix.platform  == 'rs911x' && ( inputs.example-app  == 'lock-app' ||  inputs.example-app  == 'thermostat' )) || (inputs.example-app == 'fan-control-app')) }} = true ]; then
+                if [ ${{ ((matrix.platform  == '917-soc') || ( matrix.platform  == '917-ncp' && ( inputs.example-app  == 'lock-app' ||  inputs.example-app  == 'thermostat' ||  inputs.example-app  == 'window-app')) || ( matrix.platform  == 'wf200' && ( inputs.example-app  == 'lock-app' ||  inputs.example-app  == 'thermostat' )) || ( matrix.platform  == 'rs911x' && ( inputs.example-app  == 'lock-app' ||  inputs.example-app  == 'thermostat' ))) }} = true ]; then
                   echo "ADDITIONAL_APP_ARGS=${{ matrix.platform }}" >> $GITHUB_ENV
+                fi
+
+                if [ ${{ inputs.example-app == 'fan-control-app' }} ]
+                  echo "ADDITIONAL_APP_ARGS=917-soc" >> $GITHUB_ENV
                 fi
 
                 echo "BOOTLOADER=" >> $GITHUB_ENV
