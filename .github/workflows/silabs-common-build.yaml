@@ -47,10 +47,6 @@ jobs:
                   echo "ADDITIONAL_APP_ARGS=${{ matrix.platform }}" >> $GITHUB_ENV
                 fi
 
-                if [ ${{ inputs.example-app == 'fan-control-app' }} ] ; then
-                  echo "ADDITIONAL_APP_ARGS=917-soc" >> $GITHUB_ENV
-                fi
-
                 echo "BOOTLOADER=" >> $GITHUB_ENV
                 if [ ${{ matrix.platform == '917-soc' }} != true ] ; then
                   echo "BOOTLOADER=-bootloader" >> $GITHUB_ENV
@@ -58,6 +54,13 @@ jobs:
 
                 echo "SERIES=series-2" >> $GITHUB_ENV
                 if [ ${{ matrix.platform == '917-soc' }} = true ] ; then
+                  echo "SERIES=siwx917" >> $GITHUB_ENV
+                fi
+
+                # fan-control-app only has slcp for 917-soc
+                if [ ${{ inputs.example-app == 'fan-control-app' }} ] ; then
+                  echo "ADDITIONAL_APP_ARGS=917-soc" >> $GITHUB_ENV
+                  echo "BOOTLOADER=" >> $GITHUB_ENV
                   echo "SERIES=siwx917" >> $GITHUB_ENV
                 fi
 
