@@ -84,7 +84,7 @@ jobs:
         with:
             example-app: "fan-control-app"
             output-directory: "./out/fan-control-app"
-            build-type: "standard"
+            build-type: "fan-control-app"
 
 
     build-multi-sensor-app:
