@@ -59,6 +59,7 @@ jobs:
                 fi
 
                 # fan-control-app only has slcp for 917-soc
+                echo "skip_build=0" >> $GITHUB_ENV
                 if [ ${{ (inputs.example-app == 'fan-control-app') && (matrix.platform != '917-soc') }} = true ] ; then
                   echo "skip_build=1" >> $GITHUB_ENV
                 fi
