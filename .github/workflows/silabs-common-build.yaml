@@ -64,6 +64,7 @@ jobs:
 
 
             - name: Create artifact paths to be uploaded
+              id: parse
               shell: bash
               run: |
                 echo "boards=$(jq -c '.standard.default[0].boards' ${{env.JSON_FILE_PATH}})"
@@ -76,9 +77,7 @@ jobs:
                   else
                     artifacts="${artifacts}out/${board}/${{ inputs.example-app }}-${{ env.ADDITIONAL_APP_ARGS }}-solution/artifact/${{ inputs.example-app }}-${{ env.ADDITIONAL_APP_ARGS }}${{ env.BOOTLOADER }}-full.s37\n"
                   fi
-                    echo 'ARTIFACTS<<\n' >> "$GITHUB_ENV"
-                    $artifacts >> "$GITHUB_ENV"
-                    echo '\n' >> "$GITHUB_ENV"
+                  echo $artifacts >> $GITHUB_OUTPUT
 
                 done
 
@@ -86,5 +85,5 @@ jobs:
               uses: actions/upload-artifact@v4
               with:
                 name: ${{ inputs.example-app }}-${{ env.ADDITIONAL_APP_ARGS }}${{ env.BOOTLOADER }}-full.s37 ${{ matrix.platform }}
-                path: ${artifacts}
+                path: ${steps.parse.outputs.artifacts}
 
