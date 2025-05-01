@@ -58,7 +58,7 @@ jobs:
                 fi
 
                 # fan-control-app only has slcp for 917-soc
-                if [ ${{ inputs.example-app == 'fan-control-app' }} ] ; then
+                if [ ${{ inputs.example-app == 'fan-control-app' }} = true ] ; then
                   echo "ADDITIONAL_APP_ARGS=917-soc" >> $GITHUB_ENV
                   echo "BOOTLOADER=" >> $GITHUB_ENV
                   echo "SERIES=siwx917" >> $GITHUB_ENV
