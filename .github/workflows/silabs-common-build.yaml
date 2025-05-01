@@ -77,12 +77,12 @@ jobs:
                   path-to-example-app: slc/solutions/${{ inputs.example-app }}/${SERIES}/${{ inputs.example-app }}-${{ env.ADDITIONAL_APP_ARGS }}${{ env.BOOTLOADER }}.slcw
                   example-app: ${{ inputs.example-app }}
                   build-script: "./slc/build.sh"
-                  output-directory: "artifacts"
+                  output-directory: "out/${{ inputs.example-app }}-${{ env.ADDITIONAL_APP_ARGS }}-solution"
                   build-type: ${{ inputs.build-type }}
 
             - name: Upload artifacts
               uses: actions/upload-artifact@v4
               with:
                 name: ${{ inputs.example-app }}-${{ env.ADDITIONAL_APP_ARGS }}${{ env.BOOTLOADER }}-full.s37 ${{ matrix.platform }}
-                path: artifacts
+                path: out
 
