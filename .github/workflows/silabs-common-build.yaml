@@ -41,6 +41,7 @@ jobs:
                 echo "STUDIO_ADAPTER_PACK_PATH=/opt/silabs/zap-linux-x64" >> $GITHUB_ENV                
 
             - name: Create SLCW string configurations
+              id: createStrings
               run: |
                 echo "ADDITIONAL_APP_ARGS=thread" >> $GITHUB_ENV
                 if [ ${{ ((matrix.platform  == '917-soc') || ( matrix.platform  == '917-ncp' && ( inputs.example-app  == 'lock-app' ||  inputs.example-app  == 'thermostat' ||  inputs.example-app  == 'window-app')) || ( matrix.platform  == 'wf200' && ( inputs.example-app  == 'lock-app' ||  inputs.example-app  == 'thermostat' )) || ( matrix.platform  == 'rs911x' && ( inputs.example-app  == 'lock-app' ||  inputs.example-app  == 'thermostat' ))) }} = true ]; then
@@ -58,10 +59,8 @@ jobs:
                 fi
 
                 # fan-control-app only has slcp for 917-soc
-                if [ ${{ inputs.example-app == 'fan-control-app' }} = true ] ; then
-                  echo "ADDITIONAL_APP_ARGS=917-soc" >> $GITHUB_ENV
-                  echo "BOOTLOADER=" >> $GITHUB_ENV
-                  echo "SERIES=siwx917" >> $GITHUB_ENV
+                if [ ${{ (inputs.example-app == 'fan-control-app') && (matrix.platform != '917-soc') }} = true ] ; then
+                  skip_build=true >> $GITHUB_OUTPUT
                 fi
 
                 echo "JSON_FILE_PATH=${{ matrix.platform == 'mg24' && './.github/silabs-builds-mg24.json' ||
@@ -73,6 +72,7 @@ jobs:
                          matrix.platform == '917-soc' && './.github/silabs-builds-siwx.json' }}" >> $GITHUB_ENV
 
             - name: Build ${{ inputs.example-app }} configurations
+              if: ${{ needs.createStrings.outputs.skip_build == 'true' }}
               uses: SiliconLabsSoftware/matter_build_action@3fa7357e526337fb8f370a20158b8857aeb708ab
               with:
                   json-file-path: ${{ env.JSON_FILE_PATH }}
