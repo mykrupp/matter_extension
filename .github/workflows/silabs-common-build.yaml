@@ -50,12 +50,7 @@ jobs:
                 echo "BOOTLOADER=" >> $GITHUB_ENV
                 if [ ${{ matrix.platform == '917-soc' }} != true ] ; then
                   echo "BOOTLOADER=-bootloader" >> $GITHUB_ENV
-                fi
-
-                echo "PLATFORM=efr32" >> $GITHUB_ENV
-                if [ ${{ matrix.platform == '917-soc' }} = true ] ; then
-                  echo "PLATFORM=siwx917" >> $GITHUB_ENV
-                fi    
+                fi 
 
                 echo "SERIES=series-2" >> $GITHUB_ENV
                 if [ ${{ matrix.platform == '917-soc' }} = true ] ; then
@@ -84,5 +79,5 @@ jobs:
               uses: actions/upload-artifact@v4
               with:
                 name: ${{ inputs.example-app }}-${{ env.ADDITIONAL_APP_ARGS }}${{ env.BOOTLOADER }}-full.s37 ${{ matrix.platform }}
-                path: out/${{ inputs.example-app }}-${{ env.ADDITIONAL_APP_ARGS }}-solution/artifact/${{ inputs.example-app }}${{ env.BOOTLOADER }}-full.s37
+                path: out/${{ inputs.example-app }}-${{ env.ADDITIONAL_APP_ARGS }}-solution/artifact/${{ inputs.example-app }}-${{ env.ADDITIONAL_APP_ARGS }}${{ env.BOOTLOADER }}-full.s37
 
