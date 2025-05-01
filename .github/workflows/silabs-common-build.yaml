@@ -47,7 +47,7 @@ jobs:
                   echo "ADDITIONAL_APP_ARGS=${{ matrix.platform }}" >> $GITHUB_ENV
                 fi
 
-                if [ ${{ inputs.example-app == 'fan-control-app' }} ]
+                if [ ${{ inputs.example-app == 'fan-control-app' }} ] ; then
                   echo "ADDITIONAL_APP_ARGS=917-soc" >> $GITHUB_ENV
                 fi
 
