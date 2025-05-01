@@ -67,28 +67,24 @@ jobs:
               shell: bash
               run: |
                 echo "boards=$(jq -c '.standard.default[0].boards' ${{env.JSON_FILE_PATH}})"
-                c=0
+                artifacts=""
                 jq --raw-output '.standard.default[0].boards[]' ${{env.JSON_FILE_PATH}} | while read board; do
                   echo "Processing board: $board"
                   if [ ${{ matrix.platform == '917-soc' }} = true ] ; then
                     board=$(echo "$board" | sed "s/'//g; s/;wiseconnect3_sdk//")
-                    eval "artifact$c=out/${board}/${{ inputs.example-app }}-${{ env.ADDITIONAL_APP_ARGS }}-solution/${{ inputs.example-app }}-${{ env.ADDITIONAL_APP_ARGS }}/build/debug/${{ inputs.example-app }}-${{ env.ADDITIONAL_APP_ARGS }}.s37\n" >> $GITHUB_ENV
+                    artifacts="${artifacts}out/${board}/${{ inputs.example-app }}-${{ env.ADDITIONAL_APP_ARGS }}-solution/${{ inputs.example-app }}-${{ env.ADDITIONAL_APP_ARGS }}/build/debug/${{ inputs.example-app }}-${{ env.ADDITIONAL_APP_ARGS }}.s37\n"
                   else
-                    eval "artifact$c=out/${board}/${{ inputs.example-app }}-${{ env.ADDITIONAL_APP_ARGS }}-solution/artifact/${{ inputs.example-app }}-${{ env.ADDITIONAL_APP_ARGS }}${{ env.BOOTLOADER }}-full.s37\n" >> $GITHUB_ENV
+                    artifacts="${artifacts}out/${board}/${{ inputs.example-app }}-${{ env.ADDITIONAL_APP_ARGS }}-solution/artifact/${{ inputs.example-app }}-${{ env.ADDITIONAL_APP_ARGS }}${{ env.BOOTLOADER }}-full.s37\n"
                   fi
-                  c=$((c+1))
+                    echo 'ARTIFACTS<<\n' >> "$GITHUB_ENV"
+                    $artifacts >> "$GITHUB_ENV"
+                    echo '\n' >> "$GITHUB_ENV"
+
                 done
 
             - name: Upload artifacts
               uses: actions/upload-artifact@v4
               with:
                 name: ${{ inputs.example-app }}-${{ env.ADDITIONAL_APP_ARGS }}${{ env.BOOTLOADER }}-full.s37 ${{ matrix.platform }}
-                path: |
-                  ${artifact1}
-                  ${artifact2}
-                  ${artifact3}
-                  ${artifact4}
-                  ${artifact5}
-                  ${artifact6}
-                  
+                path: ${artifacts}
 
