@@ -60,7 +60,7 @@ jobs:
 
                 # fan-control-app only has slcp for 917-soc
                 if [ ${{ (inputs.example-app == 'fan-control-app') && (matrix.platform != '917-soc') }} = true ] ; then
-                  skip_build=true >> $GITHUB_OUTPUT
+                  echo "skip_build='true'" >> $GITHUB_OUTPUT
                 fi
 
                 echo "JSON_FILE_PATH=${{ matrix.platform == 'mg24' && './.github/silabs-builds-mg24.json' ||
