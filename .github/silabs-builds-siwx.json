@@ -5,6 +5,13 @@
                 "boards": ["'brd4338a;wiseconnect3_sdk'", "'brd4343a;wiseconnect3_sdk'", "'brd4342a;wiseconnect3_sdk'"],
                 "arguments": [""]
             }
+        ],
+        "fan-control-app": [
+            {
+                "boards": ["'brd4338a;wiseconnect3_sdk'", "'brd4343a;wiseconnect3_sdk'", "'brd4342a;wiseconnect3_sdk'"],
+                "arguments": [""]
+            }
+
         ]
     }
 }
